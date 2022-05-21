@@ -4,10 +4,11 @@ import { GrGooglePlus } from 'react-icons/gr';
 import { AiOutlineMail, AiOutlineHome } from 'react-icons/ai';
 import { BiTimeFive } from 'react-icons/bi';
 import images from '../../../../../src/assets/images';
+import Wrapper from '../wrapper/Wrapper';
 
 const Footer = () => {
     return (
-        <div className="h-[370px] bg-[#000080]  px-[120px] py-[30px] flex flex-col">
+        <Wrapper className=" bg-[#000080]  flex flex-col" content="p-[20px]">
             <div className="text-[#fff] text-[24px] font-medium text-center mb-[15px]">
                 KEEP IN TOUCH
             </div>
@@ -17,7 +18,7 @@ const Footer = () => {
                 <FaFacebookF className="text-[#fff] w-[25px] h-[25px] mx-[15px]" />
                 <GrGooglePlus className="text-[#fff] w-[35px] h-[35px] mx-[15px]" />
             </div>
-            <div className="flex grow text-[#fff] mt-[15px] justify-between">
+            <div className="flex grow text-[#fff] mt-[15px] justify-between flex-col  md:flex-row">
                 <div className="text-[14px] flex flex-col ">
                     <a className="mb-[10px]" href="#">
                         Fast Job Business
@@ -79,7 +80,7 @@ const Footer = () => {
                         Accessibility statement
                     </a>
                 </div>
-                <div className="text-[14px] flex flex-col max-w-[260px] justify-between">
+                <div className="text-[14px] flex flex-col max-w-[260px] justify-between top-[0] right-[0] lg:static">
                     <img
                         src={images.certificate1}
                         alt=""
@@ -98,7 +99,7 @@ const Footer = () => {
                     </span>
                 </div>
             </div>
-        </div>
+        </Wrapper>
     );
 };
 
