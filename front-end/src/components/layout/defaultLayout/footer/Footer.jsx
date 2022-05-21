@@ -6,9 +6,92 @@ import { BiTimeFive } from 'react-icons/bi';
 import images from '../../../../../src/assets/images';
 import Wrapper from '../wrapper/Wrapper';
 
+const titles1 = [
+    {
+        title: 'Fast Job Business',
+        href: '#',
+    },
+    {
+        title: 'Get the app',
+        href: '#',
+    },
+    {
+        title: 'About us',
+        href: '#',
+    },
+    {
+        title: 'Contact us',
+        href: '#',
+    },
+];
+
+const titles2 = [
+    {
+        title: 'Fast Job Business',
+        icon: <BsFillTelephoneFill />,
+        href: '#',
+    },
+    {
+        title: 'fastjob2022@gmail.com',
+        icon: <AiOutlineMail className="h-[16px] w-[16px]" />,
+        href: '#',
+    },
+    {
+        title: 'Working time: 24/7',
+        icon: <BiTimeFive className="h-[16px] w-[16px]" />,
+        href: '#',
+    },
+    {
+        title: (
+            <span>
+                Lot E2a-7, Road D1 Hi-Tech Park, Long Thanh My Ward,City. Thu
+                Duc, City. Ho Chi Minh
+            </span>
+        ),
+        icon: <AiOutlineHome className="min-h-[16px] min-w-[16px]" />,
+        href: '#',
+    },
+];
+const title3 = [
+    {
+        title: 'Blog',
+        href: '#',
+    },
+    {
+        title: 'Help and Support',
+        href: '#',
+    },
+    {
+        title: 'Affiliate',
+        href: '#',
+    },
+    {
+        title: 'Investors',
+        href: '#',
+    },
+];
+const titles4 = [
+    {
+        title: 'Terms',
+        href: '#',
+    },
+    {
+        title: 'Privacy policy',
+        href: '#',
+    },
+    {
+        title: 'Cookie settings',
+        href: '#',
+    },
+    {
+        title: 'Accessibility statement',
+        href: '#',
+    },
+];
+
 const Footer = () => {
     return (
-        <Wrapper className=" bg-[#000080]  flex flex-col" content="p-[20px]">
+        <Wrapper className=" bg-[#000070]" content="p-[20px]">
             <div className="text-[#fff] text-[24px] font-medium text-center mb-[15px]">
                 KEEP IN TOUCH
             </div>
@@ -20,65 +103,36 @@ const Footer = () => {
             </div>
             <div className="flex grow text-[#fff] mt-[15px] justify-between flex-col  md:flex-row">
                 <div className="text-[14px] flex flex-col ">
-                    <a className="mb-[10px]" href="#">
-                        Fast Job Business
-                    </a>
-                    <a className="mb-[10px]" href="#">
-                        Get the app
-                    </a>
-                    <a className="mb-[10px]" href="#">
-                        About us
-                    </a>
-                    <a className="mb-[10px]" href="#">
-                        Contact us
-                    </a>
+                    {titles1.map((title1, index) => (
+                        <a className="mb-[10px]" href={title1.href} key={index}>
+                            {title1.title}
+                        </a>
+                    ))}
                 </div>
                 <div className="text-[14px] flex flex-col max-w-[200px]">
-                    <span className="mb-[10px] flex items-center" href="#">
-                        <BsFillTelephoneFill />
-                        &ensp;Fast Job Business
-                    </span>
-                    <span className="mb-[10px] flex items-center" href="#">
-                        <AiOutlineMail className="h-[16px] w-[16px]" />
-                        &ensp;fastjob2022@gmail.com
-                    </span>
-                    <span className="mb-[10px] flex items-center" href="#">
-                        <BiTimeFive className="h-[16px] w-[16px]" />
-                        &ensp;Working time: 24/7
-                    </span>
-                    <span className="mb-[10px] flex items-center" href="#">
-                        <AiOutlineHome className="min-h-[16px] min-w-[16px] mr-[8px]" />
-                        Lot E2a-7, Road D1 Hi-Tech Park, Long Thanh My Ward,
-                        City. Thu Duc, City. Ho Chi Minh
-                    </span>
+                    {titles2.map((title2, index) => (
+                        <span
+                            className="mb-[10px] flex items-center "
+                            href={title2.href}
+                            key={index}
+                        >
+                            {title2.icon} &ensp;{title2.title}
+                        </span>
+                    ))}
                 </div>
                 <div className="text-[14px] flex flex-col ">
-                    <a className="mb-[10px]" href="#">
-                        Blog
-                    </a>
-                    <a className="mb-[10px]" href="#">
-                        Help and Support
-                    </a>
-                    <a className="mb-[10px]" href="#">
-                        Affiliate
-                    </a>
-                    <a className="mb-[10px]" href="#">
-                        Investors
-                    </a>
+                    {title3.map((title3, index) => (
+                        <a className="mb-[10px]" href={title3.href} key={index}>
+                            {title3.title}
+                        </a>
+                    ))}
                 </div>
                 <div className="text-[14px] flex flex-col ">
-                    <a className="mb-[10px]" href="#">
-                        Terms
-                    </a>
-                    <a className="mb-[10px]" href="#">
-                        Privacy policy
-                    </a>
-                    <a className="mb-[10px]" href="#">
-                        Cookie settings
-                    </a>
-                    <a className="mb-[10px]" href="#">
-                        Accessibility statement
-                    </a>
+                    {titles4.map((title4, index) => (
+                        <a className="mb-[10px]" href={title4.href} key={index}>
+                            {title4.title}
+                        </a>
+                    ))}
                 </div>
                 <div className="text-[14px] flex flex-col max-w-[260px] justify-between top-[0] right-[0] lg:static">
                     <img
