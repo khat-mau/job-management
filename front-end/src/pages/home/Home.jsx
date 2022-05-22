@@ -1,2 +1,4 @@
-const Home = () => {}
-export default Home
+const Home = () => {
+    console.log('this is home page');
+};
+export default Home;

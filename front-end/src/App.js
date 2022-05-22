@@ -6,22 +6,27 @@ import { publicRoutes } from './routes/router.js';
 function App() {
     return (
         <>
-            <Header />
-            {/* <Router>
+            <Router>
                 <Routes>
                     {publicRoutes.map((route, index) => {
-                        const Page = route.component;
+                        const Page = route.component; //JSX
+                        const check = route.path === '/*';
                         return (
                             <Route
                                 key={index}
                                 path={route.path}
-                                element={<Page />}
+                                element={
+                                    <>
+                                        {!check && <Header />}
+                                        <Page />
+                                        {!check && <Footer />}
+                                    </>
+                                }
                             />
                         );
                     })}
                 </Routes>
-            </Router> */}
-            <Footer />
+            </Router>
         </>
     );
 }

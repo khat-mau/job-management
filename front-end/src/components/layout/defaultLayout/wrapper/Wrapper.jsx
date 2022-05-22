@@ -1,5 +1,5 @@
 const Wrapper = ({ className, content, children }) => {
-    console.log(className);
+    //props
     return (
         <div className={className}>
             <div
@@ -16,4 +16,7 @@ const Wrapper = ({ className, content, children }) => {
     );
 };
 
+// //<Wrapper>
+//     childrend
+// </Wrapper>
 export default Wrapper;

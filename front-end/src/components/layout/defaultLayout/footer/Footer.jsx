@@ -3,13 +3,14 @@ import { BsInstagram, BsFillTelephoneFill } from 'react-icons/bs';
 import { GrGooglePlus } from 'react-icons/gr';
 import { AiOutlineMail, AiOutlineHome } from 'react-icons/ai';
 import { BiTimeFive } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 import images from '../../../../../src/assets/images';
 import Wrapper from '../wrapper/Wrapper';
 
 const titles1 = [
     {
         title: 'Fast Job Business',
-        href: '#',
+        href: '/abc',
     },
     {
         title: 'Get the app',
@@ -113,7 +114,7 @@ const Footer = () => {
                     {titles2.map((title2, index) => (
                         <span
                             className="mb-[10px] flex items-center "
-                            href={title2.href}
+                            to={title2.href}
                             key={index}
                         >
                             {title2.icon} &ensp;{title2.title}
@@ -122,16 +123,24 @@ const Footer = () => {
                 </div>
                 <div className="text-[14px] flex flex-col ">
                     {title3.map((title3, index) => (
-                        <a className="mb-[10px]" href={title3.href} key={index}>
+                        <Link
+                            className="mb-[10px]"
+                            to={title3.href}
+                            key={index}
+                        >
                             {title3.title}
-                        </a>
+                        </Link>
                     ))}
                 </div>
                 <div className="text-[14px] flex flex-col ">
                     {titles4.map((title4, index) => (
-                        <a className="mb-[10px]" href={title4.href} key={index}>
+                        <Link
+                            className="mb-[10px]"
+                            to={title4.href}
+                            key={index}
+                        >
                             {title4.title}
-                        </a>
+                        </Link>
                     ))}
                 </div>
                 <div className="text-[14px] flex flex-col max-w-[260px] justify-between top-[0] right-[0] lg:static">
@@ -147,7 +156,7 @@ const Footer = () => {
                         width="225px"
                         height="23.95px"
                     />
-                    <span className="mb-[10px]" href="#">
+                    <span className="mb-[10px]" to="#">
                         Copyright © Ahihi personal Vietnam Joint Stock Company
                         2022
                     </span>

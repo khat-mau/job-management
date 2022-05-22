@@ -1,4 +1,5 @@
 import Wrapper from '../wrapper/Wrapper';
+import { Link } from 'react-router-dom';
 
 const pages = [
     {
@@ -39,18 +40,23 @@ const Header = () => {
                 Fast JOB
             </div>
             {pages.map((page, index) => (
-                <a
+                <Link
                     className="mr-[50px] text-[#ffffff] text-[15px]"
-                    href={page.href}
+                    to={page.href}
+                    key={index}
                 >
                     {page.title}
-                </a>
+                </Link>
             ))}
             <div className="ml-[auto]">
                 {homeFeatures.map((homeFeature, index) => (
-                    <a href={homeFeature.href} className="ml-[25px]">
+                    <Link
+                        to={homeFeature.href}
+                        className="ml-[25px]"
+                        key={index}
+                    >
                         {homeFeature.title}
-                    </a>
+                    </Link>
                 ))}
             </div>
         </Wrapper>
