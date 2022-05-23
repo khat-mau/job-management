@@ -3,7 +3,7 @@ import Error from '../pages/error/Error';
 
 const publicRoutes = [
     { path: '/', component: Home },
-    { path: '/*', component: Error },
+    { path: '/*', component: Error, layout: null },
 ];
 
 const privateRoutes = [];

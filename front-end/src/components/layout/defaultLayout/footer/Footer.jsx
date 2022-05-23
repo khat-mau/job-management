@@ -105,9 +105,13 @@ const Footer = () => {
             <div className="flex grow text-[#fff] mt-[15px] justify-between flex-col  md:flex-row">
                 <div className="text-[14px] flex flex-col ">
                     {titles1.map((title1, index) => (
-                        <a className="mb-[10px]" href={title1.href} key={index}>
+                        <Link
+                            className="mb-[10px]"
+                            to={title1.href}
+                            key={index}
+                        >
                             {title1.title}
-                        </a>
+                        </Link>
                     ))}
                 </div>
                 <div className="text-[14px] flex flex-col max-w-[200px]">

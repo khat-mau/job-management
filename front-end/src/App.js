@@ -1,7 +1,7 @@
-import Footer from './components/layout/defaultLayout/footer/Footer';
-import Header from './components/layout/defaultLayout/header/Header';
+import { Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from './routes/router.js';
+import HeaderFooter from './components/layout/defaultLayout/header-footer/HeaderFooter';
 
 function App() {
     return (
@@ -9,18 +9,21 @@ function App() {
             <Router>
                 <Routes>
                     {publicRoutes.map((route, index) => {
-                        const Page = route.component; //JSX
-                        const check = route.path === '/*';
+                        const Page = route.component;
+                        let Layout = HeaderFooter;
+                        if (route.layout) {
+                            Layout = route.layout;
+                        } else if (route.layout === null) {
+                            Layout = Fragment;
+                        }
                         return (
                             <Route
                                 key={index}
                                 path={route.path}
                                 element={
-                                    <>
-                                        {!check && <Header />}
-                                        <Page />
-                                        {!check && <Footer />}
-                                    </>
+                                    <Layout>
+                                        <Page />a
+                                    </Layout>
                                 }
                             />
                         );
