@@ -22,7 +22,7 @@ function App() {
                                 path={route.path}
                                 element={
                                     <Layout>
-                                        <Page />a
+                                        <Page />
                                     </Layout>
                                 }
                             />
