@@ -1,3 +1,5 @@
+import Wrapper from '../../components/layout/defaultLayout/wrapper/Wrapper';
+import {AiFillLinkedin} from 'react-icons/ai'
 const Error = () => (
     <>
         <div className="h-[100vh] ">
