@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const uniqueValidator = require("mongoose-unique-validator")
 const user = new mongoose.Schema({
   firstName: {
     type: String,
@@ -22,7 +22,7 @@ const user = new mongoose.Schema({
     required: true,
     maxLength: 11,
   },
-  username: {
+  userName: {
     type: String,
     required: true,
     maxLength: 30,
@@ -47,6 +47,7 @@ const user = new mongoose.Schema({
   status: { type: Boolean, default: true },
   role: { type: String, default: "user" },
 });
+user.plugin(uniqueValidator)
 
 const _User = mongoose.model("user", user);
 
