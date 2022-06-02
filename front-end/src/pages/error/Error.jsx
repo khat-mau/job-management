@@ -1,5 +1,3 @@
-import Search from '../../components/search/Search';
-
 const Error = () => (
     <>
         <div className="h-[100vh] ">
@@ -15,8 +13,7 @@ const Error = () => (
                 chủ thay vì dùng URL đã lưu
             </h3>
             <div className="bg-[#000070] mx-auto w-[200px] text-center mt-[20px] text-white rounded-full border p-[10px]">
-                {' '}
-                Truy cập trang chủ{' '}
+                Truy cập trang chủ
             </div>
             <div className="box-border text-center w-[100%] absolute bottom-[10px]">
                 2018 - 2022 FB. All rights reserved.
