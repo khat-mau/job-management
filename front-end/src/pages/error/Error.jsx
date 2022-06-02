@@ -19,7 +19,6 @@ const Error = () => (
                 Truy cập trang chủ{' '}
             </div>
             <div className="box-border text-center w-[100%] absolute bottom-[10px]">
-                <Search />
                 2018 - 2022 FB. All rights reserved.
             </div>
         </div>
