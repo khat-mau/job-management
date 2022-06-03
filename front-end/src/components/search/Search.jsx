@@ -42,7 +42,7 @@ const Search = ({
     };
 
     return (
-        <div style={{ width: width || filterSearch ? 750 : 500 }}>
+        <div style={{ width: width || filterSearch ? 625 : 500 }}>
             <label
                 className=" flex items-center min-w-full w-[100%] relative md:min-w-[0]"
                 style={{ height: height || 50 }}
@@ -80,7 +80,7 @@ const Search = ({
                     </span>
                 )}
                 {filterSearch && (
-                    <div className="absolute right-[10px] border-l-[2px]  h-[100%] w-[25%] text-center flex items-center">
+                    <div className="absolute right-[10px] border-l-[2px]  h-[100%] w-[25%]  text-center flex items-center">
                         <span className="px-[10px]">
                             {FilterSearchIcon && (
                                 <FilterSearchIcon
@@ -91,9 +91,11 @@ const Search = ({
                         </span>
                         <select
                             defaultValue=""
-                            className="bg-transparent outline-none grow h-[100%]  "
+                            className="bg-transparent outline-none grow h-[100%] overflow-hidden w-[65%]"
                         >
-                            <option value="volvo">Volvo</option>
+                            <option value="volvo" className="overflow-hidden">
+                                Volvo
+                            </option>
                             <option value="saab">Saab</option>
                             <option value="opel">Opel</option>
                             <option value="audi">Audi</option>
@@ -103,15 +105,22 @@ const Search = ({
             </label>
             {isFocused && (
                 <div className="bg-[#fff] max-h-[400px] mt-[10px] rounded-[5px] flex flex-col text-[#333] overflow-y-auto  shadow-lg shadow-[#3333] font-medium z-50">
-                    {testInfors.map((testInfor, index) => (
-                        <Link
-                            to={testInfor.to}
-                            className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
-                            key={index}
-                        >
-                            {testInfor.name}
-                        </Link>
-                    ))}
+                    {}
+                    {testInfors
+                        .filter((testInfor) =>
+                            testInfor.name
+                                .toLowerCase()
+                                .includes(text.toLowerCase()),
+                        )
+                        .map((testInfor, index) => (
+                            <Link
+                                to={testInfor.to}
+                                className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
+                                key={index}
+                            >
+                                {testInfor.name}
+                            </Link>
+                        ))}
                 </div>
             )}
         </div>
