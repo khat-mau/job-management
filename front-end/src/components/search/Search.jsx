@@ -15,6 +15,7 @@ const Search = ({
     placeholder,
     filterSearch = false,
     FilterSearchIcon,
+    dataFilters = [],
     data,
     dataKey,
 }) => {
@@ -42,7 +43,10 @@ const Search = ({
     };
 
     return (
-        <div style={{ width: width || filterSearch ? 625 : 500 }}>
+        <div
+            style={{ width: width || filterSearch ? 625 : 500 }}
+            className="relative"
+        >
             <label
                 className=" flex items-center min-w-full w-[100%] relative md:min-w-[0]"
                 style={{ height: height || 50 }}
@@ -93,19 +97,26 @@ const Search = ({
                             defaultValue=""
                             className="bg-transparent outline-none grow h-[100%] overflow-hidden w-[65%]"
                         >
-                            <option value="volvo" className="overflow-hidden">
-                                Volvo
-                            </option>
-                            <option value="saab">Saab</option>
-                            <option value="opel">Opel</option>
-                            <option value="audi">Audi</option>
+                            {dataFilters.map((dataFilter, index) => (
+                                <option
+                                    value={dataFilter}
+                                    className="overflow-hidden"
+                                    key={index}
+                                >
+                                    {dataFilter}
+                                </option>
+                            ))}
                         </select>
                     </div>
                 )}
             </label>
             {isFocused && (
-                <div className="bg-[#fff] max-h-[400px] mt-[10px] rounded-[5px] flex flex-col text-[#333] overflow-y-auto  shadow-lg shadow-[#3333] font-medium z-50">
-                    {}
+                <div
+                    className="bg-[#fff] absolute max-h-[400px] mt-[10px] rounded-[5px] flex flex-col text-[#333] overflow-y-auto  shadow-lg shadow-[#3333] font-medium z-50"
+                    style={{
+                        width: filterSearch ? 'calc(75% - 10px)' : '100%',
+                    }}
+                >
                     {testInfors
                         .filter((testInfor) =>
                             testInfor.name
