@@ -152,7 +152,7 @@ const Home = () => {
                 <Wrapper>
                     <h1 className="text-[24px] md:text-[30px] font-bold my-2 mx-[auto] md:mx-[55px]">Featured companies for you</h1>
 
-                    <div className="grid grid-flow-row grid-cols-1 gap-2 my-[50px] md:grid-cols-4 ">
+                    <div className="grid grid-flow-row grid-cols-2 gap-2 my-[50px] md:grid-cols-4 ">
 
                         {features.map((feature, index1) => (
                             <Link className="border-solid border-2 border-[#f0e3e3e7] hover:border-red-600 flex flex-col items-center mx-auto h-[200px] md:h-[250px] relative  w-[210px]"
