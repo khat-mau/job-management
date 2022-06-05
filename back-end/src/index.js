@@ -1,28 +1,27 @@
-const express = require('express')
+const express = require('express');
 const bcrypt = require('bcrypt');
-const cookie = require('cookie');
+const cookie = require('cookie-parser');
 const jwt = require('jsonwebtoken');
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const morgan = require("morgan");
-const app = express()
-
-const authRouter = require("./routes/auth")
-
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const morgan = require('morgan');
+const app = express();
+const route = require('./routes');
+const cors = require('cors');
+var bodyParser = require('body-parser');
 dotenv.config();
 
 //CONNECT DATABASE
-const db = require("./config/db");
+const db = require('./config/db');
 db.connect();
+
+app.use(cors());
+app.use(morgan('common'));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(bodyParser.json({limit:"50mb"}));
-app.use(morgan("common"));
-
-//Router
-app.use("/api", authRouter);
-
+route(app);
 app.listen(8000, () => {
-    console.log("Server is running...");
-  });
+    console.log('Server is running...');
+    console.log('localhost:' + 8000);
+});
