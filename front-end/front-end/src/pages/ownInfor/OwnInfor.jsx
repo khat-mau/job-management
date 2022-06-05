@@ -1,5 +1,7 @@
 import Wrapper from '../../components/layout/defaultLayout/wrapper/Wrapper';
 
+//code cứng, làm lại
+
 const OwnInfor = () => {
     return (
         <Wrapper className="bg-white text-xs md:text-base"
