@@ -1,7 +1,9 @@
-const auth = require('./auth');
+
+const registerRouter = require('./auth');
 
 function route(app) {
-    app.use('/api', auth);
+    app.use('/api', registerRouter);
+
 }
 
 module.exports = route;
