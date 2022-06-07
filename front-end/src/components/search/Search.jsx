@@ -2,21 +2,16 @@ import { useEffect, useState } from 'react';
 import { IoIosSearch, IoIosClose } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 
-const testInfors = [
-    { name: 'ahihi1', to: '/a' },
-    { name: 'aizz chết tiệt', to: '/a' },
-    { name: 'Javascript', to: '/a' },
-    { name: 'This is frontend', to: '/a' },
-];
-
 const Search = ({
     width,
     height,
     placeholder,
     filterSearch = false,
     FilterSearchIcon,
-    data,
-    dataKey,
+    dataFilters = [],
+    data = [],
+    dataKeyName,
+    dataKeyTo,
 }) => {
     const [text, setText] = useState('');
     const [isFocused, setIsFocused] = useState(false);
@@ -42,7 +37,10 @@ const Search = ({
     };
 
     return (
-        <div style={{ width: width || filterSearch ? 625 : 500 }}>
+        <div
+            style={{ width: width || filterSearch ? 625 : 500 }}
+            className="relative max-w-[100%]"
+        >
             <label
                 className=" flex items-center min-w-full w-[100%] relative md:min-w-[0]"
                 style={{ height: height || 50 }}
@@ -93,34 +91,42 @@ const Search = ({
                             defaultValue=""
                             className="bg-transparent outline-none grow h-[100%] overflow-hidden w-[65%]"
                         >
-                            <option value="volvo" className="overflow-hidden">
-                                Volvo
-                            </option>
-                            <option value="saab">Saab</option>
-                            <option value="opel">Opel</option>
-                            <option value="audi">Audi</option>
+                            {dataFilters.map((dataFilter, index) => (
+                                <option
+                                    value={dataFilter}
+                                    className="overflow-hidden"
+                                    key={index}
+                                >
+                                    {dataFilter}
+                                </option>
+                            ))}
                         </select>
                     </div>
                 )}
             </label>
             {isFocused && (
-                <div className="bg-[#fff] max-h-[400px] mt-[10px] rounded-[5px] flex flex-col text-[#333] overflow-y-auto  shadow-lg shadow-[#3333] font-medium z-50">
-                    {}
-                    {testInfors
-                        .filter((testInfor) =>
-                            testInfor.name
-                                .toLowerCase()
-                                .includes(text.toLowerCase()),
-                        )
-                        .map((testInfor, index) => (
-                            <Link
-                                to={testInfor.to}
-                                className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
-                                key={index}
-                            >
-                                {testInfor.name}
-                            </Link>
-                        ))}
+                <div
+                    className="bg-[#fff] absolute max-h-[400px] mt-[10px] rounded-[5px] flex flex-col text-[#333] overflow-y-auto  shadow-lg shadow-[#3333] font-medium z-50"
+                    style={{
+                        width: filterSearch ? 'calc(75% - 10px)' : '100%',
+                    }}
+                >
+                    {text &&
+                        data
+                            .filter((d) =>
+                                d[dataKeyName]
+                                    .toLowerCase()
+                                    .includes(text.toLowerCase()),
+                            )
+                            .map((d, index) => (
+                                <Link
+                                    to={d[dataKeyTo]}
+                                    className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
+                                    key={index}
+                                >
+                                    {d[dataKeyName]}
+                                </Link>
+                            ))}
                 </div>
             )}
         </div>

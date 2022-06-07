@@ -1,7 +1,7 @@
-const Wrapper = ({ className, content, children }) => {
+const Wrapper = ({ className, content, children, ...passProps }) => {
     //props
     return (
-        <div className={className}>
+        <div className={className} {...passProps}>
             <div
                 className={'max-w-[1350px] box-content ' + content}
                 style={{
