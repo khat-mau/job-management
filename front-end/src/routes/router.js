@@ -1,5 +1,7 @@
 import Home from '../pages/home/Home';
 import Error from '../pages/error/Error';
+import RequestAll from '../pages/requestAll/RequestAll';
+import ViewCandidate from '../pages/viewCandidate/ViewCandidate';
 import ResetPassword from '../pages/resetPassword/ResetPassword';
 import NewPassword from '../pages/newPassword/NewPassword';
 import AdCompany from '../pages/userCompany/AdCompany';
@@ -12,6 +14,8 @@ import Header from '../components/layout/defaultLayout/header/Header';
 
 
 const publicRoutes = [
+    {path: '/RequestAll', component: RequestAll},
+    {path: '/ViewCandidate', component: ViewCandidate},
     {path: '/ViewUser', component: ViewUser},
     {path: '/AdCompany', component: AdCompany},
     {path: '/UserRecruitment', component: UserRecruitment},
