@@ -7,16 +7,15 @@ import { MdWork } from 'react-icons/md';
 import { BsFlagFill, BsStar } from 'react-icons/bs';
 import { GoMortarBoard } from 'react-icons/go';
 import { CgProfile } from 'react-icons/cg';
-<<<<<<< HEAD
-=======
+
 
 //code cứng, 
 
-
->>>>>>> 31df6cf3b2ac8930bb0fbfa7b9cd426d1772d3df
 import { Link } from 'react-router-dom';
 
-
+const comment = [
+    { name: "Susan", content: "I very like this company, because it is so good" },
+]
 
 const latestjob2 = [
     {
@@ -96,22 +95,22 @@ const Detail = () => {
 
                     </div>
                     {/* Mô tả và hình anh */}
-                    <div className='flex flex-row w-full gap-2'>
+                    <div className='flex flex-col-reverse md:flex-row w-full gap-2 md:px-0'>
                         {/* Detail */}
-                        <div className='bg-red-100 basis-4/5 text-center'>
+                        <div className='bg-red-100 md:basis-4/5 text-center'>
                             <div>
                                 <p>Detail</p>
                             </div>
                         </div>
                         {/* thông tin, hình ảnh */}
-                        <div className='basis-1/5 flex flex-col gap-2'>
+                        <div className=' flex flex-row w-full md:flex-col md:basis-1/5 gap-2 '>
                             {/* cột thông tin */}
-                            <div className='bg-slate-300 px-5'>
+                            <div className='bg-slate-300 px-5 w-[50%] md:w-full '>
                                 <div className='flex flex-row text-left py-3 mb-auto '>
                                     <div>
-                                        <GoMortarBoard className="w-[24px] h-[24px] " />
+                                        <GoMortarBoard className="w-[27px] h-[27px] " />
                                     </div>
-                                    <div className='ml-4 text-[13px] md:text-[15px] whitespace-nowrap'>
+                                    <div className='ml-4 text-[12px] md:text-[15px] whitespace-nowrap'>
                                         <h1 className='font-bold'>CẤP BẬC</h1>
                                         <p>nhân viên</p>
                                     </div>
@@ -121,7 +120,7 @@ const Detail = () => {
                                     <div>
                                         <MdWork className="w-[24px] h-[24px] pt-0 " />
                                     </div>
-                                    <div className='ml-4 text-[13px] md:text-[15px] whitespace-nowrap'>
+                                    <div className='ml-4 text-[12px] md:text-[15px] break-all whitespace-nowrap'>
                                         <h1 className='font-bold'>NGHÀNH NGHỀ</h1>
                                         <p>IT-phần mềm, Tester</p>
                                     </div>
@@ -131,7 +130,7 @@ const Detail = () => {
                                     <div>
                                         <BsFlagFill className="w-[24px] h-[24px]" />
                                     </div>
-                                    <div className='ml-4 text-[13px] md:text-[15px] overflow-hidden ..."' >
+                                    <div className='ml-4 text-[12px] md:text-[15px] overflow-hidden ..."' >
                                         <h1 className='font-bold'>KỸ NĂNG</h1>
                                         <p>Vận hành ứng dụng</p>
                                         <p>Back-End</p>
@@ -139,7 +138,7 @@ const Detail = () => {
                                 </div>
                             </div>
                             {/* cột hình ảnh */}
-                            <div className='bg-slate-300 '>
+                            <div className='bg-slate-300'>
                                 <div className='aspect-w-3 aspect-h-2 inline'>
                                     <img
                                         src={images.company}
@@ -174,9 +173,9 @@ const Detail = () => {
                         </div>
                         <div className='bg-blue-300 w-[70%] flex py-5 px-4'>
                             <div className='flex flex-row w-full'>
-                                <div className='w-[30%] mx-auto pr-6 md:w-[15%]'>
+                                <div className='w-[30%] mx-auto pr-6 md:w-[20%]'>
                                     <CgProfile className="h-[50px] w-[50px] mx-auto" />
-                                    <p>Name text</p>
+                                    <p className='mx-auto'>Name text</p>
                                 </div>
                                 <div className='w-[70%] h-fit md:w-[85%]' >
                                     <textarea className='px-2 py-4 w-full' rows="2" cols="20">
@@ -193,39 +192,49 @@ const Detail = () => {
                     </div>
 
                     {/* Danh sach binh luan */}
+
+
                     <div className='flex flex-row w-full my-7 border-b-2 px-5' >
                         <div className='w-[20%]'>
                             <CgProfile className="h-[50px] w-[50px] mx-auto" />
                         </div>
                         <div className='w-[80%] flex-row'>
-                            <h1 className='font-bold'>Name User</h1>
-                            <p>I very like this company, because it is so good,
-                                good easdn iaosdn aosdn asodn aosdn asodn saodn
-                                saodi nasodi nosdin osadn oasdn saodn osaind saodn
-                                asodni saodn saodni</p>
-                            <div className='flex flex-row mx-auto my-2 mr-3'>
-                                <BiLike className='h-6 w-6'/>
-                                <BiDislike  className='h-6 w-6'/>
-                            </div>
+                            {comment.map((val, key) => {
+                                return (
+                                    <div key={key}>
+                                        <h1 className='font-bold'>{val.name}</h1>
+                                        <p>{val.content}</p>
+                                        <div className='flex flex-row mx-auto my-2 mr-3'>
+                                            <BiLike className='h-6 w-6' />
+                                            <BiDislike className='h-6 w-6' />
+                                        </div>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
-                    
-                    <div className='flex flex-row w-full my-7 px-5' >
+
+                    <div className='flex flex-row w-full my-7 border-b-2 px-5' >
                         <div className='w-[20%]'>
                             <CgProfile className="h-[50px] w-[50px] mx-auto" />
                         </div>
                         <div className='w-[80%] flex-row'>
-                            <h1 className='font-bold'>Name User</h1>
-                            <p>I very like this company, because it is so good,
-                                good easdn iaosdn aosdn asodn aosdn asodn saodn
-                                saodi nasodi nosdin osadn oasdn saodn osaind saodn
-                                asodni saodn saodni</p>
-                            <div className='flex flex-row mx-auto my-2 mr-3'>
-                                <BiLike className='h-6 w-6'/>
-                                <BiDislike  className='h-6 w-6'/>
-                            </div>
+                            {comment.map((val, key) => {
+                                return (
+                                    <div key={key}>
+                                        <h1 className='font-bold'>{val.name}</h1>
+                                        <p>{val.content}</p>
+                                        <div className='flex flex-row mx-auto my-2 mr-3'>
+                                            <BiLike className='h-6 w-6' />
+                                            <BiDislike className='h-6 w-6' />
+                                        </div>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
+
+
 
                 </Wrapper>
 

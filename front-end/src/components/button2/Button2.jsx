@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-const Button = ({
+const Button2 = ({
     to,
     href,
     disabled = false,
@@ -31,7 +31,7 @@ const Button = ({
     return (
         <Comp
             className={
-                'flex items-center justify-center bg-[#000070] text-[#fff] px-[15px] py-[10px] rounded-[5px] transition duration-200 hover:bg-[#000050] min-w-[40px] min-h-[35px] h-fit select-none ' +
+                'flex items-center justify-center bg-[#000070] text-[#fff] px-[15px] py-[10px] rounded-[5px] transition duration-200 hover:bg-[#000050] min-w-[40px] min-h-[30px] h-fit select-none ' +
                 className
             }
             {...props}
@@ -41,4 +41,4 @@ const Button = ({
     );
 };
 
-export default Button;
+export default Button2;

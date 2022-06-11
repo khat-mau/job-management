@@ -18,7 +18,6 @@ function Ban() {
         <div className='my-10 mx-auto max-w-fit'>
           <Search></Search>
         </div>
-
         <div>
           <div className='mb-5 text-[15px]'>
             <select className='form-select px-5 py-0 border border-solid border-gray-300'>
@@ -41,7 +40,7 @@ function Ban() {
                     <td className='border border-black px-2 py-2'>{val.id}</td>
                     <td className='border border-black px-2 py-2'>{val.user}</td>
                     <td className='border border-black px-2 py-2'>
-                      <div><Button className='h-2 w-2 mx-auto'><span>{val.status}</span></Button></div>
+                      <Button className='h-2 w-2 mx-auto'><span>{val.status}</span></Button>
                       </td>
                   </tr>
                 )

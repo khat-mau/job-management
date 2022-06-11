@@ -1,25 +1,22 @@
 import Wrapper from '../../components/layout/defaultLayout/wrapper/Wrapper';
 
-<<<<<<< HEAD
-const data = [
-    { id: "Full Name", info: "Nguyen Van A" },
-    { id: "Account name", info: "an2301" },
-    { id: "Email", info: "an217@gmail.com" },
-    { id: "Phone", info: "	0835489632" },
-    { id: "Password", info: "	************" },
-]
+
+const data = {
+    fullName: "Nguyen Van A",
+    username: "an2301",
+    email: "an217@gmail.com",
+    phone: "0835489632",
+    password: "************",
+}
 
 const dataApllieTable = [
-    { id: "1", company: "Saigon Center", job: "Tester", date: "20/04/2022"  },
-    { id: "2", company: "HighTechnology", job: "Dev", date: "20/04/2022"  },
-    { id: "2", company: "HighTechnology", job: "Dev", date: "20/04/2022"  },
-    { id: "2", company: "HighTechnology", job: "Dev", date: "20/04/2022"  },
+    { id: "1", company: "Saigon Center", job: "Tester", date: "20/04/2022" },
+    { id: "2", company: "HighTechnology", job: "Dev", date: "20/04/2022" },
+    { id: "2", company: "HighTechnology", job: "Dev", date: "20/04/2022" },
+    { id: "2", company: "HighTechnology", job: "Dev", date: "20/04/2022" },
 ]
-=======
-//code cứng, làm lại
->>>>>>> 31df6cf3b2ac8930bb0fbfa7b9cd426d1772d3df
 
-const OwnInfor = () => {
+function OwnInfor() {
     return (
         <Wrapper className="bg-white text-xs md:text-base"
             content=" flex justify-center ">
@@ -27,16 +24,32 @@ const OwnInfor = () => {
                 <div className='mx-auto mb-5 w-[83%] md:w-[90%] '>
                     <h1 className='mt-10 mb-7 font-bold text-left text-blue-600 text-2xl md:text-3xl'>Information of An:</h1>
                     <table class="table-auto border-collapse boder border-y-2 w-full text-left">
-                        <tbody >
-                            {data.map((val, key) => {
-                                return (
-                                    <tr className='boder border-b-2 h-[50px]' key={key}>
-                                        <td className='px-2 py-2'>{val.id}</td>
-                                        <td className='px-2 py-2'>{val.info}</td>
-                                        <td><a className='text-blue-800 underline underline-offset-2' href="/">Edit</a></td>
-                                    </tr>
-                                )
-                            })}
+                        <tbody>
+                            <tr className='boder border-b-2 h-[50px]'>
+                                <td className='px-2 py-2'>fullname:</td>
+                               <td className='px-2 py-2'>{data.fullName}</td>
+                               <td><a className='text-blue-800 underline underline-offset-2' href="/">Edit</a></td>
+                            </tr>
+                            <tr className='boder border-b-2 h-[50px]'>
+                                <td className='px-2 py-2'>UserName:</td>
+                               <td className='px-2 py-2'>{data.username}</td>
+                               <td><a className='text-blue-800 underline underline-offset-2' href="/">Edit</a></td>
+                            </tr>
+                            <tr className='boder border-b-2 h-[50px]'>
+                                <td className='px-2 py-2'>Email:</td>
+                               <td className='px-2 py-2'>{data.email}</td>
+                               <td><a className='text-blue-800 underline underline-offset-2' href="/">Edit</a></td>
+                            </tr>
+                            <tr className='boder border-b-2 h-[50px]'>
+                                <td className='px-2 py-2'>Phone:</td>
+                               <td className='px-2 py-2'>{data.phone}</td>
+                               <td><a className='text-blue-800 underline underline-offset-2' href="/">Edit</a></td>
+                            </tr>
+                            <tr className='boder border-b-2 h-[50px]'>
+                                <td className='px-2 py-2'>Password:</td>
+                               <td className='px-2 py-2'>{data.password}</td>
+                               <td><a className='text-blue-800 underline underline-offset-2' href="/">Edit</a></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -54,16 +67,16 @@ const OwnInfor = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                            {dataApllieTable.map((val, key) => {
-                                return (
-                                    <tr className='boder border-b-2 h-[50px]' key={key}>
-                                        <td class="border border-slate-300 h-[50px]">{val.id}</td>
-                                        <td class="border border-slate-300 h-[50px]">{val.company}</td>
-                                        <td class="border border-slate-300 h-[50px]">{val.job}</td>
-                                        <td class="border border-slate-300 h-[50px]">{val.date}</td>
-                                    </tr>
-                                )
-                            })}
+                                {dataApllieTable.map((val, key) => {
+                                    return (
+                                        <tr className='boder border-b-2 h-[50px]' key={key}>
+                                            <td class="border border-slate-300 h-[50px]">{val.id}</td>
+                                            <td class="border border-slate-300 h-[50px]">{val.company}</td>
+                                            <td class="border border-slate-300 h-[50px]">{val.job}</td>
+                                            <td class="border border-slate-300 h-[50px]">{val.date}</td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>
@@ -74,7 +87,7 @@ const OwnInfor = () => {
         </Wrapper>
 
     );
-};
+}
 
 export default OwnInfor;
 
