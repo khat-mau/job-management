@@ -7,6 +7,8 @@ import { MdWork } from 'react-icons/md';
 import { BsFlagFill, BsStar } from 'react-icons/bs';
 import { GoMortarBoard } from 'react-icons/go';
 import { CgProfile } from 'react-icons/cg';
+import { HiLocationMarker } from 'react-icons/hi';
+import { FaHourglassHalf } from 'react-icons/fa';
 
 
 //code cứng, 
@@ -14,234 +16,247 @@ import { CgProfile } from 'react-icons/cg';
 import { Link } from 'react-router-dom';
 
 const comment = [
-    { name: "Susan", content: "I very like this company, because it is so good" },
-]
+    {
+        src: 'https://vcdn-sohoa.vnecdn.net/2022/06/06/elon-musk-2-9936-1639406089-92-2317-4748-1654522486.jpg',
+        name: "Susan",
+        content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
+    },
+];
+const detail = [
+    { level: "University, more than 2 year working ", job: "Managerment, Fesher", salary: "1.000$", skill: "Soft skill, Tester, Developer" },
+];
+
+const latestjob2_request = [
+    {
+        request: 'English',
+    },
+    {
+        request: 'English',
+    },
+    {
+        request: 'English',
+    },
+
+];
 
 const latestjob2 = [
     {
-        src: <div className="bg-cover bg-center">
-            <img
-                src={images.company}
-                alt=""
-                width="275px"
-                height=""
-            />
-        </div>,
-
-        title1: <div className="m-auto md:m-[20px] basis-3/6" >
-            <h1 className=""> Designer</h1>
-            <div className="flex my-[5px] md:my-[20px]">
-                <BiDollar className="max-w-[36px] max-h-[30px] mt-[3px]" />
-                <span className="mr-[20px]"> 10-30 triệu</span>
-                <span className=""> TP.HCM</span>
-
-            </div>
-            <div className="flex flex-wrap gap-2 mb-[5px] font-[400]">
-                <div className="flex justify-center items-center border-2 border-[#999999BF] min-w-[45px] md:pl-0 ">
-                    <span className="mx-auto md:mx-[30px]">English </span>
-                </div>
-                <div className=" flex justify-center items-center border-2 border-[#999999BF] min-w-[45px] md:pl-0">
-                    <span className="mx-auto md:mx-[30px]">Java </span>
-                </div>
-                <div className="flex justify-center items-center border-2 border-[#999999BF] min-w-[45px] md:pl-0">
-                    <span className="mx-auto md:mx-[30px]">MySQL </span>
-                </div>
-                <div className=" flex justify-center items-center border-2 border-[#999999BF] min-w-[45px] md:pl-0">
-                    <span className=" mx-auto md:mx-[30px]">MySQL </span>
-                </div>
-            </div>
-
-        </div>,
-
-        title2:
-            <div className="flex flex-row mx-1 my-[5px] md:my-[20px] basis-1/6">
-                <div className="mb-auto whitespace-nowrap md:mb-[10px]">
-                    <Button className="text-white font-bold text-[10px] mb-[5px] min-w-[50px]">
-                        <span>Post CV</span>
-                    </Button>
-                    <Button className="bg-[#00CE78] text-white font-bold text-[10px] mb-[5px] min-w-[50px]">
-                        <span>Post CV</span>
-                    </Button>
-                    <Button className="bg-[#DC2C56] text-white font-bold text-[10px] min-w-[50px]">
-                        <span>Post CV</span>
-                    </Button>
-                </div>
-            </div>,
-
+        src: 'https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png',
+        job: 'Designer',
+        money: '10-30 triệu',
+        location: 'TP.HCM',
+        date: '24/06/2022',
         href: "#",
     },
 ];
 
+
+
 const Detail = () => {
     return (
-        <>
-            <div >
-                <Wrapper className="w-full">
-                    <div className="flex text-center items-center mx-auto ">
-                        <Search></Search>
+        <Wrapper className="w-full">
+            <div className="flex flex-row w-full md:w-[75%] p-[20px] mx-auto">
+                <Search filterSearch dataFilters={[' Location']} FilterSearchIcon={HiLocationMarker} />
+                <Button className="h-[50px]"> Search </Button>
+            </div>
+            {latestjob2.map((job2, index) => (
+                <Link
+                    className="mb-[40px] font-bold text-[10px] md:text-[20px] border-solid border-2 border-[#f0e3e3e7] hover:border-red-600 flex flex-row justify-center  min-w-[300px] w-full  max-h-[200px]"
+                    to={job2.href}
+                    key={index}
+                >
+                    <div className="basis-[30%] md:basis-[25%] inline" style={{ height: "100%" }}>
+                        <img
+                            src={job2.src}
+                            alt=""
+                            width="275px"
+                            style={{ height: "190px" }}
+                            className="object-contain"
+                        />
                     </div>
-                    <div className="grid grid-cols-1 grid-flow-row gap-[50px] my-[20px]">
-                        { }
-                        {latestjob2.map((latestjob2, index) => (
-                            <Link
-                                className="w-full font-bold text-[10px] md:text-[20px] border-solid border-2 border-[#f0e3e3e7] hover:border-red-600 flex flex-row mx-auto md:h-[200px]"
-                                to={latestjob2.href}
-                                key={index}
-                            >
-                                {latestjob2.src}&ensp;{latestjob2.title1}&ensp;{latestjob2.title2}
-                            </Link>
-
-                        ))}
+                    <div className="p-auto md:p-[20px] basis-[50%] md:basis-[55%] pl-[5px] my-auto" >
+                        <h1 className="">{job2.job}</h1>
+                        <div className="flex flex-wrap py-[5px] md:py-[10px]">
+                            <div className="flex py-[5px] md:py-[20px]">
+                                <BiDollar className="max-w-[36px] max-h-[30px] mt-[3px]" />
+                                <span className="mr-5">{job2.money}</span>
+                            </div>
+                            <div className="flex py-[5px] md:py-[20px]">
+                                <HiLocationMarker className="max-w-[36px] max-h-[30px] mt-[3px]" />
+                                <span className="mr-5"> {job2.location}</span>
+                            </div>
+                            <div className="flex py-[5px] md:py-[20px]">
+                                <FaHourglassHalf className="max-w-[36px] max-h-[30px] mt-[3px]" />
+                                <h1>{job2.date}</h1>
+                            </div>
+                        </div>
+                        <div className="flex flex-wrap gap-2 mb-[5px] font-[400]">
+                            {latestjob2_request.map((requestjob, index3) => (
+                                <div className="flex justify-center items-center border-2 border-[#999999BF] min-w-[45px] md:pl-0 " key={index3}>
+                                    <span className="mx-auto md:mx-[30px]">{requestjob.request} </span>
+                                </div>
+                            ))}
+                        </div>
 
                     </div>
-                    {/* Mô tả và hình anh */}
-                    <div className='flex flex-col-reverse md:flex-row w-full gap-2 md:px-0'>
-                        {/* Detail */}
-                        <div className='bg-red-100 md:basis-4/5 text-center'>
+                    <div className="flex flex-col py-[7px] md:py-[20px] basis-[20%] items-center gap-3 h-fit my-auto">
+                        <Button className="text-white font-bold whitespace-nowrap text-[10px] w-[60px] h-[15px]  md:w-[100px] md:h-[40px] md:text-[14px]">
+                            <span>Post CV</span>
+                        </Button>
+                        <Button className="bg-[#00CE78] text-white font-bold whitespace-nowrap text-[10px] w-[60px] h-[15px] md:w-[100px] md:h-[40px] md:text-[14px]">
+                            <span>Post CV</span>
+                        </Button>
+                        <Button className="bg-[#DC2C56] text-white font-bold whitespace-nowrap text-[10px] w-[60px] h-[15px]  md:w-[100px] md:h-[40px] md:text-[14px]">
+                            <span>Post CV</span>
+                        </Button>
+                    </div>
+                </Link>
+
+            ))}
+            {detail.map((val, key) => {
+                return (
+                    <div key={key} className='grid grid-cols-2 md:grid-cols-4 mb-4 px-4 gap-3 mx-auto border-y-2 border-gray-500 py-4'>
+                        <div className='md:border-r-2 md:text-center border-gray-500'>
+                            <h1 className=' font-bold text-[20px] mb-2 '>Level</h1>
+                            <p className='text-gray-500 text-[15px]'>{val.level}</p>
+                        </div>
+                        <div className='md:border-r-2 md:text-center border-gray-500'>
+                            <h1 className='font-bold text-[20px] mb-2'>Type of Job</h1>
+                            <p className='text-gray-500 text-[15px]'>{val.job}</p>
+                        </div>
+                        <div className='md:border-r-2 md:text-center border-gray-500'>
+                            <h1 className='font-bold text-[20px] mb-2'>Skill</h1>
+                            <p className='text-gray-500 text-[15px]'>{val.skill}</p>
+                        </div>
+                        <div className='md:text-center border-gray-500'>
+                            <h1 className='font-bold text-[20px] mb-2'>Salary</h1>
+                            <p className='text-gray-500 text-[15px]'>{val.salary}</p>
+                        </div>
+
+                    </div>
+                )
+            })}
+            {/* Mô tả và hình anh */}
+            <div className='w-full bg-slate-500 text-center gap-2 md:px-0'>
+                {/* Detail */}
+                <div>
+                    <p>Detail</p>
+                </div>
+            </div>
+            {/* thông tin, hình ảnh */}
+            {/* <div className=' flex flex-row w-full md:flex-col md:basis-1/5 gap-2 '>
+                    <div className='bg-slate-300 px-5 w-[50%] md:w-full '>
+                        <div className='flex flex-row text-left py-3 mb-auto '>
                             <div>
-                                <p>Detail</p>
+                                <GoMortarBoard className="w-[27px] h-[27px] " />
+                            </div>
+                            <div className='ml-4 text-[12px] md:text-[15px] whitespace-nowrap'>
+                                <h1 className='font-bold'>CẤP BẬC</h1>
+                                <p>nhân viên</p>
                             </div>
                         </div>
-                        {/* thông tin, hình ảnh */}
-                        <div className=' flex flex-row w-full md:flex-col md:basis-1/5 gap-2 '>
-                            {/* cột thông tin */}
-                            <div className='bg-slate-300 px-5 w-[50%] md:w-full '>
-                                <div className='flex flex-row text-left py-3 mb-auto '>
-                                    <div>
-                                        <GoMortarBoard className="w-[27px] h-[27px] " />
-                                    </div>
-                                    <div className='ml-4 text-[12px] md:text-[15px] whitespace-nowrap'>
-                                        <h1 className='font-bold'>CẤP BẬC</h1>
-                                        <p>nhân viên</p>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div className='flex flex-row text-left py-3 mb-auto ' >
-                                    <div>
-                                        <MdWork className="w-[24px] h-[24px] pt-0 " />
-                                    </div>
-                                    <div className='ml-4 text-[12px] md:text-[15px] break-all whitespace-nowrap'>
-                                        <h1 className='font-bold'>NGHÀNH NGHỀ</h1>
-                                        <p>IT-phần mềm, Tester</p>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div className='flex flex-row text-left py-3  mb-auto'>
-                                    <div>
-                                        <BsFlagFill className="w-[24px] h-[24px]" />
-                                    </div>
-                                    <div className='ml-4 text-[12px] md:text-[15px] overflow-hidden ..."' >
-                                        <h1 className='font-bold'>KỸ NĂNG</h1>
-                                        <p>Vận hành ứng dụng</p>
-                                        <p>Back-End</p>
-                                    </div>
-                                </div>
+                        <hr />
+                        <div className='flex flex-row text-left py-3 mb-auto ' >
+                            <div>
+                                <MdWork className="w-[24px] h-[24px] pt-0 " />
                             </div>
-                            {/* cột hình ảnh */}
-                            <div className='bg-slate-300'>
-                                <div className='aspect-w-3 aspect-h-2 inline'>
-                                    <img
-                                        src={images.company}
-                                        alt=""
-                                        // width="210px"
-                                        // height="100px"
-                                        className='object-cover h-full'
-                                    />,
-                                </div>
+                            <div className='ml-4 text-[12px] md:text-[15px] break-all whitespace-nowrap'>
+                                <h1 className='font-bold'>NGHÀNH NGHỀ</h1>
+                                <p>IT-phần mềm, Tester</p>
                             </div>
-
+                        </div>
+                        <hr />
+                        <div className='flex flex-row text-left py-3  mb-auto'>
+                            <div>
+                                <BsFlagFill className="w-[24px] h-[24px]" />
+                            </div>
+                            <div className='ml-4 text-[12px] md:text-[15px] overflow-hidden ..."' >
+                                <h1 className='font-bold'>KỸ NĂNG</h1>
+                                <p>Vận hành ứng dụng</p>
+                                <p>Back-End</p>
+                            </div>
                         </div>
                     </div>
-                    {/* Bảng đánh giá vs khung bình luận */}
-                    <div class="flex flex-row w-full mt-4" >
-                        {/* Bang ratting  */}
-                        <div className='bg-red-200 w-[30%] text-center mx-auto mr-3 max-h-full md:text-lg text-xs px-2'>
-                            <div className='w-full flex flex-col justify-center py-7'>
-                                <h1>Customer Rating</h1>
-                                <div className='flex flex-row mx-auto my-2'>
-                                    <BsStar className='h-5 w-5' />
-                                    <BsStar className='h-5 w-5' />
-                                    <BsStar className='h-5 w-5' />
-                                    <BsStar className='h-5 w-5' />
-                                    <BsStar className='h-5 w-5' />
-                                </div>
-                                <div>
-                                    <p>4/5</p>
-                                    <p>In 169/196 People rating</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='bg-blue-300 w-[70%] flex py-5 px-4'>
-                            <div className='flex flex-row w-full'>
-                                <div className='w-[30%] mx-auto pr-6 md:w-[20%]'>
-                                    <CgProfile className="h-[50px] w-[50px] mx-auto" />
-                                    <p className='mx-auto'>Name text</p>
-                                </div>
-                                <div className='w-[70%] h-fit md:w-[85%]' >
-                                    <textarea className='px-2 py-4 w-full' rows="2" cols="20">
-                                        abc
-                                    </textarea>
-                                    <Button className="justify-end ml-auto bg-green-500 font-bold">
-                                        <label>Send</label>
-                                    </Button>
-
-                                </div>
-                            </div>
-
+                    <div className='bg-slate-300'>
+                        <div className='aspect-w-3 aspect-h-2 inline'>
+                            <img
+                                src={images.company}
+                                alt=""
+                                // width="210px"
+                                // height="100px"
+                                className='object-cover h-full'
+                            />,
                         </div>
                     </div>
 
-                    {/* Danh sach binh luan */}
-
-
-                    <div className='flex flex-row w-full my-7 border-b-2 px-5' >
-                        <div className='w-[20%]'>
-                            <CgProfile className="h-[50px] w-[50px] mx-auto" />
+                </div> */}
+            {/* Bảng đánh giá vs khung bình luận */}
+            <div className="flex flex-row w-full mt-4" >
+                {/* Bang ratting  */}
+                <div className='w-[30%] text-center border border-black rounded-lg mx-auto mr-3 max-h-full md:text-lg text-sm px-2'>
+                    <div className='w-full flex flex-col justify-center py-7 gap-2'>
+                        <h1 className='font-bold'>Customer Rating</h1>
+                        <div className='flex flex-row mx-auto my-2'>
+                            <BsStar className='h-5 w-5 md:h-7 md:w-7 hover:fill-yellow-400' />
+                            <BsStar className='h-5 w-5 md:h-7 md:w-7 hover:fill-yellow-400' />
+                            <BsStar className='h-5 w-5 md:h-7 md:w-7 hover:fill-yellow-400' />
+                            <BsStar className='h-5 w-5 md:h-7 md:w-7 hover:fill-yellow-400' />
+                            <BsStar className='h-5 w-5 md:h-7 md:w-7 hover:fill-yellow-400' />
                         </div>
-                        <div className='w-[80%] flex-row'>
-                            {comment.map((val, key) => {
-                                return (
-                                    <div key={key}>
-                                        <h1 className='font-bold'>{val.name}</h1>
-                                        <p>{val.content}</p>
-                                        <div className='flex flex-row mx-auto my-2 mr-3'>
-                                            <BiLike className='h-6 w-6' />
-                                            <BiDislike className='h-6 w-6' />
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
+                        <div className='flex mx-auto gap-1 items-center'>
+                            <p>4/5</p>
+                            <BsStar className='h-5 w-6 hover:fill-yellow-400' />
+                        </div><p>In 169/196 People rating</p>
                     </div>
-
-                    <div className='flex flex-row w-full my-7 border-b-2 px-5' >
-                        <div className='w-[20%]'>
-                            <CgProfile className="h-[50px] w-[50px] mx-auto" />
+                </div>
+                {/* Viet binh luan */}
+                <div className='w-[70%] flex '>
+                    <form className='w-full bg-white border-black border rounded-lg px-2'>
+                        <div className='flex flex-wrap -mx-3 mb-6'>
+                            <h2 className='px-4 pt-3 pb-2 text-gray-800 text-lg font-semibold'>Write a new comment</h2>
+                            <div className='w-full md:w-full px-3 mb-2 mt-2'>
+                                <textarea className='bg-gray-200 rounded border border-gray-400 leading-normal resize-y w-full h-[100px] py-2 px-3 font-medium placeholder-gray-700 focus:outline-none 
+                                        focus:bg-white ' placeholder='Write Your Comment' required></textarea>
+                            </div>
+                            <div className='w-full flex md:w-full px-3 mr-1'>
+                                <div className='ml-auto'>
+                                    <Button className="h-1 min-w-max">Post Comment</Button>
+                                </div>
+                            </div>
                         </div>
-                        <div className='w-[80%] flex-row'>
-                            {comment.map((val, key) => {
-                                return (
-                                    <div key={key}>
-                                        <h1 className='font-bold'>{val.name}</h1>
-                                        <p>{val.content}</p>
-                                        <div className='flex flex-row mx-auto my-2 mr-3'>
-                                            <BiLike className='h-6 w-6' />
-                                            <BiDislike className='h-6 w-6' />
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
-
-
-
-                </Wrapper>
-
+                    </form>
+                </div>
             </div>
 
-        </>
+            {/* Danh sach binh luan */}
 
+            {comment.map((val, key) => {
+                return (
+                    <div className='flex flex-row w-full my-7 border-b-2 px-10' >
+                        <div className='ml-auto border border-gray-100 h-20 w-20 mr-4'>
+                            <div className="md:basis-[20%] inline" style={{ height: "100%" }}>
+                                <img
+                                    src={val.src}
+                                    alt=""
+                                    style={{ height: "100%" }}
+                                    className="object-cover"
+                                />
+
+                            </div>
+                        </div>
+                        <div className='w-[80%] flex-row'>
+                            <div key={key}>
+                                <h1 className='font-bold text-2xl'>{val.name}</h1>
+                                <p>{val.content}</p>
+                                <div className='flex flex-row mx-auto my-2 mr-3'>
+                                    <BiLike className='h-6 w-6' />
+                                    <BiDislike className='h-6 w-6' />
+                                </div>
+                            </div>
+                        </div>
+                    </div>)
+            })}
+        </Wrapper>
     );
 
 };
