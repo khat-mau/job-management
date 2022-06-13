@@ -203,8 +203,8 @@ const Detail = () => {
                                 <h1 className='font-bold text-2xl'>{val.name}</h1>
                                 <p>{val.content}</p>
                                 <div className='flex flex-row mx-auto pt-1 pl-3 gap-4'>
-                                    <BiLike className='h-6 w-6' />
-                                    <BiDislike className='h-6 w-6' />
+                                    <BiLike className='h-5 w-5' />
+                                    <BiDislike className='h-5 w-5' />
                                 </div>
                             </div>
                         </div>
