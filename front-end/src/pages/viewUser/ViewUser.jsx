@@ -44,33 +44,33 @@ const ViewUser = () => {
             <h1 className="font-bold text-[25px] md:text-[30px] text-center py-[20px]"> Applied for a job at the company:</h1>
 
             <div className="w-full px-[30px] md:px-[150px] py-[20px] text-center flex justify-center ">
-                <table class=" text-[10px] md:text-[16px] font-bold border-collapse border border-slate-500 min-w-[360px] md:w-[800px]">
+                <table className=" text-[10px] md:text-[16px] font-bold border-collapse border border-slate-500 min-w-[360px] md:w-[800px]">
                     <thead>
                         <tr>
-                            <th class="border border-slate-600">No</th>
-                            <th class="border border-slate-600 ">The company</th>
-                            <th class="border border-slate-600">Job</th>
-                            <th class="border border-slate-600 ">submission date</th>
+                            <th className="border border-slate-600">No</th>
+                            <th className="border border-slate-600 ">The company</th>
+                            <th className="border border-slate-600">Job</th>
+                            <th className="border border-slate-600 ">submission date</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr className="h-[40px]  md:h-[70px]">
-                            <td class="border-r border-slate-700 ">1</td>
-                            <td class="border-r border-slate-700 ">Saigon Center</td>
-                            <td class="border-r border-slate-700 ">Tester</td>
-                            <td class="border-r border-slate-700 ">20/04/2022</td>
+                            <td className="border-r border-slate-700 ">1</td>
+                            <td className="border-r border-slate-700 ">Saigon Center</td>
+                            <td className="border-r border-slate-700 ">Tester</td>
+                            <td className="border-r border-slate-700 ">20/04/2022</td>
                         </tr>
                         <tr className="h-[40px]  md:h-[70px]">
-                            <td class="border-r border-slate-700 ">1</td>
-                            <td class="border-r border-slate-700 ">Saigon Center</td>
-                            <td class="border-r border-slate-700 ">Tester</td>
-                            <td class="border-r border-slate-700 ">20/04/2022</td>
+                            <td className="border-r border-slate-700 ">1</td>
+                            <td className="border-r border-slate-700 ">Saigon Center</td>
+                            <td className="border-r border-slate-700 ">Tester</td>
+                            <td className="border-r border-slate-700 ">20/04/2022</td>
                         </tr>
                         <tr className="h-[40px]  md:h-[70px]">
-                            <td class="border-r border-slate-700 ">1</td>
-                            <td class="border-r border-slate-700 ">Saigon Center</td>
-                            <td class="border-r border-slate-700 ">Tester</td>
-                            <td class="border-r border-slate-700 ">20/04/2022</td>
+                            <td className="border-r border-slate-700 ">1</td>
+                            <td className="border-r border-slate-700 ">Saigon Center</td>
+                            <td className="border-r border-slate-700 ">Tester</td>
+                            <td className="border-r border-slate-700 ">20/04/2022</td>
                         </tr>
 
 

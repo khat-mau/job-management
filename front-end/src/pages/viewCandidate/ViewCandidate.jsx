@@ -1,6 +1,5 @@
 import Wrapper from '../../components/layout/defaultLayout/wrapper/Wrapper';
 import Button from '../../components/button/Button';
-import Button2 from '../../components/button2/Button2';
 import Search from '../../components/search/Search';
 import{BiFirstPage,BiLastPage} from 'react-icons/bi';
 import { Link } from 'react-router-dom';
@@ -78,9 +77,9 @@ const ViewCandidate = () => {
                             <td className=" ">{candy.name}</td>
                             <td className=" ">{candy.DateAdd}</td>
                             <td className="text-[#000080]"><Link  to={candy.href}>View</Link></td>
-                            <td className=" py-[10px]"> <div className="flex justify-center"><Button2 className="bg-[#DC2C56]"> Report</Button2> </div></td>
+                            <td className=" py-[10px]"> <div className="flex justify-center"><Button className="bg-[#DC2C56]"> Report</Button> </div></td>
 
-                            <td className="  "><div className="flex justify-center"> <Button2 className="bg-[#DC2C56] "> Reject</Button2></div></td>
+                            <td className="  "><div className="flex justify-center"> <Button className="bg-[#DC2C56] h-[20px] md:h-[35px] w-[40px] md:w-[100px]"> Reject</Button></div></td>
                             
                         </tr>
 

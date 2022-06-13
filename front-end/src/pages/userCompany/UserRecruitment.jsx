@@ -1,6 +1,7 @@
 import Wrapper from '../../components/layout/defaultLayout/wrapper/Wrapper';
 import { HiLocationMarker } from 'react-icons/hi';
 import { TiShoppingBag } from 'react-icons/ti';
+import{BiFirstPage,BiLastPage} from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 const companies = [
     {
@@ -96,26 +97,22 @@ const UserRecruitment= () =>{
                 ))}
 
             </div>
-            <div class="flex flex-col items-center my-12">
-    <div class="flex text-gray-700">
-        <div class="h-12 w-12 mr-1 flex justify-center items-center bg-gray-50 cursor-pointer hover:bg-[#000070]">
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-6 h-6">
-                <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
+            <div className="flex flex-col items-center my-12">
+    <div className="flex text-gray-700">
+        <div className="h-12 w-12 mr-1 flex justify-center items-center bg-gray-50 cursor-pointer hover:bg-[#000070]">
+              <BiFirstPage className="w-6 h-6"/>            
         </div>
-        <div class="flex h-12 font-medium  bg-gray-50">
-            <div class="w-12 flex justify-center items-center   cursor-pointer leading-5 transition duration-150 ease-in hover:bg-[#000070]   ">1</div>
-            <div class="w-12 flex justify-center items-center   cursor-pointer leading-5 transition duration-150 ease-in  hover:bg-[#000070] ">2</div>
-            <div class="w-12 flex justify-center items-center   cursor-pointer leading-5 transition duration-150 ease-in  hover:bg-[#000070]  ">3</div>
-            <div class="w-12 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in hover:bg-[#000070] ">4</div>
-            <div class="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in hover:bg-[#000070]  ">5</div>
-            <div class="w-12 flex justify-center items-center   cursor-pointer leading-5 transition duration-150 ease-in  ">...</div>
+        <div className="flex h-12 font-medium  bg-gray-50">
+            <div className="w-12 flex justify-center items-center   cursor-pointer leading-5 transition duration-150 ease-in hover:bg-[#000070]   ">1</div>
+            <div className="w-12 flex justify-center items-center   cursor-pointer leading-5 transition duration-150 ease-in  hover:bg-[#000070] ">2</div>
+            <div className="w-12 flex justify-center items-center   cursor-pointer leading-5 transition duration-150 ease-in  hover:bg-[#000070]  ">3</div>
+            <div className="w-12 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in hover:bg-[#000070] ">4</div>
+            <div className="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in hover:bg-[#000070]  ">5</div>
+            <div className="w-12 flex justify-center items-center   cursor-pointer leading-5 transition duration-150 ease-in  ">...</div>
             {/* <div class="w-12 h-12 md:hidden flex justify-center items-center cursor-pointer leading-5 transition duration-150 ease-in rounded-full bg-teal-600 text-white">2</div> */}
         </div>
-        <div class="h-12 w-12 ml-1 flex justify-center items-center bg-gray-50 cursor-pointer hover:bg-[#000070]">
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right w-6 h-6">
-                <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
+        <div className="h-12 w-12 ml-1 flex justify-center items-center bg-gray-50 cursor-pointer hover:bg-[#000070]">
+        <BiLastPage className="w-6 h-6"/>
         </div>
     </div>
 </div>
