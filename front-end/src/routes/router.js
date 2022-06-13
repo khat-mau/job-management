@@ -10,7 +10,6 @@ import FilterCompany from '../pages/userCompany/FilterCompany';
 import ViewUser from '../pages/viewUser/ViewUser';
 import ManagerJobs from '../pages/manager/jobs/ManagerJobs';
 import Header from '../components/layout/defaultLayout/header/Header';
-// import Footer from '../components/layout/defaultLayout/footer/Footer';
 
 
 const publicRoutes = [
@@ -28,6 +27,7 @@ const publicRoutes = [
         component: ManagerJobs,
         layout: Header,
     },
+
     { path: '/*', component: Error, layout: null },
 ];
 

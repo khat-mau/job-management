@@ -28,6 +28,10 @@ const user = new mongoose.Schema({
         min: 6,
         max: 20,
     },
+    photo: {
+        type: String,
+        default: 'https://cdn.tecotecshop.com/assets/img/avatar-author.png',
+    },
     comment: [{ type: mongoose.Schema.Types.ObjectId, ref: 'comment' }],
 
     rate: [{ type: mongoose.Schema.Types.ObjectId, ref: 'rate' }],

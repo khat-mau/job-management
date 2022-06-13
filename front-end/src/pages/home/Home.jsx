@@ -7,6 +7,7 @@ import { FaHourglassHalf } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Search from '../../components/search/Search';
 
+
 const features = [{
     src: "https://k8m8a6e7.rocketcdn.me/wp-content/uploads/2021/09/og-social-java-logo.gif",
 
@@ -43,6 +44,7 @@ const features = [{
     href: '#',
 
 },
+
 ];
 
 const latestjob = [
@@ -68,6 +70,7 @@ const latestjob2_request = [
         request: 'English',
     },
     {
+
         request:'English',
 },
 {
@@ -124,6 +127,7 @@ const Home = () => {
         <>
             <div >
                 <Wrapper className="w-[100%] h-[40vw] "
+
                     content="flex  justify-between items-center h-[100%]"
                     style={{
                         backgroundImage: `url(${images.homeImage})`,
@@ -131,6 +135,7 @@ const Home = () => {
                         backgroundSize: 'cover',
                     }}
                 >
+
 
                     <div className=" flex flex-row w-full md:w-[75%] p-[20px]">
                         <Search filterSearch dataFilters={[' Location']} FilterSearchIcon={HiLocationMarker} />
@@ -162,13 +167,14 @@ const Home = () => {
                             >
 
                                 <div style={{ height: "70%" }}>
+
                                     <img
                                         src={feature.src}
                                         alt=""
                                         width="420px"
-                                        style={{ height: "100%" }}
-                                        className="object-cover"
 
+                                        style={{ height: '100%' }}
+                                        className="object-cover"
 
                                     />
                                 </div>
@@ -176,6 +182,7 @@ const Home = () => {
                                     <span className="font-[700] w-full text-center">
                                         {feature.company}
                                     </span>
+
 
                                     <span className="font-[700] italic md:text-[16px] px-auto m-[5px] ">{feature.jobs}</span>
                                     <div className=" bg-[#f96B6B] w-[40px] h-[25px] absolute top-0 left-0">
@@ -217,81 +224,46 @@ const Home = () => {
                     </div>
 
                     <div className="grid grid-flow-row gap-[50px] my-[50px] grid-cols-1 px-[10px] md:px-[55px]">
-                        {/* <div className="font-bold text-[10px] md:text-[20px] border-solid border-2 border-[#999999BF] hover:border-red-600 flex flex-row mx-auto w-[350px] md:w-[1250px]  md:h-[200px] "> 
-                    <div className="pr-[15px] md:pr-0"> 
-                    <img
-                        src={images.company}
-                        alt=""
-                        width="275px"
-                        height=""                                                           
-                        />
-                        </div>    
-                        <div className="m-auto md:m-[20px] basis-3/6" > 
-                            <h1 className=""> Designer</h1>
-                            <div className="flex my-[10px] md:my-[20px]"> 
-                                <BiDollar className="max-w-[36px] max-h-[30px] mt-[3px]"/>
-                                <span className=""> 10-30 triệu</span>
-                            </div>
-                            <div className="flex gap-2 mb-[5px] font-[400]"> 
-                            <div className=" border-2 border-[#999999BF] min-w-[45px] pl-[1px] md:pl-0 "> 
-                                <span className="text-center mx-auto md:mx-[30px]">English </span>
-                            </div>
-                            <div className=" border-2 border-[#999999BF] min-w-[45px] pl-[1px] md:pl-0"> 
-                                <span className="text-center mx-auto md:mx-[30px]">Java </span>
-                            </div>
-                            <div className=" border-2 border-[#999999BF] min-w-[45px] pl-[1px] md:pl-0"> 
-                                <span className="text-center mx-auto md:mx-[30px]">MySQL </span>
-                            </div>
-                            </div>
-                            
-                        </div>
-                        <div className="mx-1 my-[10px] md:my-[30px] basis-1/6"> 
-                            <div className="flex mb-auto md:mb-[10px] "> 
-                            <HiLocationMarker className="max-w-[36px] max-h-[30px] mt-[3px]"/>
-                            <h1> TP.HCM</h1>
-                            </div>
-                            <div className="flex"> 
-                            <FaHourglassHalf className="max-w-[36px] max-h-[30px] mt-[3px]"/>
-                            <h1> 24/06/2022</h1>
-                            </div>                          
-                        </div>
 
-                    </div>  */}
                         {latestjob2.map((job2, index) => (
                             <Link
                                 className="font-bold text-[10px] md:text-[20px] border-solid border-2 border-[#f0e3e3e7] hover:border-red-600 flex flex-row justify-center  min-w-[300px] w-full  max-h-[200px]"
                                 to={job2.href}
                                 key={index}
-
                             >
+                                <div
+                                    className="basis-[30%] md:basis-[25%]"
+                                    style={{ height: '100%' }}
+                                >
 
-
-                                <div className="basis-[30%] md:basis-[25%]" style={{ height: "100%" }}>
                                     <img
                                         src={job2.src}
                                         alt=""
                                         width="275px"
-                                        style={{ height: "100%" }}
+                                        style={{ height: '100%' }}
                                         className="object-cover"
                                     />
                                 </div>
-                                <div className="p-auto md:p-[20px] basis-[50%] md:basis-[55%] pl-[5px]" >
+                                <div className="p-auto md:p-[20px] basis-[50%] md:basis-[55%] pl-[5px]">
                                     <h1 className="">{job2.job}</h1>
                                     <div className="flex py-[5px] md:py-[20px]">
                                         <BiDollar className="max-w-[36px] max-h-[30px] mt-[3px]" />
                                         <span className="">{job2.money}</span>
                                     </div>
-                                        <div className="flex flex-wrap gap-2 mb-[5px] font-[400]">
-                                    {latestjob2_request.map((requestjob,index3)=> (
-                                        <div className="flex justify-center items-center border-2 border-[#999999BF] min-w-[45px] md:pl-0 " key={index3}>
-                                            <span className="mx-auto md:mx-[30px]">{requestjob.request} </span>
-                                        </div>
-                                        
-                                    
-                                    ))}
+                                    <div className="flex flex-wrap gap-2 mb-[5px] font-[400]">
+                                        {latestjob2_request.map(
+                                            (requestjob, index3) => (
+                                                <div
+                                                    className="flex justify-center items-center border-2 border-[#999999BF] min-w-[45px] md:pl-0 "
+                                                    key={index3}
+                                                >
+                                                    <span className="mx-auto md:mx-[30px]">
+                                                        {requestjob.request}
+                                                    </span>
+                                                </div>
+                                            ),
+                                        )}
                                     </div>
-                                    
-
                                 </div>
                                 <div className=" py-auto md:py-[20px] basis-[20%]">
                                     <div className="flex mb-auto md:mb-[10px] ">
@@ -303,22 +275,12 @@ const Home = () => {
                                         <h1>{job2.date}</h1>
                                     </div>
                                 </div>
-
-
                             </Link>
-
                         ))}
-
                     </div>
-
-
                 </Wrapper>
-
             </div>
-
         </>
-
     );
-
 };
 export default Home;

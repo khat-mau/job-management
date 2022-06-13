@@ -1,8 +1,9 @@
 import Wrapper from '../wrapper/Wrapper';
+import Login from '../../../../pages/login/Login';
 import { Link } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
 import { AiOutlineClose } from 'react-icons/ai';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const pages = [
     {
@@ -19,18 +20,10 @@ const pages = [
     },
 ];
 
-const homeFeatures = [
-    {
-        title: 'Sign up',
-        href: '#',
-    },
-    {
-        title: 'Sign in',
-        href: '#',
-    },
-];
-
 const Header = ({ children }) => {
+    const [isLogin, setIsLogin] = useState(false);
+    const [user, setUser] = useState();
+
     useEffect(() => {
         const menuIcon = document.querySelector('.menu');
         const sidebarMenu = document.querySelector('.status');
@@ -60,7 +53,7 @@ const Header = ({ children }) => {
                     <HiMenu className="text-[25px]" />
                 </div>
                 <ul className="status md:static hidden  w-[300px] md:w-[100%] h-[100vh] md:h-[100%] top-[-20px] md:top-auto md:bg-transparent absolute right-[-20px] bg-[#000050] md:flex flex-col md:flex-row p-[15px] md:p-[0] md:items-center">
-                    <div className="md:hidden close">
+                    <div className="md:hidden close order-first">
                         <AiOutlineClose className="text-[#fff] text-[20px] ml-[95%] cursor-pointer" />
                     </div>
                     {pages.map((page, index) => (
@@ -72,19 +65,52 @@ const Header = ({ children }) => {
                             {page.title}
                         </Link>
                     ))}
-                    <div className="md:ml-[auto] md:grow flex flex-col md:flex-row md:justify-end">
-                        {homeFeatures.map((homeFeature, index) => (
-                            <Link
-                                to={homeFeature.href}
-                                className="md:ml-[25px] my-[10px]"
-                                key={index}
-                            >
-                                {homeFeature.title}
-                            </Link>
-                        ))}
+                    <div className="md:ml-[auto] md:grow flex flex-col md:flex-row md:justify-end order-[-1] md:order-none">
+                        {user ? (
+                            <div className="flex  items-center mb-[20px] md:mb-0">
+                                <img
+                                    src="https://cdn.tecotecshop.com/assets/img/avatar-author.png"
+                                    alt=""
+                                    width={40}
+                                    height={40}
+                                />
+                                <label className="ml-[10px] font-semibold">
+                                    username
+                                </label>
+                            </div>
+                        ) : (
+                            <>
+                                <Link
+                                    to=""
+                                    className="md:ml-[25px] my-[10px]"
+                                    onClick={() => setIsLogin(true)}
+                                >
+                                    Sign up
+                                </Link>
+                                <Link to="" className="md:ml-[25px] my-[10px]">
+                                    Sign in
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </ul>
             </Wrapper>
+            {isLogin && (
+                <div className="fixed top-[0]  z-50 bg-[#00000071] w-[100vw] h-[100vh]">
+                    <div
+                        className="top-[50%] left-[50%] absolute w-[auto]"
+                        style={{ transform: 'translate(-50%,-50%)' }}
+                    >
+                        <Login />
+                    </div>
+                    <div
+                        className="absolute w-[100%] h-[100%] -z-10"
+                        onClick={() => {
+                            setIsLogin(false);
+                        }}
+                    ></div>
+                </div>
+            )}
             {children}
         </>
     );

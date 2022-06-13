@@ -1,5 +1,3 @@
-// import Search from "../../components/search/Search";
-// import {TiShoppingBag} from 'react-icons/ti';
 const Error = () => (
     <>
         <div className="h-[100vh] ">
@@ -21,7 +19,6 @@ const Error = () => (
                 2018 - 2022 FB. All rights reserved.
             </div>
 
-            {/* <Search filterSearch dataFilters ={['123','abc']} placeholder='asdassadsad' FilterSearchIcon={TiShoppingBag}/> */}
         </div>
     </>
 );

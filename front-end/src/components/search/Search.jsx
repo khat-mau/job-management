@@ -2,13 +2,6 @@ import { useEffect, useState } from 'react';
 import { IoIosSearch, IoIosClose } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 
-const testInfors = [
-    { name: 'ahihi1', to: '/a' },
-    { name: 'aizz chết tiệt', to: '/a' },
-    { name: 'Javascript', to: '/a' },
-    { name: 'This is frontend', to: '/a' },
-];
-
 const Search = ({
     width,
     height,
@@ -16,8 +9,11 @@ const Search = ({
     filterSearch = false,
     FilterSearchIcon,
     dataFilters = [],
-    data,
-    dataKey,
+
+    data = [],
+    dataKeyName,
+    dataKeyTo,
+
 }) => {
     const [text, setText] = useState('');
     const [isFocused, setIsFocused] = useState(false);
@@ -45,7 +41,9 @@ const Search = ({
     return (
         <div
             style={{ width: width || filterSearch ? 625 : 500 }}
-            className="relative"
+
+            className="relative max-w-[100%]"
+
         >
             <label
                 className=" flex items-center min-w-full w-[100%] relative md:min-w-[0]"
@@ -117,21 +115,24 @@ const Search = ({
                         width: filterSearch ? 'calc(75% - 10px)' : '100%',
                     }}
                 >
-                    {testInfors
-                        .filter((testInfor) =>
-                            testInfor.name
-                                .toLowerCase()
-                                .includes(text.toLowerCase()),
-                        )
-                        .map((testInfor, index) => (
-                            <Link
-                                to={testInfor.to}
-                                className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
-                                key={index}
-                            >
-                                {testInfor.name}
-                            </Link>
-                        ))}
+
+                    {text &&
+                        data
+                            .filter((d) =>
+                                d[dataKeyName]
+                                    .toLowerCase()
+                                    .includes(text.toLowerCase()),
+                            )
+                            .map((d, index) => (
+                                <Link
+                                    to={d[dataKeyTo]}
+                                    className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
+                                    key={index}
+                                >
+                                    {d[dataKeyName]}
+                                </Link>
+                            ))}
+
                 </div>
             )}
         </div>

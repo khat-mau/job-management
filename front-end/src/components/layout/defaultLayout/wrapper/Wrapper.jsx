@@ -1,4 +1,6 @@
-const Wrapper = ({ className, content, children,...passProps }) => {
+
+const Wrapper = ({ className, content, children, ...passProps }) => {
+
     //props
     return (
         <div className={className} {...passProps}>
