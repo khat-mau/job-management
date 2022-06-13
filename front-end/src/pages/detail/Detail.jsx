@@ -21,6 +21,11 @@ const comment = [
         name: "Susan",
         content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
     },
+    {
+        src: 'https://vcdn-sohoa.vnecdn.net/2022/06/06/elon-musk-2-9936-1639406089-92-2317-4748-1654522486.jpg',
+        name: "Susan",
+        content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
+    },
 ];
 const detail = [
     { level: "University, more than 2 year working ", job: "Managerment, Fesher", salary: "1.000$", skill: "Soft skill, Tester, Developer" },
@@ -41,7 +46,7 @@ const latestjob2_request = [
 
 const latestjob2 = [
     {
-        src: 'https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png',
+        src: 'https://afamilycdn.com/150157425591193600/2020/11/21/889982955072596699632224860037501977484047n-16059367271631424650700.jpg',
         job: 'Designer',
         money: '10-30 triệu',
         location: 'TP.HCM',
@@ -65,12 +70,11 @@ const Detail = () => {
                     to={job2.href}
                     key={index}
                 >
-                    <div className="basis-[30%] md:basis-[25%] inline" style={{ height: "100%" }}>
+                    <div className="basis-[30%] md:basis-[25%] inline" >
                         <img
                             src={job2.src}
                             alt=""
-                            width="275px"
-                            style={{ height: "190px" }}
+                            style={{ height: "100%", width: '100%', objectFit: 'cover' }}
                             className="object-contain"
                         />
                     </div>
@@ -143,53 +147,6 @@ const Detail = () => {
                     <p>Detail</p>
                 </div>
             </div>
-            {/* thông tin, hình ảnh */}
-            {/* <div className=' flex flex-row w-full md:flex-col md:basis-1/5 gap-2 '>
-                    <div className='bg-slate-300 px-5 w-[50%] md:w-full '>
-                        <div className='flex flex-row text-left py-3 mb-auto '>
-                            <div>
-                                <GoMortarBoard className="w-[27px] h-[27px] " />
-                            </div>
-                            <div className='ml-4 text-[12px] md:text-[15px] whitespace-nowrap'>
-                                <h1 className='font-bold'>CẤP BẬC</h1>
-                                <p>nhân viên</p>
-                            </div>
-                        </div>
-                        <hr />
-                        <div className='flex flex-row text-left py-3 mb-auto ' >
-                            <div>
-                                <MdWork className="w-[24px] h-[24px] pt-0 " />
-                            </div>
-                            <div className='ml-4 text-[12px] md:text-[15px] break-all whitespace-nowrap'>
-                                <h1 className='font-bold'>NGHÀNH NGHỀ</h1>
-                                <p>IT-phần mềm, Tester</p>
-                            </div>
-                        </div>
-                        <hr />
-                        <div className='flex flex-row text-left py-3  mb-auto'>
-                            <div>
-                                <BsFlagFill className="w-[24px] h-[24px]" />
-                            </div>
-                            <div className='ml-4 text-[12px] md:text-[15px] overflow-hidden ..."' >
-                                <h1 className='font-bold'>KỸ NĂNG</h1>
-                                <p>Vận hành ứng dụng</p>
-                                <p>Back-End</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='bg-slate-300'>
-                        <div className='aspect-w-3 aspect-h-2 inline'>
-                            <img
-                                src={images.company}
-                                alt=""
-                                // width="210px"
-                                // height="100px"
-                                className='object-cover h-full'
-                            />,
-                        </div>
-                    </div>
-
-                </div> */}
             {/* Bảng đánh giá vs khung bình luận */}
             <div className="flex flex-row w-full mt-4" >
                 {/* Bang ratting  */}
@@ -232,23 +189,20 @@ const Detail = () => {
 
             {comment.map((val, key) => {
                 return (
-                    <div className='flex flex-row w-full my-7 border-b-2 px-10' >
-                        <div className='ml-auto border border-gray-100 h-20 w-20 mr-4'>
-                            <div className="md:basis-[20%] inline" style={{ height: "100%" }}>
-                                <img
-                                    src={val.src}
-                                    alt=""
-                                    style={{ height: "100%" }}
-                                    className="object-cover"
-                                />
-
-                            </div>
-                        </div>
-                        <div className='w-[80%] flex-row'>
+                    <div className='flex flex-row w-full my-7' >
+                        {/* <div className="md:basis-[20%] inline pr-[10px]">
+                            <img
+                                src={val.src}
+                                alt=""
+                                style={{ height: "205px", width: "400px", objectFit: 'fill' }}
+                                className="object-cover"
+                            />
+                        </div> */}
+                        <div className='flex-row px-3 text-sm md:text-[20px]'>
                             <div key={key}>
                                 <h1 className='font-bold text-2xl'>{val.name}</h1>
                                 <p>{val.content}</p>
-                                <div className='flex flex-row mx-auto my-2 mr-3'>
+                                <div className='flex flex-row mx-auto pt-1 pl-3 gap-4'>
                                     <BiLike className='h-6 w-6' />
                                     <BiDislike className='h-6 w-6' />
                                 </div>

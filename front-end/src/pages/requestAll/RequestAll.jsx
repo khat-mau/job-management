@@ -1,5 +1,5 @@
 import Wrapper from '../../components/layout/defaultLayout/wrapper/Wrapper';
-import Button2 from '../../components/button2/Button2';
+import Button from '../../components/button/Button';
 import Search from '../../components/search/Search';
 import { BiFirstPage, BiLastPage, BiPin } from 'react-icons/bi';
 const requestes = [
@@ -40,7 +40,7 @@ const RequestAll = () => {
             <div className=" flex justify-center  w-full px-[10px] md:px-0 py-[20px]">
 
                 <Search dataFilters={[]} />
-                <Button2 className="h-[50px]"> Search </Button2>
+                <Button className="h-[50px]"> Search </Button>
             </div>
             <h1 className="text-[#0C3078] text-[30px] font-bold px-[10px] md:px-0">List request company : </h1>
 
@@ -48,8 +48,8 @@ const RequestAll = () => {
 
             <div className="w-full px-[10px] md:px-0 py-[10px] text-center flex flex-col">
                 <div className="flex  text-[8px] md:text-[16px] py-[10px]">
-                    <div className="pr-[5px] "><Button2 className="bg-[#507FC6]  w-[60px] md:w-[100px]"> Accepts</Button2> </div>
-                    <div className=""> <Button2 className="bg-[#E30E0E]  w-[60px] md:w-[100px]"> Rejects</Button2></div>
+                    <div className="pr-[5px] "><Button className="bg-[#507FC6]  w-[60px] md:w-[100px]"> Accepts</Button> </div>
+                    <div className=""> <Button className="bg-[#E30E0E]  w-[60px] md:w-[100px]"> Rejects</Button></div>
                 </div>
                 <table className="text-[8px] md:text-[16px] font-bold  border border-slate-200 min-w-[360px] md:w-full">
                     <thead>
@@ -71,10 +71,10 @@ const RequestAll = () => {
                             <td className=" ">1</td>
                             <td className=" ">FPT</td>
                             <td className=" ">20/04/2022</td>
-                            <td className="text-[#000080]"><div className="flex justify-center"><Button2 className="bg-[#00CE78]"> View</Button2></div></td>
-                            <td className=" py-[10px]"> <div className="flex justify-center"><Button2 className="bg-[#507FC6]"> Report</Button2> </div></td>
+                            <td className="text-[#000080]"><div className="flex justify-center"><Button className="bg-[#00CE78]"> View</Button></div></td>
+                            <td className=" py-[10px]"> <div className="flex justify-center"><Button className="bg-[#507FC6]"> Report</Button> </div></td>
                             
-                            <td className="  "><div className="flex justify-center"> <Button2 className="bg-[#E30E0E] "> Reject</Button2></div></td>
+                            <td className="  "><div className="flex justify-center"> <Button className="bg-[#E30E0E] "> Reject</Button></div></td>
                             <td className="flex justify-center items-center py-[10px]"><div className="min-w-[50px] md:w-[198px] min-h-[50px] md:h-[96px] border-collapse border border-slate-500"> </div></td>
                             <td className=""><BiPin className="hover:bg-[#000080]"/></td>
                             
@@ -85,10 +85,10 @@ const RequestAll = () => {
                                 <td className=" ">{request.ID}</td>
                                 <td className=" ">{request.name}</td>
                                 <td className=" ">{request.category}</td>
-                                <td className="text-[#000080]"><div className="flex justify-center"><Button2 className="bg-[#00CE78]" to={request.href}> View</Button2></div></td>
-                                <td className=" py-[10px]"> <div className="flex justify-center"><Button2 className="bg-[#507FC6]"> Accept</Button2> </div></td>
+                                <td className="text-[#000080]"><div className="flex justify-center"><Button className="bg-[#00CE78]" to={request.href}> View</Button></div></td>
+                                <td className=" py-[10px]"> <div className="flex justify-center"><Button className="bg-[#507FC6]"> Accept</Button> </div></td>
 
-                                <td className="  "><div className="flex justify-center"> <Button2 className="bg-[#E30E0E] "> Reject</Button2></div></td>
+                                <td className="  "><div className="flex justify-center"> <Button className="bg-[#E30E0E] "> Reject</Button></div></td>
                                 <td className="flex justify-center items-center py-[10px]"><div className="min-w-[70px] md:w-[250px] min-h-[50px] md:h-[96px] border-collapse border border-slate-500">{request.note}</div></td>
                                 <td className=""><div className="flex justify-center"> <BiPin className="hover:bg-[#000080]" /></div></td>
 
@@ -105,7 +105,7 @@ const RequestAll = () => {
                         <BiFirstPage className="w-6 h-6" />
                     </div>
                     <div className="flex h-12 font-medium  ">
-                        <div className="w-12 flex justify-center items-center   cursor-pointer leading-5 transition duration-150 ease-in hover:bg-[#000070]   ">1</div>
+                        <div className="w-12 flex justify-center items-center cursor-pointer leading-5 transition duration-150 ease-in hover:bg-[#000070]   ">1</div>
                         <div className="w-12 flex justify-center items-center   cursor-pointer leading-5 transition duration-150 ease-in  hover:bg-[#000070] ">2</div>
                         <div className="w-12 flex justify-center items-center   cursor-pointer leading-5 transition duration-150 ease-in  hover:bg-[#000070]  ">3</div>
                         <div className="w-12 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in hover:bg-[#000070] ">4</div>

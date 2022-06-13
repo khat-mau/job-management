@@ -1,7 +1,6 @@
 import Wrapper from '../../components/layout/defaultLayout/wrapper/Wrapper';
 import Search from '../../components/search/Search';
 import Button from '../../components/button/Button';
-import {AiOutlineDelete} from 'react-icons/ai';
 const data = [
     { id: "U001", category: "job", name: "Fpt Conpany", deleteDate: "10/06/2022", hrefInfo: "#", reason: "wrong format", },
     { id: "U002", category: "company", name: "Lua Ga Company", deleteDate: "10/06/2022", hrefInfo: "#", reason: "wrong format", },
@@ -12,9 +11,9 @@ const data = [
 
 function WasDeleted() {
     return (
-        <Wrapper className="bg-[#EDEDED] w-full px-[20px]"
+        <Wrapper className="bg-[#EDEDED] w-full"
             content=" flex flex-col justify-center ">
-            <div className=" flex justify-center  w-full px-[10px] md:px-0 py-[20px]">
+            <div className=" flex justify-center  w-full px-[10px] md:px-0 py-[10px]">
                 <Search dataFilters={[]} />
                 <Button className="h-[50px]"> Search </Button>
             </div>
@@ -43,15 +42,15 @@ function WasDeleted() {
                         <tbody>
                             {data.map((wasDelete, index) => (
                                 <tr className="h-[40px]  md:h-[70px]" key={index}>
-                                    <td className=" "><input type="checkbox" className="default:ring-2" /></td>
-                                    <td className=" ">{wasDelete.id}</td>
-                                    <td className=" ">{wasDelete.category}</td>
-                                    <td className=" ">{wasDelete.name}</td>
-                                    <td className=" ">{wasDelete.deleteDate}</td>
-                                    <td className="text-[#000080]"><div className="flex justify-center"><Button className="bg-[#00CE78] h-[20px]"> View</Button></div></td>
-                                    <td className=" ">{wasDelete.reason}</td>
-                                    <td className=" py-[10px]"> <div className="flex justify-center"><Button className="bg-[#E30E0E] h-[20px]">Delete</Button> </div></td>
-                                    <td className="  "><div className="flex justify-center"> <Button className="bg-[#507FC6] h-[20px]">Restore</Button></div></td>
+                                    <td className="px-3 "><input type="checkbox" className="default:ring-2" /></td>
+                                    <td className="px-3 ">{wasDelete.id}</td>
+                                    <td className="px-3">{wasDelete.category}</td>
+                                    <td className="px-3 ">{wasDelete.name}</td>
+                                    <td className="px-3 ">{wasDelete.deleteDate}</td>
+                                    <td className="px-3 text-[#000080] "><div className="flex justify-center"><Button className="bg-[#00CE78] h-[20px] md:h-[35px] md:w-[30px] md:text-xl"> View</Button></div></td>
+                                    <td className="px-3 ">{wasDelete.reason}</td>
+                                    <td className="px-3 py-[10px]"> <div className="flex justify-center"><Button className="bg-[#E30E0E] h-[20px] md:h-[35px]  md:w-[30px] md:text-xl">Delete</Button> </div></td>
+                                    <td className="px-3  "><div className="flex justify-center"> <Button className="bg-[#507FC6] h-[20px] md:h-[35px] md:w-[30px] md:text-xl">Restore</Button></div></td>
                                 </tr>
 
                             ))}
