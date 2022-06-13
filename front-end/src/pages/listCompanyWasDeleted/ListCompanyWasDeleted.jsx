@@ -1,6 +1,6 @@
 import Wrapper from '../../components/layout/defaultLayout/wrapper/Wrapper';
 import Search from '../../components/search/Search';
-import Button2 from '../../components/button2/Button2';
+import Button from '../../components/button/Button';
 import {AiOutlineDelete} from 'react-icons/ai';
 const data = [
     { id: "U001", category: "job", name: "Fpt Conpany", deleteDate: "10/06/2022", hrefInfo: "#", reason: "wrong format", },
@@ -12,18 +12,18 @@ const data = [
 
 function WasDeleted() {
     return (
-        <Wrapper className="bg-[#EDEDED] w-full px-[10px]"
+        <Wrapper className="bg-[#EDEDED] w-full px-[20px]"
             content=" flex flex-col justify-center ">
             <div className=" flex justify-center  w-full px-[10px] md:px-0 py-[20px]">
                 <Search dataFilters={[]} />
-                <Button2 className="h-[50px]"> Search </Button2>
+                <Button className="h-[50px]"> Search </Button>
             </div>
             <h1 className="text-[#0C3078] text-[30px] font-bold px-[10px] md:px-0">List company that was soft deleted:  </h1>
 
             <div className="w-full px-[10px] md:px-0 py-[10px] text-center flex flex-col">
                 <div className="flex text-[8px] md:text-[16px] py-[10px]">
-                    <div className="pr-[10px] "><Button2 className="bg-[#E30E0E] w-[60px] md:w-[100px]"><AiOutlineDelete/> Delete</Button2> </div>
-                    <div className=""> <Button2 className="bg-[#507FC6]  w-[60px] md:w-[100px]">Restore</Button2></div>
+                    <div className="pr-[10px] "><Button className="bg-[#E30E0E] w-[60px] md:w-[100px]">Delete</Button> </div>
+                    <div className=""> <Button className="bg-[#507FC6]  w-[60px] md:w-[100px]">Restore</Button></div>
                 </div>
                 <div class='py-[20px] overflow-auto ...'>
                     <table className="border-collapse text-[8px]  md:text-[16px] font-bold overflow-scroll w-full border border-slate-400 min-w-[360px] md:w-full">
@@ -48,10 +48,10 @@ function WasDeleted() {
                                     <td className=" ">{wasDelete.category}</td>
                                     <td className=" ">{wasDelete.name}</td>
                                     <td className=" ">{wasDelete.deleteDate}</td>
-                                    <td className="text-[#000080]"><div className="flex justify-center"><Button2 className="bg-[#00CE78]"> View</Button2></div></td>
+                                    <td className="text-[#000080]"><div className="flex justify-center"><Button className="bg-[#00CE78] h-[20px]"> View</Button></div></td>
                                     <td className=" ">{wasDelete.reason}</td>
-                                    <td className=" py-[10px]"> <div className="flex justify-center"><Button2 className="bg-[#E30E0E]">Delete</Button2> </div></td>
-                                    <td className="  "><div className="flex justify-center"> <Button2 className="bg-[#507FC6] ">Restore</Button2></div></td>
+                                    <td className=" py-[10px]"> <div className="flex justify-center"><Button className="bg-[#E30E0E] h-[20px]">Delete</Button> </div></td>
+                                    <td className="  "><div className="flex justify-center"> <Button className="bg-[#507FC6] h-[20px]">Restore</Button></div></td>
                                 </tr>
 
                             ))}
