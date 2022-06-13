@@ -11,7 +11,7 @@ const Sidebar = ({ company, jobs }) => {
                 <div className="font-bold text-[20px] text-center mb-[20px]">
                     {company}
                 </div>
-                <h1 className="border-b border-[#ffffff86]"></h1>
+                <h1 className="border-b border-[#ffffff86]"> </h1>
                 {jobs &&
                     jobs.map((job, index) => (
                         <div className="mb-[10px]" key={index}>

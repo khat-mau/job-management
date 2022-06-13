@@ -9,9 +9,11 @@ const Search = ({
     filterSearch = false,
     FilterSearchIcon,
     dataFilters = [],
+
     data = [],
     dataKeyName,
     dataKeyTo,
+
 }) => {
     const [text, setText] = useState('');
     const [isFocused, setIsFocused] = useState(false);
@@ -39,7 +41,9 @@ const Search = ({
     return (
         <div
             style={{ width: width || filterSearch ? 625 : 500 }}
+
             className="relative max-w-[100%]"
+
         >
             <label
                 className=" flex items-center min-w-full w-[100%] relative md:min-w-[0]"
@@ -111,6 +115,7 @@ const Search = ({
                         width: filterSearch ? 'calc(75% - 10px)' : '100%',
                     }}
                 >
+
                     {text &&
                         data
                             .filter((d) =>
@@ -127,6 +132,7 @@ const Search = ({
                                     {d[dataKeyName]}
                                 </Link>
                             ))}
+
                 </div>
             )}
         </div>
