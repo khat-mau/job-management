@@ -18,7 +18,6 @@ const Error = () => (
             <div className="box-border text-center w-[100%] absolute bottom-[10px]">
                 2018 - 2022 FB. All rights reserved.
             </div>
-
         </div>
     </>
 );

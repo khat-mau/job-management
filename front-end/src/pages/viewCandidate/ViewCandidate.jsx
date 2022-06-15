@@ -79,7 +79,7 @@ const ViewCandidate = () => {
                             <td className="text-[#000080]"><Link  to={candy.href}>View</Link></td>
                             <td className=" py-[10px]"> <div className="flex justify-center"><Button className="bg-[#DC2C56]"> Report</Button> </div></td>
 
-                            <td className="  "><div className="flex justify-center"> <Button className="bg-[#DC2C56] h-[20px] md:h-[35px] w-[40px] md:w-[100px]"> Reject</Button></div></td>
+                            <td className="  "><div className="flex justify-center"> <Button className="bg-[#DC2C56] "> Reject</Button></div></td>
                             
                         </tr>
 
