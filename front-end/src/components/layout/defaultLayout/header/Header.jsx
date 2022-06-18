@@ -1,5 +1,6 @@
 import Wrapper from '../wrapper/Wrapper';
 import Login from '../../../../pages/login/Login';
+import Register from '../../../../pages/register/Register';
 import { Link } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -22,7 +23,8 @@ const pages = [
 
 const Header = ({ children }) => {
     const [isLogin, setIsLogin] = useState(false);
-    const [user, setUser] = useState();
+    const [isRegister, setIsRegister] = useState(false);
+    const [user, setUser] = useState(false);
 
     useEffect(() => {
         const menuIcon = document.querySelector('.menu');
@@ -36,6 +38,14 @@ const Header = ({ children }) => {
             sidebarMenu.style.display = '';
         };
     }, []);
+
+    const handleShowRegister = () => {
+        setIsRegister(!isRegister);
+    };
+
+    const handleShowLogin = () => {
+        setIsLogin(!isLogin);
+    };
 
     return (
         <>
@@ -83,12 +93,22 @@ const Header = ({ children }) => {
                                 <Link
                                     to=""
                                     className="md:ml-[25px] my-[10px]"
-                                    onClick={() => setIsLogin(true)}
+                                    onClick={() => {
+                                        setIsLogin(true);
+                                        setIsRegister(false);
+                                    }}
+                                >
+                                    Sign in
+                                </Link>
+                                <Link
+                                    to=""
+                                    className="md:ml-[25px] my-[10px]"
+                                    onClick={() => {
+                                        setIsLogin(false);
+                                        setIsRegister(true);
+                                    }}
                                 >
                                     Sign up
-                                </Link>
-                                <Link to="" className="md:ml-[25px] my-[10px]">
-                                    Sign in
                                 </Link>
                             </>
                         )}
@@ -101,12 +121,34 @@ const Header = ({ children }) => {
                         className="top-[50%] left-[50%] absolute w-[auto]"
                         style={{ transform: 'translate(-50%,-50%)' }}
                     >
-                        <Login />
+                        <Login
+                            onShowRegister={handleShowRegister}
+                            onShowLogin={handleShowLogin}
+                        />
                     </div>
                     <div
                         className="absolute w-[100%] h-[100%] -z-10"
                         onClick={() => {
                             setIsLogin(false);
+                        }}
+                    ></div>
+                </div>
+            )}
+            {isRegister && (
+                <div className="fixed top-[0]  z-50 bg-[#00000071] w-[100vw] h-[100vh]">
+                    <div
+                        className="top-[50%] left-[50%] absolute w-[auto]"
+                        style={{ transform: 'translate(-50%,-50%)' }}
+                    >
+                        <Register
+                            onShowRegister={handleShowRegister}
+                            onShowLogin={handleShowLogin}
+                        />
+                    </div>
+                    <div
+                        className="absolute w-[100%] h-[100%] -z-10"
+                        onClick={() => {
+                            setIsRegister(false);
                         }}
                     ></div>
                 </div>

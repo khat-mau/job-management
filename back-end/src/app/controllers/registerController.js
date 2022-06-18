@@ -98,11 +98,12 @@ class registerController {
                 });
                 user.save().then(() => {
                     res.status(200).json({
+                        errorStatus: false,
                         message: 'register successful!',
                     });
                 });
             } else {
-                res.status(404).json({ dataError });
+                res.status(404).json({ errorStatus: true, dataError });
             }
         } catch (e) {
             res.status(500).json({ e });
@@ -111,4 +112,3 @@ class registerController {
 }
 
 module.exports = new registerController();
-
