@@ -29,15 +29,29 @@ const Button = ({
     }
 
     return (
-        <Comp
-            className={
-                'flex items-center justify-center bg-[#000070] text-[#fff] px-[15px] py-[10px] rounded-[5px] transition duration-200 hover:bg-[#000050] md:min-w-[100px] md:min-h-[35px] h-fit select-none ' +
-                className
-            }
-            {...props}
-        >
-            <span>{children}</span>
-        </Comp>
+        <>
+            {disabled ? (
+                <Comp
+                    className={
+                        'flex items-center justify-center bg-[#000070] text-[#fff] px-[15px] py-[10px] rounded-[5px] transition duration-200 md:min-w-[100px] md:min-h-[35px] h-fit select-none opacity-40 ' +
+                        className
+                    }
+                    {...props}
+                >
+                    <span>{children}</span>
+                </Comp>
+            ) : (
+                <Comp
+                    className={
+                        'flex items-center justify-center bg-[#000070] text-[#fff] px-[15px] py-[10px] rounded-[5px] transition duration-200 hover:bg-[#000050] md:min-w-[100px] md:min-h-[35px] h-fit select-none ' +
+                        className
+                    }
+                    {...props}
+                >
+                    <span>{children}</span>
+                </Comp>
+            )}
+        </>
     );
 };
 
