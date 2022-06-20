@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const pages = [
     {
@@ -24,7 +25,7 @@ const pages = [
 const Header = ({ children }) => {
     const [isLogin, setIsLogin] = useState(false);
     const [isRegister, setIsRegister] = useState(false);
-    const [user, setUser] = useState(false);
+    const user = useSelector((state) => state.auth.login.currentUser);
 
     useEffect(() => {
         const menuIcon = document.querySelector('.menu');
@@ -77,17 +78,19 @@ const Header = ({ children }) => {
                     ))}
                     <div className="md:ml-[auto] md:grow flex flex-col md:flex-row md:justify-end order-[-1] md:order-none">
                         {user ? (
-                            <div className="flex  items-center mb-[20px] md:mb-0">
-                                <img
-                                    src="https://cdn.tecotecshop.com/assets/img/avatar-author.png"
-                                    alt=""
-                                    width={40}
-                                    height={40}
-                                />
-                                <label className="ml-[10px] font-semibold">
-                                    username
-                                </label>
-                            </div>
+                            <>
+                                <div className="flex  items-center mb-[20px] md:mb-0 cursor-pointer  pr-[30px] ">
+                                    <img
+                                        src={user.photo}
+                                        alt=""
+                                        width={40}
+                                        height={40}
+                                    />
+                                    <label className="ml-[10px] font-semibold cursor-pointer">
+                                        {user.lastName}
+                                    </label>
+                                </div>
+                            </>
                         ) : (
                             <>
                                 <Link
@@ -113,6 +116,9 @@ const Header = ({ children }) => {
                             </>
                         )}
                     </div>
+                    {user && (
+                        <div className="cursor-pointer my-[10px]">Logout</div>
+                    )}
                 </ul>
             </Wrapper>
             {isLogin && (

@@ -8,24 +8,30 @@ class loginController {
         try {
             const user = await User.findOne({ username: req.body.username });
             if (!user) {
-                return res
-                    .status(404)
-                    .json({ message: 'Incorrect username or password!' });
+                return res.status(404).json({
+                    message: 'Incorrect username or password!',
+                    errorStatus: true,
+                });
             }
             const validPassword = await bcrypt.compare(
                 req.body.password,
                 user.password,
             );
             if (!validPassword) {
-                return res
-                    .status(404)
-                    .json({ message: 'Incorrect username or password!' });
+                return res.status(404).json({
+                    message: 'Incorrect username or password!',
+                    errorStatus: true,
+                });
             }
 
             if (user && validPassword) {
                 const accessToken = Token.generateAccessToken(user);
                 const { password, ...other } = user._doc;
-                res.status(200).json({ ...other, accessToken });
+                res.status(200).json({
+                    ...other,
+                    accessToken,
+                    errorStatus: false,
+                });
             }
         } catch (e) {
             res.status(500).json({ e });

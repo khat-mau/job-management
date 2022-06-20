@@ -1,17 +1,35 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Button from '../../components/button/Button';
-// import ababa from '../img/imgLogin.png';
+import { loginUser } from '../../redux/apiRequest';
 
 function Login({ onShowRegister, onShowLogin }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
+    const [loginResult, setLoginResult] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-    const handleLogin = () => {
+    const handleLogin = (e) => {
+        e.preventDefault();
         const userInfor = {
             username,
             password,
         };
-
+        setLoading(true);
+        const promise = new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(loginUser(userInfor, dispatch));
+            }, 2000);
+        })
+            .then((data) => {
+                if (!data.errorStatus && data.errorStatus !== undefined) {
+                    onShowLogin();
+                }
+                setLoginResult(data);
+            })
+            .catch((error) => console.log(error))
+            .finally(() => setLoading(false));
         // Redux
     };
 
@@ -40,7 +58,7 @@ function Login({ onShowRegister, onShowLogin }) {
                                 onChange={(e) => setUsername(e.target.value)}
                             />
                         </div>
-                        <div className="mb-6">
+                        <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2">
                                 Password
                             </label>
@@ -52,6 +70,11 @@ function Login({ onShowRegister, onShowLogin }) {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
+                        {loginResult.errorStatus && (
+                            <span className="mb-4 text-center text-[14px] text-[red]">
+                                {loginResult.message}
+                            </span>
+                        )}
                         <div className="flex flex-col md:flex-row">
                             <div className="mb-1 flex-1 md:mb-6">
                                 <input type="checkbox" />
@@ -69,13 +92,42 @@ function Login({ onShowRegister, onShowLogin }) {
                             </div>
                         </div>
                         <div className="h-full items-center justify-between">
-                            <Button
-                                className="w-full bg-blue-700 text-white rounded-lg h-7 md:h-10"
-                                type="button"
-                                onClick={handleLogin}
-                            >
-                                Sign In
-                            </Button>
+                            {loading ? (
+                                <Button
+                                    className="w-full bg-blue-700 text-white rounded-lg h-7 md:h-10"
+                                    type="button"
+                                    disabled
+                                >
+                                    <svg
+                                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <circle
+                                            class="opacity-25"
+                                            cx="12"
+                                            cy="12"
+                                            r="10"
+                                            stroke="currentColor"
+                                            stroke-width="4"
+                                        ></circle>
+                                        <path
+                                            class="opacity-75"
+                                            fill="currentColor"
+                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                        ></path>
+                                    </svg>
+                                </Button>
+                            ) : (
+                                <Button
+                                    className="w-full bg-blue-700 text-white rounded-lg h-7 md:h-10"
+                                    type="button"
+                                    onClick={(e) => handleLogin(e)}
+                                >
+                                    Sign In
+                                </Button>
+                            )}
                             <Button
                                 className="mt-5 w-full bg-white-700 text-white rounded-lg border border-black h-7 md:h-10"
                                 type="button"
