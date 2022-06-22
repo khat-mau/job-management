@@ -26,10 +26,19 @@ class loginController {
 
             if (user && validPassword) {
                 const accessToken = Token.generateAccessToken(user);
+                const refreshToken = Token.generateRefreshToken(user);
+                res.cookie('refreshToken', refreshToken, {
+                    //Store refreshToken in cookie
+                    httpOnly: true,
+                    secure: false,
+                    path: '/',
+                    sameSite: 'strict',
+                });
                 const { password, ...other } = user._doc;
                 res.status(200).json({
                     ...other,
                     accessToken,
+                    refreshToken,
                     errorStatus: false,
                 });
             }

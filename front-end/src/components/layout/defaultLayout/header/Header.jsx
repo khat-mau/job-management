@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../../../../redux/apiRequest';
 
 const pages = [
     {
@@ -26,6 +27,7 @@ const Header = ({ children }) => {
     const [isLogin, setIsLogin] = useState(false);
     const [isRegister, setIsRegister] = useState(false);
     const user = useSelector((state) => state.auth.login.currentUser);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const menuIcon = document.querySelector('.menu');
@@ -46,6 +48,10 @@ const Header = ({ children }) => {
 
     const handleShowLogin = () => {
         setIsLogin(!isLogin);
+    };
+
+    const handleLogout = () => {
+        logoutUser(user.accessToken, dispatch);
     };
 
     return (
@@ -117,7 +123,12 @@ const Header = ({ children }) => {
                         )}
                     </div>
                     {user && (
-                        <div className="cursor-pointer my-[10px]">Logout</div>
+                        <div
+                            className="cursor-pointer my-[10px]"
+                            onClick={() => handleLogout()}
+                        >
+                            Logout
+                        </div>
                     )}
                 </ul>
             </Wrapper>
