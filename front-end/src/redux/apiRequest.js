@@ -1,5 +1,10 @@
-import { loginStart, loginSuccess, loginFailed } from './authSlice';
-import * as loginService from '../api/loginUser';
+import {
+    loginStart,
+    loginSuccess,
+    loginFailed,
+    logoutSuccess,
+} from './authSlice';
+import * as loginService from '../api/authUser';
 
 export const loginUser = async (user, dispatch) => {
     dispatch(loginStart());
@@ -12,4 +17,11 @@ export const loginUser = async (user, dispatch) => {
     //navigate('') chuyển trang
 
     return res;
+};
+
+export const logoutUser = async (user, dispatch) => {
+    await loginService.logout(user);
+    dispatch(logoutSuccess());
+
+    //navigate('') chuyển trang
 };
