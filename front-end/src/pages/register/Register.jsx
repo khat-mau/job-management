@@ -27,7 +27,7 @@ function Register({ onShowRegister, onShowLogin }) {
             };
             const fetch = () => {
                 setIsWaitingResult(true);
-                // Gọi api và chỉ định chờ 2 giây
+                // Gọi api và chỉ định chờ 2 giây cho response
                 const promise = new Promise((resolve) => {
                     setTimeout(() => {
                         resolve(registerService.register(registerInfo));
