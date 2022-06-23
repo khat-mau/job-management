@@ -20,7 +20,6 @@ const publicRoutes = [
     { path: '/view-candidate', component: ViewCandidate },
     { path: '/reset-password', component: ResetPassword },
     { path: '/new-password', component: NewPassword },
-
     { path: '/own-infor', component: OwnInfor },
     { path: '/list-company', component: ListCompany },
     { path: '/list-wasdeleted', component: ListCompanyWasDeleted },

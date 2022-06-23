@@ -24,9 +24,9 @@ httpRequest.interceptors.request.use(async (config) => {
     // check token và refreshToken nếu token đó hết hạn..
     const user = store.getState().auth.login?.currentUser;
     if (user) {
-        let date = new Date();
+        let date = new Date().getTime() / 1000;
         const decoded = jwt_decode(user?.accessToken);
-        if (decoded.exp < date.getTime() / 1000) {
+        if (decoded.exp < date) {
             try {
                 const res = await axios.post(
                     'http://localhost:8000/api/refresh',
