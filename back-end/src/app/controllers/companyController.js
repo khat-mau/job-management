@@ -1,4 +1,4 @@
-const { Company, Job } = require('../models/Company');
+const { Company } = require('../models/Company');
 
 class companyController {
     async create(req, res) {
@@ -7,9 +7,16 @@ class companyController {
             data.status = 'hide';
             const newCompany = new Company(req.body);
             const savedCompany = await newCompany.save();
-            res.status(200).json({ errorStatus: false, savedCompany });
+            res.status(200).json({
+                errorStatus: false,
+                message: 'Create company successfully',
+            });
         } catch (error) {
-            res.status(500).json({ errorStatus: true, error });
+            res.status(500).json({
+                errorStatus: true,
+                error,
+                message: 'Create company failed',
+            });
         }
     }
 }
