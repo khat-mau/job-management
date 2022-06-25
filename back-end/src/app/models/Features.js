@@ -6,7 +6,7 @@ const comment = new mongoose.Schema({
         type: String,
         maxLength: 600,
     },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     job: { type: mongoose.Schema.Types.ObjectId, ref: 'job' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
@@ -21,7 +21,7 @@ const rate = new mongoose.Schema({
     value: {
         type: Number, // [1,5]
     },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     job: { type: mongoose.Schema.Types.ObjectId, ref: 'job' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
@@ -31,7 +31,7 @@ const cv = new mongoose.Schema({
     data: {
         type: String,
     },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     job: { type: mongoose.Schema.Types.ObjectId, ref: 'job' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
@@ -39,7 +39,7 @@ const cv = new mongoose.Schema({
 
 const report = new mongoose.Schema({
     data: { type: String },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     job: { type: mongoose.Schema.Types.ObjectId, ref: 'job' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
