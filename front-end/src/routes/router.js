@@ -13,6 +13,7 @@ import Ban from '../pages/ban/Ban';
 import RequestAll from '../pages/requestAll/RequestAll';
 import ViewCandidate from '../pages/viewCandidate/ViewCandidate';
 import ListCompanyWasDeleted from '../pages/listCompanyWasDeleted/ListCompanyWasDeleted';
+import FilterCompany from '../pages/userCompany/FilterCompany';
 import { admin, user } from './role';
 
 const publicRoutes = [
@@ -23,6 +24,7 @@ const publicRoutes = [
     { path: '/own-infor', component: OwnInfor },
     { path: '/list-company', component: ListCompany },
     { path: '/list-wasdeleted', component: ListCompanyWasDeleted },
+    { path: '/filter-jobs', component: FilterCompany },
     { path: '/ban', component: Ban },
     { path: '/', component: Home },
     {

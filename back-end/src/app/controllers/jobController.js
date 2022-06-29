@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const { Job, Company } = require('../models/Company');
 
 class jobController {
@@ -22,6 +23,12 @@ class jobController {
                 e,
             });
         }
+    }
+
+    async showInCompany(req, res) {
+        try {
+            res.status(200).json({ data: '1234' });
+        } catch (e) {}
     }
 }
 

@@ -19,6 +19,11 @@ class companyController {
             });
         }
     }
+    async showInCompany(req, res) {
+        try {
+            res.status(200).json({ data: '1234' });
+        } catch (e) {}
+    }
 }
 
 module.exports = new companyController();
