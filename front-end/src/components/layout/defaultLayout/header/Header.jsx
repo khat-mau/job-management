@@ -53,7 +53,7 @@ const Header = ({ children }) => {
     const handleLogout = () => {
         logoutUser(user.accessToken, dispatch);
     };
-
+    // console.log(user);
     return (
         <>
             <Wrapper

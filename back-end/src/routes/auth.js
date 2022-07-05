@@ -8,6 +8,6 @@ const refreshTokenController = require('../app/controllers/refreshTokenControlle
 router.post('/register', registerController.create);
 router.post('/login', loginController.login);
 router.post('/logout', logoutController.logout);
-router.post('/refresh', refreshTokenController.requestRefreshToken);
+router.get('/refresh', refreshTokenController.requestRefreshToken);
 
 module.exports = router;

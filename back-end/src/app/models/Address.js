@@ -4,4 +4,4 @@ const address = new mongoose.Schema({
     address: String,
 });
 
-module.exports = mongoose.model('address', address);
+module.exports = mongoose.model('Address', address);

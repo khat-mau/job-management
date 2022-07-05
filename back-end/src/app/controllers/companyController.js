@@ -34,7 +34,7 @@ class companyController {
             res.status(200).json({ errorStatus: false,data: {page, toltalPage, listCompanyWasFilter}});
         }catch (error) {
             res.status(500).json({ errorStatus: true, message: error.message});
-        }
+
     }
 }
 

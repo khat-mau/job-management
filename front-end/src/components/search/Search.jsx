@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { IoIosSearch, IoIosClose } from 'react-icons/io';
 import { Link } from 'react-router-dom';
+import { getAllAddresses } from '../../api/getAddress';
+import * as searchService from '../../api/search';
+import { useDebounce } from '../../hooks';
 
 const Search = ({
     width,
@@ -8,15 +11,19 @@ const Search = ({
     placeholder,
     filterSearch = false,
     FilterSearchIcon,
-    dataFilters = [],
+    // dataFilters = [],
 
-    data = [],
-    dataKeyName,
-    dataKeyTo,
+    // data = [],
+    // dataKeyName,
 
+    // dataKeyTo,
 }) => {
     const [text, setText] = useState('');
+    const [searchResult, setSearchResult] = useState([]);
     const [isFocused, setIsFocused] = useState(false);
+    const [addresses, setAddresses] = useState([]);
+    const [addressSelected, setAddressSelected] = useState();
+    const debouncedValue = useDebounce(text, 500);
 
     useEffect(() => {
         window.onclick = (e) => {
@@ -28,7 +35,32 @@ const Search = ({
                 setIsFocused(false);
             }
         };
+        if (filterSearch) {
+            (async function fetchApi() {
+                const item = await getAllAddresses();
+                if (!item.errorStatus) {
+                    setAddresses(item.data);
+                    setAddressSelected(item.data[0].name);
+                }
+            })();
+        }
     }, []);
+
+    useEffect(() => {
+        if (!debouncedValue.trim()) {
+            setSearchResult([]);
+            return;
+        }
+
+        const fetchApi = async () => {
+            const result = await searchService.any({
+                searchData: debouncedValue,
+                filter: addressSelected,
+            });
+            setSearchResult(result);
+        };
+        fetchApi();
+    }, [debouncedValue]);
 
     const handleSearch = (data) => {
         setText(data.target.value);
@@ -41,9 +73,7 @@ const Search = ({
     return (
         <div
             style={{ width: width || filterSearch ? 625 : 500 }}
-
             className="relative max-w-[100%]"
-
         >
             <label
                 className=" flex items-center min-w-full w-[100%] relative md:min-w-[0]"
@@ -93,17 +123,19 @@ const Search = ({
                         </span>
                         <select
                             defaultValue=""
-                            className="bg-transparent outline-none grow h-[100%] overflow-hidden w-[65%]"
+                            className="bg-transparent outline-none grow h-[100%] overflow-hidden w-[65%] text-[13.5px]"
+                            onChange={(e) => setAddressSelected(e.target.value)}
                         >
-                            {dataFilters.map((dataFilter, index) => (
-                                <option
-                                    value={dataFilter}
-                                    className="overflow-hidden"
-                                    key={index}
-                                >
-                                    {dataFilter}
-                                </option>
-                            ))}
+                            {addresses.length > 0 &&
+                                addresses.map((dataFilter) => (
+                                    <option
+                                        value={dataFilter.name}
+                                        className="overflow-hidden"
+                                        key={dataFilter._id}
+                                    >
+                                        {dataFilter.name}
+                                    </option>
+                                ))}
                         </select>
                     </div>
                 )}
@@ -115,24 +147,66 @@ const Search = ({
                         width: filterSearch ? 'calc(75% - 10px)' : '100%',
                     }}
                 >
-
                     {text &&
-                        data
-                            .filter((d) =>
-                                d[dataKeyName]
-                                    .toLowerCase()
-                                    .includes(text.toLowerCase()),
-                            )
-                            .map((d, index) => (
-                                <Link
-                                    to={d[dataKeyTo]}
-                                    className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
-                                    key={index}
-                                >
-                                    {d[dataKeyName]}
-                                </Link>
-                            ))}
-
+                        !searchResult.errorStatus &&
+                        searchResult.data?.companyNameData.length > 0 &&
+                        searchResult.data.companyNameData.map((d, index) => (
+                            <Link
+                                to={`/filter-jobs/${d?._id}`}
+                                className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
+                                key={index}
+                            >
+                                {d?.name}
+                            </Link>
+                        ))}
+                    {text &&
+                        !searchResult.errorStatus &&
+                        searchResult.data?.jobCategoriesData.length > 0 &&
+                        searchResult.data.companyNameData.map((d, index) => (
+                            <Link
+                                to={`/list-search-jobs/${d?._id}`}
+                                className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
+                                key={index}
+                            >
+                                {d?.name}
+                            </Link>
+                        ))}
+                    {text &&
+                        !searchResult.errorStatus &&
+                        searchResult.data?.jobLevelData.length > 0 &&
+                        searchResult.data.jobLevelData.map((d, index) => (
+                            <Link
+                                to={`/list-search-jobs/${d?.name}`}
+                                className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
+                                key={index}
+                            >
+                                {d?.name}
+                            </Link>
+                        ))}
+                    {text &&
+                        !searchResult.errorStatus &&
+                        searchResult.data?.jobNameData.length > 0 &&
+                        searchResult.data.jobNameData.map((d, index) => (
+                            <Link
+                                to={`/list-search-jobs/${d?.name}`}
+                                className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
+                                key={index}
+                            >
+                                {d?.name}
+                            </Link>
+                        ))}
+                    {text &&
+                        !searchResult.errorStatus &&
+                        searchResult.data?.jobSalaryData.length > 0 &&
+                        searchResult.data.jobSalaryData.map((d, index) => (
+                            <Link
+                                to={`/list-search-jobs/${d?.name}`}
+                                className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
+                                key={index}
+                            >
+                                {d?.name}
+                            </Link>
+                        ))}
                 </div>
             )}
         </div>

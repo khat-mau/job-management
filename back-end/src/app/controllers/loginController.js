@@ -33,6 +33,7 @@ class loginController {
                     secure: false,
                     path: '/',
                     sameSite: 'strict',
+                    domain: 'localhost:3000',
                 });
                 const { password, ...other } = user._doc;
                 res.status(200).json({

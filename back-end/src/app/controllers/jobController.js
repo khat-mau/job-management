@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const { Job, Company } = require('../models/Company');
 
 class jobController {
@@ -20,6 +21,25 @@ class jobController {
                 errorStatus: true,
                 message: 'Create job failed',
                 e,
+            });
+        }
+    }
+
+    async findByName(req, res) {
+        console.log(req.query);
+        try {
+            const data = await Job.find({
+                name: {
+                    $regex: req.query.name, // search with includes
+                    $options: 'i', // without distinction case
+                },
+            });
+            res.status(200).json({ errorStatus: false, data: { jobs: data } });
+        } catch (e) {
+            res.status(500).json({
+                errorStatus: true,
+                message: 'Find jobs by name failed',
+                'error message': e.message,
             });
         }
     }

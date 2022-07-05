@@ -15,7 +15,7 @@ Token = {
             },
             process.env.JWT_ACCESS_KEY,
             {
-                expiresIn: '30s',
+                expiresIn: '1h',
             },
         );
     },
@@ -34,7 +34,7 @@ Token = {
             },
             process.env.JWT_REFRESH_KEY,
             {
-                expiresIn: '365d',
+                expiresIn: '24h',
             },
         );
     },
