@@ -27,14 +27,33 @@ class companyController {
             let page = req.params.page || 1;
             let listCompany;
             let listCompanyWasFilter;
-            const promises1 = new Promise(resolve => resolve( Company.countDocuments({})));
-            const promises2 = new Promise(resolve => resolve( Company.find().skip((perpage*page)-perpage).limit(perpage)));
-            await Promise.all([promises1, promises2]).then(([result1, result2]) => {listCompany = result1; listCompanyWasFilter = result2;})
-            const toltalPage = listCompany%perpage === 0 ? listCompany/perpage : parseInt(listCompany/ perpage)+1;
-            res.status(200).json({ errorStatus: false,data: {page, toltalPage, listCompanyWasFilter}});
-        }catch (error) {
-            res.status(500).json({ errorStatus: true, message: error.message});
-
+            const promises1 = new Promise((resolve) =>
+                resolve(Company.countDocuments({})),
+            );
+            const promises2 = new Promise((resolve) =>
+                resolve(
+                    Company.find()
+                        .skip(perpage * page - perpage)
+                        .limit(perpage),
+                ),
+            );
+            await Promise.all([promises1, promises2]).then(
+                ([result1, result2]) => {
+                    listCompany = result1;
+                    listCompanyWasFilter = result2;
+                },
+            );
+            const toltalPage =
+                listCompany % perpage === 0
+                    ? listCompany / perpage
+                    : parseInt(listCompany / perpage) + 1;
+            res.status(200).json({
+                errorStatus: false,
+                data: { page, toltalPage, listCompanyWasFilter },
+            });
+        } catch (error) {
+            res.status(500).json({ errorStatus: true, message: error.message });
+        }
     }
 }
 

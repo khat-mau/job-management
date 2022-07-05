@@ -26,7 +26,6 @@ class jobController {
     }
 
     async findByName(req, res) {
-        console.log(req.query);
         try {
             const data = await Job.find({
                 name: {
@@ -45,7 +44,6 @@ class jobController {
     }
 
     async findByNameAndFilter(req, res) {
-        console.log(req.query);
         try {
             const data = await Job.find({
                 name: {
