@@ -25,10 +25,23 @@ class jobController {
         }
     }
 
-    async showInCompany(req, res) {
+    async findByName(req, res) {
+        console.log(req.query);
         try {
-            res.status(200).json({ data: '1234' });
-        } catch (e) {}
+            const data = await Job.find({
+                name: {
+                    $regex: req.query.name, // search with includes
+                    $options: 'i', // without distinction case
+                },
+            });
+            res.status(200).json({ errorStatus: false, data: { jobs: data } });
+        } catch (e) {
+            res.status(500).json({
+                errorStatus: true,
+                message: 'Find jobs by name failed',
+                'error message': e.message,
+            });
+        }
     }
 }
 

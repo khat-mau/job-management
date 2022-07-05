@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const jobController = require('../app/controllers/jobController');
 
-router.post('/create', jobController.create);
-router.post('/company/jobs/', jobController.showInCompany);
+router.post('/job/create', jobController.create);
+router.get('/find-name', jobController.findByName);
 
 module.exports = router;

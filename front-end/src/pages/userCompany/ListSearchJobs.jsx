@@ -1,6 +1,5 @@
 import Wrapper from '../../components/layout/defaultLayout/wrapper/Wrapper';
 import Search from '../../components/search/Search';
-import Button from '../../components/button/Button';
 import { BiDollar } from 'react-icons/bi';
 import { HiLocationMarker } from 'react-icons/hi';
 import { FaHourglassHalf } from 'react-icons/fa';
@@ -9,8 +8,8 @@ import { MdOutlineReportGmailerrorred } from 'react-icons/md';
 import { Link, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { listjobsCompany } from '../../api/getListJobsCompany';
 import { useSelector } from 'react-redux';
+import { findJobsByName } from '../../api/jobServices';
 
 const latestjob = [
     {
@@ -67,32 +66,38 @@ const latestjob2 = [
         href: '#',
     },
 ];
-const FilterCompany = () => {
-    const [data, setData] = useState({});
+const ListSearchJobs = () => {
+    const [data, setData] = useState();
     const user = useSelector((state) => state.auth.login.currentUser);
-    const { companyId } = useParams(); // take a id of company here.
+    const { params } = useParams(); // take a id of company here.
 
     useEffect(() => {
-        async function fetch() {
-            const result = await listjobsCompany('12345');
-            setData(result);
-        }
-        fetch();
+        (async function fetch() {
+            const result = await findJobsByName({ name: params });
+            if (!result?.errorStatus) {
+                setData(result.data.jobs);
+            }
+        })();
     }, []);
-
+    console.log(data);
     return (
         <Wrapper className="px-[10px] md:px-0" content="">
-            <h1 className="font-bold text-[20px] md:text-[30px] px-[auto] md:px-[55px] py-[20px]">
-                Company: {data.data}
-                {companyId}
-            </h1>
+            {data ? (
+                <h1 className="px-[55px] py-[20px] text-[24px] font-medium">
+                    <span className="text-[#FF79C6]">'{params}'</span> jobs in
+                    Vietnam
+                </h1>
+            ) : (
+                <h1 className="px-[55px] py-[20px] text-[24px] font-medium">
+                    The job you're looking for does not exist
+                </h1>
+            )}
             <div className=" flex flex-row w-full md:w-[75%] px-[auto] md:px-[55px] py-[20px]">
                 <Search
                     dataFilters={[]}
                     placeholder="Search name job or categories"
                     width
                 />
-                <Button className="h-[50px]"> Search </Button>
             </div>
 
             <div className="flex w-full h-[100px] px-[auto] md:px-[55px] py-[10px] font-bold">
@@ -268,4 +273,4 @@ const FilterCompany = () => {
         </Wrapper>
     );
 };
-export default FilterCompany;
+export default ListSearchJobs;
