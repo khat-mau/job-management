@@ -19,3 +19,13 @@ export const findJobsByName = async (q) => {
         return e?.response.data;
     }
 };
+
+export const findJobsByNameAndFilter = async (q) => {
+    try {
+        const res = await httpRequest.get('jobs/find-name/filter', q);
+        return res;
+    } catch (e) {
+        console.log(e);
+        return e?.response.data;
+    }
+};

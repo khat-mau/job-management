@@ -27,6 +27,7 @@ const publicRoutes = [
     { path: '/list-wasdeleted', component: ListCompanyWasDeleted },
     { path: '/filter-jobs/:companyId', component: FilterCompany },
     { path: '/list-search-jobs/:params', component: ListSearchJobs },
+    { path: '/list-search-jobs/:name/:filter', component: ListSearchJobs },
     { path: '/ban', component: Ban },
     { path: '/', component: Home },
     {

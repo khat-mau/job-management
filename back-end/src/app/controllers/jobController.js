@@ -43,6 +43,29 @@ class jobController {
             });
         }
     }
+
+    async findByNameAndFilter(req, res) {
+        console.log(req.query);
+        try {
+            const data = await Job.find({
+                name: {
+                    $regex: req.query.name, // search with includes
+                    $options: 'i', // without distinction case
+                },
+                location: {
+                    $regex: req.query.filter, // search with includes
+                    $options: 'i', // without distinction case
+                },
+            });
+            res.status(200).json({ errorStatus: false, data: { jobs: data } });
+        } catch (e) {
+            res.status(500).json({
+                errorStatus: true,
+                message: 'Find jobs by name failed',
+                'error message': e.message,
+            });
+        }
+    }
 }
 
 module.exports = new jobController();
