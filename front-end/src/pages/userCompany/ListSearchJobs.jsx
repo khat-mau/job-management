@@ -9,7 +9,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { findJobsByName } from '../../api/jobServices';
+import { findJobsByName, findJobsByNameAndFilter } from '../../api/jobServices';
 
 const latestjob = [
     {
@@ -69,23 +69,34 @@ const latestjob2 = [
 const ListSearchJobs = () => {
     const [data, setData] = useState();
     const user = useSelector((state) => state.auth.login.currentUser);
-    const { params } = useParams(); // take a id of company here.
+    const params = useParams(); // take a id of company here.
 
     useEffect(() => {
         (async function fetch() {
-            const result = await findJobsByName({ name: params });
-            if (!result?.errorStatus) {
-                setData(result.data.jobs);
+            if (params.filter) {
+                const result = await findJobsByNameAndFilter({
+                    name: params.name,
+                    filter: params.filter,
+                });
+                if (!result?.errorStatus) {
+                    setData(result.data.jobs);
+                }
+            } else {
+                const result = await findJobsByName({ name: params.name });
+                if (!result?.errorStatus) {
+                    setData(result.data.jobs);
+                }
             }
+            console.log(params);
         })();
     }, []);
-    console.log(data);
+
     return (
         <Wrapper className="px-[10px] md:px-0" content="">
             {data ? (
                 <h1 className="px-[55px] py-[20px] text-[24px] font-medium">
-                    <span className="text-[#FF79C6]">'{params}'</span> jobs in
-                    Vietnam
+                    <span className="text-[#FF79C6]">'{params.name}'</span> jobs
+                    in Vietnam
                 </h1>
             ) : (
                 <h1 className="px-[55px] py-[20px] text-[24px] font-medium">
