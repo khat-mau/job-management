@@ -15,7 +15,9 @@ import ViewCandidate from '../pages/viewCandidate/ViewCandidate';
 import ListCompanyWasDeleted from '../pages/listCompanyWasDeleted/ListCompanyWasDeleted';
 import FilterCompany from '../pages/userCompany/FilterCompany';
 import ListSearchJobs from '../pages/userCompany/ListSearchJobs';
+
 import { admin, user } from './role';
+import AddCompany from '../pages/userCompany/AddCompany';
 
 const publicRoutes = [
     { path: '/request-all', component: RequestAll },
@@ -28,6 +30,7 @@ const publicRoutes = [
     { path: '/filter-jobs/:companyId', component: FilterCompany },
     { path: '/list-search-jobs/:params', component: ListSearchJobs },
     { path: '/list-search-jobs/:name/:filter', component: ListSearchJobs },
+
     { path: '/ban', component: Ban },
     { path: '/', component: Home },
     {
