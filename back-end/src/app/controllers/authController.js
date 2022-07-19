@@ -108,6 +108,14 @@ class registerController {
             res.status(500).json({ e });
         }
     }
+
+    async forgotPassword(req, res, next) {
+        try {
+            
+        } catch (e) { res.status(500).json({ e }); }
+    }
+
+    
 }
 
 module.exports = new registerController();
