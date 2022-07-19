@@ -25,7 +25,6 @@ class jobController {
         }
     }
 
-<<<<<<< HEAD
     async findByName(req, res) {
         try {
             const data = await Job.find({
@@ -62,7 +61,9 @@ class jobController {
                 errorStatus: true,
                 message: 'Find jobs by name failed',
                 'error message': e.message,
-=======
+            });
+        }
+    }
     async listJob(req, res) {
         try {
             let perpage = 6;
@@ -79,7 +80,6 @@ class jobController {
                 errorStatus: true,
                 message: 'find job failed',
                 e,
->>>>>>> d4ce99322560bf7e983d193b5ebdb4a34ebcfffe
             });
         }
     }
