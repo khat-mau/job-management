@@ -5,6 +5,7 @@ class companyController {
         try {
             const data = { ...req.body };
             data.status = 'hide';
+            console.log(data.photo);
             const newCompany = new Company(req.body);
             const savedCompany = await newCompany.save();
             res.status(200).json({

@@ -37,6 +37,8 @@ function App() {
                                     <Layout>
                                         <Page />
                                     </Layout>
+                                ) : user ? (
+                                    <></>
                                 ) : (
                                     <Auth />
                                 )

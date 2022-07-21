@@ -4,13 +4,14 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { useState } from 'react';
 import Button from '../../components/button/Button';
 import './style.css';
-import axios from 'axios';
+import { createCompany } from '../../api/companyServices';
 
 const CreateCompany = () => {
     const [description, setDescription] = useState('');
     const [fileInputState, setFileInputState] = useState('');
     const [selectedFile, setSelectedFile] = useState();
     const [previewSource, setPreviewSource] = useState('');
+    const [nameCompany, setNameCompany] = useState('');
 
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
@@ -29,35 +30,15 @@ const CreateCompany = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!selectedFile) return;
-        console.log(selectedFile);
-        var formData = new FormData();
-        formData.append('file', selectedFile);
-        formData.append('upload_preset', 'rvswxotu');
-        axios({
-            url: 'https://api.cloudinary.com/v1_1/dwz7hut39/upload',
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            data: formData,
-        }).then((res) => {
-            console.log(res.data.secure_url);
-        });
-    };
 
-    const uploadImage = async (base64EncodedImage) => {
-        try {
-            await fetch('http://localhost:8000/api/upload/image/', {
-                method: 'POST',
-                body: JSON.stringify({ data: base64EncodedImage }),
-                headers: { 'Content-Type': 'application/json' },
+        if (!selectedFile) return;
+        (async function () {
+            const result = await createCompany({
+                name: nameCompany,
+                description: description,
+                photo: previewSource,
             });
-            setFileInputState('');
-            setPreviewSource('');
-        } catch (err) {
-            console.error(err);
-        }
+        })();
     };
 
     return (
@@ -74,6 +55,9 @@ const CreateCompany = () => {
                     <input
                         className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
                         placeholder="Your Name"
+                        onChange={(e) => {
+                            setNameCompany(e.target.value);
+                        }}
                     />
                 </label>
                 <div className="mt-[20px]">
@@ -87,6 +71,12 @@ const CreateCompany = () => {
                         onChange={(event, editor) => {
                             const data = editor.getData();
                             setDescription(data);
+                        }}
+                        config={{
+                            ckfinder: {
+                                uploadUrl:
+                                    'http://localhost:8000/api/upload/image',
+                            },
                         }}
                     />
                 </div>
