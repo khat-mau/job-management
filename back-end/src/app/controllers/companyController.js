@@ -1,4 +1,4 @@
-const { Company } = require('../models/Company');
+const { Company, Job } = require('../models/Company');
 
 class companyController {
     async create(req, res) {
@@ -55,6 +55,14 @@ class companyController {
             res.status(500).json({ errorStatus: true, message: error.message });
         }
     }
-}
 
+    async listJobFromCompany(req, res) {
+        try {
+            const listJobInCompany = await Job.find({company: req.params.id});// truyền companyID
+            res.status(200).json({ errorStatus: false, data: listJobInCompany, });
+        } catch (e) {
+            res.status(500).json({ errorStatus: true, message: 'find job failed', e });
+        }
+    }
+}
 module.exports = new companyController();

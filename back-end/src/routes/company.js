@@ -6,4 +6,6 @@ router.post('/company/create', companyController.create);
 // router.post('/company/jobs/', companyController.showInCompany);
 
 router.get('/list/:page', companyController.listCompany);
+
+router.get('/jobs/:id', companyController.listJobFromCompany);
 module.exports = router;
