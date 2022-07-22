@@ -25,7 +25,6 @@ const publicRoutes = [
     { path: '/reset-password', component: ResetPassword },
     { path: '/new-password', component: NewPassword },
     { path: '/own-infor', component: OwnInfor },
-    { path: '/list-company', component: ListCompany },
     { path: '/list-wasdeleted', component: ListCompanyWasDeleted },
     { path: '/filter-jobs/:companyId', component: FilterCompany },
     { path: '/list-search-jobs/:params', component: ListSearchJobs },
@@ -42,6 +41,11 @@ const publicRoutes = [
 ];
 
 const privateRoutes = [
+    {
+        path: '/list-company',
+        component: ListCompany,
+        acceptAccess: [admin, user],
+    },
     { path: '/detail', component: Detail, acceptAccess: [admin, user] },
 ];
 

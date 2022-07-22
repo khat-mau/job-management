@@ -16,6 +16,10 @@ export const post = async (path, option = {}) => {
     const response = await httpRequest.post(path, option);
     return response.data;
 };
+export const postAttachHeaders = async (path, option1 = {}, option2) => {
+    const response = await httpRequest.post(path, option1, option2);
+    return response.data;
+};
 
 //AUTO REFRESH TOKEN
 //sẽ đc gọi trc khi gửi request

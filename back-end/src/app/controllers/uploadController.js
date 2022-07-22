@@ -10,7 +10,7 @@ class uploadController {
                     upload_preset: 'rvswxotu',
                 },
             );
-            console.log(uploadResponse);
+            //console.log(uploadResponse);
             fs.unlink(req.files.upload.path, function (err) {
                 if (err) throw err;
                 // if no error, file has been deleted successfully
