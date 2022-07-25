@@ -1,5 +1,10 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
+const nodemailer = require("nodemailer");
+const handlebars = require("handlebars");
+const hbs = require('nodemailer-express-handlebars');
+const path = require('path')
+const Token = require('./token');
 
 class registerController {
     async create(req, res) {
@@ -20,13 +25,13 @@ class registerController {
                 dataError.errorMessage = dataError.errorMessage
                     ? typeof dataError.errorMessage === 'object'
                         ? [
-                              ...dataError.errorMessage,
-                              'password and confirm password do not match',
-                          ]
+                            ...dataError.errorMessage,
+                            'password and confirm password do not match',
+                        ]
                         : [
-                              dataError.errorMessage,
-                              'password and confirm password do not match',
-                          ]
+                            dataError.errorMessage,
+                            'password and confirm password do not match',
+                        ]
                     : 'password and confirm password do not match';
             }
             const data = { ...req.body };
@@ -46,13 +51,13 @@ class registerController {
                 dataError.errorMessage = dataError.errorMessage
                     ? typeof dataError.errorMessage === 'object'
                         ? [
-                              ...dataError.errorMessage,
-                              'password not in [6,20] characters',
-                          ]
+                            ...dataError.errorMessage,
+                            'password not in [6,20] characters',
+                        ]
                         : [
-                              dataError.errorMessage,
-                              'password not in [6,20] characters',
-                          ]
+                            dataError.errorMessage,
+                            'password not in [6,20] characters',
+                        ]
                     : 'password not in [6,20] characters';
             }
 
@@ -64,13 +69,13 @@ class registerController {
                 dataError.errorMessage = dataError.errorMessage
                     ? typeof dataError.errorMessage === 'object'
                         ? [
-                              ...dataError.errorMessage,
-                              'this username is already in use',
-                          ]
+                            ...dataError.errorMessage,
+                            'this username is already in use',
+                        ]
                         : [
-                              dataError.errorMessage,
-                              'this username is already in use',
-                          ]
+                            dataError.errorMessage,
+                            'this username is already in use',
+                        ]
                     : 'this username is already in use';
             }
             if (email) {
@@ -78,9 +83,9 @@ class registerController {
                 dataError.errorMessage = dataError.errorMessage
                     ? typeof dataError.errorMessage === 'object'
                         ? [
-                              ...dataError.errorMessage,
-                              'this email is already in',
-                          ]
+                            ...dataError.errorMessage,
+                            'this email is already in',
+                        ]
                         : [dataError.errorMessage, 'this email is already in']
                     : 'this email is already in';
             }
@@ -109,13 +114,100 @@ class registerController {
         }
     }
 
-    async forgotPassword(req, res, next) {
+    async sendMail(req, res) {
         try {
-            
-        } catch (e) { res.status(500).json({ e }); }
+            // setup mailOptions to send email user
+            const __dirname = path.resolve();
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: "jobsharingvn24h@gmail.com", // generated ethereal user
+                    pass: "ssddkctvgkszhvzb", // generated ethereal password
+                }
+            });
+
+            // connect to handlebars
+            const handlebarOptions = {
+                viewEngine: {
+                    extName: ".handlebars",
+                    partialsDir: path.resolve('./src/views/'),
+                    defaultLayout: false,
+                },
+                viewPath: path.resolve('./src/views/'),
+                extName: ".handlebars",
+            };
+            transporter.use('compile', hbs(handlebarOptions));
+
+            // nhập email
+            let emails, accessToken;
+            const checkEmail = await User.findOne({ email: req.body.emails })
+                .then(user => {
+                    if (!user) {
+                        return res.status(422).json({ error: "User dont exists with that email" })
+                    }
+                    accessToken = Token.generateAccessTokenEmail(req.body.emails);
+                    user.resetToken = accessToken
+                    user.expireToken = Date.now() + 3600000
+                    user.save().then((result) => {
+                        emails = req.body.emails;
+                        // gui email
+                        const mailOptions = {
+                            from: 'jobsharingvn24h@gmail.com',
+                            to: emails,
+                            subject: 'Test boilerplate for sending emails',
+                            template: 'sample',
+                            context: {
+                                forgotPasswordURL: "http://localhost:8000/api/resetPassword/" + accessToken
+                            }
+                        }
+                        transporter.sendMail(mailOptions, (err, info) => {
+                            if (err) {
+                                console.log(err.message);
+                                res.status(404).json({ errorStatus: false, message: err.message });
+                            } else {
+                                res.status(200).json({ errorStatus: false, message: 'Email sent ' + emails, accessToken: accessToken });
+                                console.log(emails);
+                            }
+                        })
+                        console.log(emails);
+                    });
+                });
+
+        } catch (e) { res.status(500).json({ errorStatus: true, err: e.message }); }
     }
 
-    
+    async resetPassword(req, res) {
+        try {
+            const newPassword = req.body.password;
+            const confirmNewPassword = req.body.confirmPassword;
+            const sentToken = req.params.token;
+            if (newPassword === confirmNewPassword) {
+                User.findOne({ resetToken: sentToken, expireToken: { $gt: Date.now() } })
+                    .then(user => {
+                        if (!user) {
+                            return res.status(422).json({ error: "Try again session expired" })
+                        }
+                        bcrypt.hash(newPassword, 12).then(hashedpassword => {
+                            user.password = hashedpassword
+                            user.resetToken = undefined
+                            user.expireToken = undefined
+                            user.save().then((saveduser) => {
+                                res.status(200).json({ errorStatus: false, message: "password updated success" })
+                            })
+                        })
+                    }).catch(err => {
+                        console.log(err)
+                        res.status(500).json({ errorStatus: true, err: e.message });
+                    })
+            }
+            else if (newPassword != confirmNewPassword) {
+                res.status(404).json({ errorStatus: false, message: "password and confirmNewPassword are not the same" })
+            }
+        } catch (e) { res.status(500).json({ errorStatus: true, err: e.message }); }
+
+
+    }
+
 }
 
 module.exports = new registerController();

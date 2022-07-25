@@ -83,26 +83,6 @@ class jobController {
             });
         }
     }
-
-    async listJobFromCompany(req, res) {
-        try {
-            let company = req.params.company;// truyền tên công ty
-            let perpage = 6;
-            let page = req.params.page || 1;// truyền số trang
-            let listJob;
-            let listJobWasFilter;
-            const promises1 = new Promise(resolve => resolve(Job.countDocuments({})));
-            const promises2 = new Promise(resolve => resolve(
-                                            Company
-                                             .find(company).populate({path :'jobs', options: { limit: perpage, skip: (perpage * page) - perpage}})
-                                        ));
-            await Promise.all([promises1, promises2]).then(([result1, result2]) => { listJob = result1; listJobWasFilter = result2; });
-            const toltalPage = listJob % perpage === 0 ? listJob / perpage : parseInt(listJob / perpage) + 1; // thông tin tổng số page
-            res.status(200).json({ errorStatus: false, data: { page, toltalPage, listJobWasFilter } });
-        }catch (e) {
-            res.status(500).json({ errorStatus: true,message: 'find job failed',e,});
-        }
-    }
 }
 
 module.exports = new jobController();

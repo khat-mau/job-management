@@ -58,7 +58,8 @@ class companyController {
 
     async listJobFromCompany(req, res) {
         try {
-            const listJobInCompany = await Job.find({company: req.params.id});// truyền companyID
+            // truyền companyID
+            const listJobInCompany = await Job.find({company: req.params.id}).populate({path: 'company', select: ['name']});
             res.status(200).json({ errorStatus: false, data: listJobInCompany, });
         } catch (e) {
             res.status(500).json({ errorStatus: true, message: 'find job failed', e });
