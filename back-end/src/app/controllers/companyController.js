@@ -65,5 +65,15 @@ class companyController {
             res.status(500).json({ errorStatus: true, message: 'find job failed', e });
         }
     }
+
+    async deleteCompany(req, res) {
+        try {
+            const companyID = req.body.companyID;
+            const userID = req.body.userID;
+            
+        }catch (e) {
+            res.status(500).json({ errorStatus: true, message: 'failed: '+ e.message });
+        }
+    }
 }
 module.exports = new companyController();

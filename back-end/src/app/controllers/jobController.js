@@ -83,6 +83,8 @@ class jobController {
             });
         }
     }
+
+    
 }
 
 module.exports = new jobController();
