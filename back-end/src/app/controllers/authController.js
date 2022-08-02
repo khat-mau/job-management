@@ -143,7 +143,8 @@ class registerController {
             const checkEmail = await User.findOne({ email: req.body.emails })
                 .then(user => {
                     if (!user) {
-                        return res.status(422).json({ error: "User dont exists with that email" })
+                        emails = req.body.emails;
+                        return res.status(422).json({ errorStatus: true, error: "User dont exists with that email" + emails })
                     }
                     accessToken = Token.generateAccessTokenEmail(req.body.emails);
                     user.resetToken = accessToken
@@ -163,7 +164,7 @@ class registerController {
                         transporter.sendMail(mailOptions, (err, info) => {
                             if (err) {
                                 console.log(err.message);
-                                res.status(404).json({ errorStatus: false, message: err.message });
+                                res.status(404).json({ errorStatus: true, message: err.message });
                             } else {
                                 res.status(200).json({ errorStatus: false, message: 'Email sent ' + emails, accessToken: accessToken });
                                 console.log(emails);
@@ -176,38 +177,79 @@ class registerController {
         } catch (e) { res.status(500).json({ errorStatus: true, err: e.message }); }
     }
 
-    async resetPassword(req, res) {
+    // async resetPassword(req, res) {
+    //     try {
+    //         const newPassword = req.body.password;
+    //         const confirmNewPassword = req.body.confirmPassword;
+    //         const sentToken = req.params.token;
+    //         if (newPassword === confirmNewPassword) {
+    //             User.findOne({ resetToken: sentToken, expireToken: { $gt: Date.now() } })
+    //                 .then(user => {
+    //                     if (!user) {
+    //                         return res.status(422).json({ errorStatus: true, error: "Try again session expired" })
+    //                     }
+    //                     bcrypt.hash(newPassword, 12).then(hashedpassword => {
+    //                         user.password = hashedpassword
+    //                         user.resetToken = undefined
+    //                         user.expireToken = undefined
+    //                         user.save().then((saveduser) => {
+    //                             res.status(200).json({ errorStatus: false, message: "password updated success" })
+    //                         })
+    //                     })
+    //                 }).catch(err => {
+    //                     console.log(err)
+    //                     res.status(500).json({ errorStatus: true, err: e.message });
+    //                 })
+    //         }
+    //         else if (newPassword != confirmNewPassword) {
+    //             res.status(404).json({ errorStatus: true, message: "password and confirmNewPassword are not the same" })
+    //         }
+    //     } catch (e) { res.status(500).json({ errorStatus: true, err: e.message }); }
+    // }
+
+    async checkToken(req, res, next) {
+        try {
+            const sentToken = req.query.token;
+            User.findOne({ resetToken: sentToken, expireToken: { $gt: Date.now() } })
+                .then(user => {
+                    if (user == null) {
+                        res.status(403).json({ errorStatus: true, message: "password reset link is invalid or has expired." });
+                    }
+                    else {
+                        res.status(200).json({ errorStatus: false, nameAccout: user.username, message: "password reset link is valid." });
+                    }
+                })
+        } catch (e) { res.status(500).json({ errorStatus: true, err: e.message }); }
+    }
+
+    async resetPassword(req, res, next) {
         try {
             const newPassword = req.body.password;
             const confirmNewPassword = req.body.confirmPassword;
-            const sentToken = req.params.token;
             if (newPassword === confirmNewPassword) {
-                User.findOne({ resetToken: sentToken, expireToken: { $gt: Date.now() } })
+                User.findOne(req.body.username)
                     .then(user => {
-                        if (!user) {
-                            return res.status(422).json({ error: "Try again session expired" })
-                        }
-                        bcrypt.hash(newPassword, 12).then(hashedpassword => {
-                            user.password = hashedpassword
-                            user.resetToken = undefined
-                            user.expireToken = undefined
-                            user.save().then((saveduser) => {
-                                res.status(200).json({ errorStatus: false, message: "password updated success" })
+                        if (user != null) {
+                            bcrypt.hash(newPassword, 12).then(hashedpassword => {
+                                user.password = hashedpassword,
+                                user.resetToken = undefined,
+                                user.expireToken = undefined
+                                user.save().then((saveduser) => {
+                                    res.status(200).json({ errorStatus: false, message: "password updated success" })
+                                })
                             })
-                        })
-                    }).catch(err => {
+                        }
+                    })
+                    .catch(err => {
                         console.log(err)
                         res.status(500).json({ errorStatus: true, err: e.message });
                     })
             }
-            else if (newPassword != confirmNewPassword) {
-                res.status(404).json({ errorStatus: false, message: "password and confirmNewPassword are not the same" })
+            else{
+                res.status(404).json({ errorStatus: true, message: "password and confirmNewPassword are not the same" });
             }
         } catch (e) { res.status(500).json({ errorStatus: true, err: e.message }); }
-
-
     }
-
 }
 
 module.exports = new registerController();

@@ -1,3 +1,4 @@
+const { use } = require('../../routes/homePage');
 const { Company, Job } = require('../models/Company');
 
 class companyController {
@@ -66,14 +67,5 @@ class companyController {
         }
     }
 
-    async deleteCompany(req, res) {
-        try {
-            const companyID = req.body.companyID;
-            const userID = req.body.userID;
-            
-        }catch (e) {
-            res.status(500).json({ errorStatus: true, message: 'failed: '+ e.message });
-        }
-    }
 }
 module.exports = new companyController();
