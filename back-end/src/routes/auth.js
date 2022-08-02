@@ -10,8 +10,8 @@ router.post('/login', loginController.login);
 router.post('/logout', logoutController.logout);
 router.get('/refresh', refreshTokenController.requestRefreshToken);
 router.post('/sendEmail', authController.sendMail);
-router.get('/resetPassword', authController.checkToken);
-router.put('/updatePasswordViaEmail', authController.resetPassword);
+router.get('/resetPassword/:token', authController.checkToken);
+router.post('/updatePasswordViaEmail/:token', authController.resetPassword);
 //router.post('/resetPassword/:token', authController.resetPassword);
 
 

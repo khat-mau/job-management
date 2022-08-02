@@ -5,6 +5,7 @@ const handlebars = require("handlebars");
 const hbs = require('nodemailer-express-handlebars');
 const path = require('path')
 const Token = require('./token');
+const jwt_decode = require("jwt-decode");
 
 class registerController {
     async create(req, res) {
@@ -149,6 +150,7 @@ class registerController {
                     accessToken = Token.generateAccessTokenEmail(req.body.emails);
                     user.resetToken = accessToken
                     user.expireToken = Date.now() + 3600000
+                    user.isVerifyToken = false
                     user.save().then((result) => {
                         emails = req.body.emails;
                         // gui email
@@ -159,6 +161,7 @@ class registerController {
                             template: 'sample',
                             context: {
                                 forgotPasswordURL: "http://localhost:8000/api/resetPassword/" + accessToken
+
                             }
                         }
                         transporter.sendMail(mailOptions, (err, info) => {
@@ -209,14 +212,17 @@ class registerController {
 
     async checkToken(req, res, next) {
         try {
-            const sentToken = req.query.token;
+            const sentToken = req.params.token;
             User.findOne({ resetToken: sentToken, expireToken: { $gt: Date.now() } })
                 .then(user => {
                     if (user == null) {
                         res.status(403).json({ errorStatus: true, message: "password reset link is invalid or has expired." });
                     }
                     else {
-                        res.status(200).json({ errorStatus: false, nameAccout: user.username, message: "password reset link is valid." });
+                        user.updateOne({ $set: { isVerifyToken: true } })
+                            .then(result => {
+                                res.sendFile(path.join(__dirname + '/index.html'), sentToken);
+                            })
                     }
                 })
         } catch (e) { res.status(500).json({ errorStatus: true, err: e.message }); }
@@ -224,16 +230,20 @@ class registerController {
 
     async resetPassword(req, res, next) {
         try {
+
+            const token = req.params.token;
+            const email = jwt_decode(token).email;
             const newPassword = req.body.password;
             const confirmNewPassword = req.body.confirmPassword;
             if (newPassword === confirmNewPassword) {
-                User.findOne(req.body.username)
+                User.findOne({ resetToken: token, expireToken: { $gt: Date.now()}, isVerifyToken: true })
                     .then(user => {
                         if (user != null) {
                             bcrypt.hash(newPassword, 12).then(hashedpassword => {
                                 user.password = hashedpassword,
-                                user.resetToken = undefined,
-                                user.expireToken = undefined
+                                    user.resetToken = undefined,
+                                    user.expireToken = undefined,
+                                    user.isVerifyToken = undefined,
                                 user.save().then((saveduser) => {
                                     res.status(200).json({ errorStatus: false, message: "password updated success" })
                                 })
@@ -245,7 +255,7 @@ class registerController {
                         res.status(500).json({ errorStatus: true, err: e.message });
                     })
             }
-            else{
+            else {
                 res.status(404).json({ errorStatus: true, message: "password and confirmNewPassword are not the same" });
             }
         } catch (e) { res.status(500).json({ errorStatus: true, err: e.message }); }

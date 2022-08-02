@@ -47,6 +47,7 @@ const user = new mongoose.Schema({
 
     resetToken:String,
     expireToken:Date,
+    isVerifyToken:Boolean,
 });
 
 module.exports = mongoose.model('User', user);

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>reset password:</h1>
+    <form id="reset-password" method="POST">
+        Password<input type="password" name="password" required="" placeholder="password" /></br>
+        Confirm Password<input type="password" name="confirmPassword" required="" placeholder="password" /></br>
+        <input type="submit" name="action" value="Reset Password" />
+        <input type="reset" value="Reset" />
+        
+    </form>
+    <script>
+        
+        const routes = window.location.href;
+        let token = routes[routes.length - 1];
+        for(let a = routes.length - 2; routes[a] !== "/"; a--){
+            token += routes[a];
+        }
+        console.log(token.split('').reverse().toString().replace(/,/g, ''));
+
+        document.getElementById("reset-password").action = "/api/updatePasswordViaEmail/" + token.split('').reverse().toString().replace(/,/g, '');
+
+    </script>
+</body>
+
+</html>
