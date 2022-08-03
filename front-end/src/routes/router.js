@@ -27,11 +27,16 @@ const publicRoutes = [
     { path: '/own-infor', component: OwnInfor },
     { path: '/list-wasdeleted', component: ListCompanyWasDeleted },
     { path: '/filter-jobs/:companyId', component: FilterCompany },
+    { path: '/admin-company', component: AdminCompany },
+    { path: '/user-recruitment', component: UserRecruitment },
+    { path: '/add-company', component: AddCompany },
+
     { path: '/list-search-jobs/:name/:filter', component: ListSearchJobs },
     { path: '/list-search-jobs/:params', component: ListSearchJobs },
 
     { path: '/ban', component: Ban },
     { path: '/', component: Home },
+    { path: '/detail/:jobId', component: Detail},
     { path: '/*', component: Error, layout: null },
 ];
 
