@@ -116,8 +116,17 @@ class registerController {
 
     async listUsers(req, res){
         try {
-            const user = await User.find();
-            res.status(200).json({ user: user });
+            let perpage = 6;
+            let page = req.params.page || 1;
+            let listUsers;
+            let listUsersWasFilter;
+            const promises1 = new Promise(resolve => resolve(User.countDocuments({})));
+            const promises2 = new Promise(resolve => resolve(User.find().skip((perpage * page) - perpage).limit(perpage)));
+            await Promise.all([promises1, promises2]).then(([result1, result2]) => { listUsers = result1; listUsersWasFilter = result2; });
+            const toltalPage = listUsers % perpage === 0 ? listUsers / perpage : parseInt(listUsers / perpage) + 1;
+            res.status(200).json({ errorStatus: false, data: { page, toltalPage, listUsersWasFilter } });
+            // const user = await User.find();
+            // res.status(200).json({ user: user });
         } catch (e) { res.status(500).json({ errorStatus: true, err: e.message }); }
         
     }
