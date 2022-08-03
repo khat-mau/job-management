@@ -6,7 +6,6 @@ const hbs = require('nodemailer-express-handlebars');
 const path = require('path')
 const Token = require('./token');
 const jwt_decode = require("jwt-decode");
-
 class registerController {
     async create(req, res) {
         try {
@@ -115,6 +114,14 @@ class registerController {
         }
     }
 
+    async listUsers(req, res){
+        try {
+            const user = await User.find();
+            res.status(200).json({ user: user });
+        } catch (e) { res.status(500).json({ errorStatus: true, err: e.message }); }
+        
+    }
+
     async sendMail(req, res) {
         try {
             // setup mailOptions to send email user
@@ -179,36 +186,6 @@ class registerController {
 
         } catch (e) { res.status(500).json({ errorStatus: true, err: e.message }); }
     }
-
-    // async resetPassword(req, res) {
-    //     try {
-    //         const newPassword = req.body.password;
-    //         const confirmNewPassword = req.body.confirmPassword;
-    //         const sentToken = req.params.token;
-    //         if (newPassword === confirmNewPassword) {
-    //             User.findOne({ resetToken: sentToken, expireToken: { $gt: Date.now() } })
-    //                 .then(user => {
-    //                     if (!user) {
-    //                         return res.status(422).json({ errorStatus: true, error: "Try again session expired" })
-    //                     }
-    //                     bcrypt.hash(newPassword, 12).then(hashedpassword => {
-    //                         user.password = hashedpassword
-    //                         user.resetToken = undefined
-    //                         user.expireToken = undefined
-    //                         user.save().then((saveduser) => {
-    //                             res.status(200).json({ errorStatus: false, message: "password updated success" })
-    //                         })
-    //                     })
-    //                 }).catch(err => {
-    //                     console.log(err)
-    //                     res.status(500).json({ errorStatus: true, err: e.message });
-    //                 })
-    //         }
-    //         else if (newPassword != confirmNewPassword) {
-    //             res.status(404).json({ errorStatus: true, message: "password and confirmNewPassword are not the same" })
-    //         }
-    //     } catch (e) { res.status(500).json({ errorStatus: true, err: e.message }); }
-    // }
 
     async checkToken(req, res, next) {
         try {
