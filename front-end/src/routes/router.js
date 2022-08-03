@@ -37,6 +37,7 @@ const publicRoutes = [
     { path: '/list-search-jobs/:name/:filter', component: ListSearchJobs },
     { path: '/ban', component: Ban },
     { path: '/', component: Home },
+    { path: '/detail/:jobId', component: Detail},
     { path: '/*', component: Error, layout: null },
 ];
 
