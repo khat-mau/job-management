@@ -61,7 +61,7 @@ const companies = [
 ];
 
 
-const UserCompany = () => {
+const AdminCompany = () => {
     return (
         <Wrapper className=""
             content="flex flex-col"
@@ -166,4 +166,4 @@ const UserCompany = () => {
     );
 };
 
-export default UserCompany;
+export default AdminCompany;

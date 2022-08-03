@@ -10,6 +10,16 @@ export const listjobsCompany = async (q) => {
     }
 };
 
+export const listJob = async (q) => {
+    try {
+        const res = await httpRequest.get('jobs/list/'+q);
+        return res;
+    } catch (e) {
+        console.log(e);
+        return e?.response.data;
+    }
+};
+
 export const findJobsByName = async (q) => {
     try {
         const res = await httpRequest.get('jobs/find-name', q);
