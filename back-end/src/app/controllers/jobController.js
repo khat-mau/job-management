@@ -72,6 +72,7 @@ class jobController {
                     $regex: req.query.name, // search with includes
                     $options: 'i', // without distinction case
                 },
+                status:"hide",//
             });
             res.status(200).json({ errorStatus: false, data: { jobs: data } });
         } catch (e) {
@@ -94,6 +95,8 @@ class jobController {
                     $regex: req.query.filter, // search with includes
                     $options: 'i', // without distinction case
                 },
+                status:"hide",//
+
             });
             res.status(200).json({ errorStatus: false, data: { jobs: data } });
         } catch (e) {
@@ -104,6 +107,7 @@ class jobController {
             });
         }
     }
+
 
     async deleteMyJob(req, res) {
         try {
@@ -209,6 +213,43 @@ class jobController {
             });
         }
     }
+
+    async listJob(req, res) {
+        try {
+            let perpage = 6;
+            let page = req.params.page || 1;
+            let listJob;
+            let listJobWasFilter;
+            const promises1 = new Promise(resolve => resolve(Job.countDocuments({})));
+            const promises2 = new Promise(resolve => resolve(Job.find().skip((perpage * page) - perpage).limit(perpage)));
+            await Promise.all([promises1, promises2]).then(([result1, result2]) => { listJob = result1; listJobWasFilter = result2; });
+            const toltalPage = listJob % perpage === 0 ? listJob / perpage : parseInt(listJob / perpage) + 1;
+            res.status(200).json({ errorStatus: false, data: { page, toltalPage, listJobWasFilter } });
+        } catch (e) {
+            res.status(500).json({
+                errorStatus: true,
+                message: 'find job failed',
+                e,
+            });
+        }
+    }
+    async detailJob(req, res) {
+        try {
+            //const userID = req.params.userID;
+            const jobID = req.params.jobID;
+            //const comment = req.body.comment;
+            const job = await Job.findById(jobID);
+            if(job){
+                res.status(200).json({ errorStatus: false, Job: job });
+            }
+            else{
+                req.status(404).json({ errorStatus: true, message: 'can not find job' });
+            }
+        } catch (e) {
+            res.status(500).json({ errorStatus: true, message: 'find job failed: ' + e.message, });
+        }
+    }
+
 }
 
 module.exports = new jobController();

@@ -9,7 +9,9 @@ import { Link, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import * as listJob from '../../api/jobServices';
 import { findJobsByName, findJobsByNameAndFilter } from '../../api/jobServices';
+
 
 const latestjob = [
     {
@@ -67,8 +69,9 @@ const latestjob2 = [
     },
 ];
 const ListSearchJobs = () => {
-    const [data, setData] = useState();
+    const [data, setData] = useState([]);
     const user = useSelector((state) => state.auth.login.currentUser);
+
     const params = useParams(); // take a id of company here.
 
     useEffect(() => {
@@ -89,11 +92,12 @@ const ListSearchJobs = () => {
             }
             console.log(params);
         })();
+
     }, []);
 
     return (
         <Wrapper className="px-[10px] md:px-0" content="">
-            {data ? (
+            {data? (
                 <h1 className="px-[55px] py-[20px] text-[24px] font-medium">
                     <span className="text-[#FF79C6]">'{params.name}'</span> jobs
                     in Vietnam
@@ -112,12 +116,6 @@ const ListSearchJobs = () => {
             </div>
 
             <div className="flex w-full h-[100px] px-[auto] md:px-[55px] py-[10px] font-bold">
-                {/* <select className=" flex justify-between items-center px-[5px] border-2 w-[100px] h-[40px] mr-[10px]"> 
-                <option>Salary</option>
-                <option>Salary</option>
-                <option>Salary</option>
-                <span className="">v</span>
-                 </select> */}
                 <select className=" flex justify-between items-center px-[5px] border-2 w-[100px] h-[40px] mr-[10px]">
                     {filterSalary.map((salary, index) => (
                         <option className="" key={index}>
@@ -147,10 +145,6 @@ const ListSearchJobs = () => {
                         {' '}
                         All
                     </Link>
-                    {/* <a className="text-[20px]  mr-[30px]" href="#"> Jobs by Specialization</a>
-                    <a className="text-[20px]  mr-[30px]" href="#"> Management jobs</a>
-                    <a className="text-[20px] mr-[30px]" href="#"> Part-time</a>
-                    <a className="text-[20px]  mr-[30px]" href="#"> General Labor</a> */}
                     {latestjob.map((latestjob, index) => (
                         <Link
                             className="text-[20px]  mr-[30px]"
@@ -162,62 +156,11 @@ const ListSearchJobs = () => {
                     ))}
                 </div>
             </div>
-            <div className="grid grid-flow-row gap-[50px] my-[50px] grid-cols-1 px-[10px] md:px-[55px]">
-                {/* <div className="font-bold text-[10px] md:text-[20px] border-solid border-2 border-[#999999BF] hover:border-red-600 flex flex-row mx-auto w-[350px] md:w-[1250px]  md:h-[200px] "> 
-                    <div className="pr-[15px] md:pr-0 basis-[30%]"> 
-                    <img
-                        src={images.company}
-                        alt=""
-                        width="275px"
-                        height=""                                                           
-                        />
-                        </div>    
-                        <div className="text-[16px] md:text-[20px] m-auto md:m-[10px] basis-[50%]" > 
-                            <h1 className=""> Technology company</h1>
-                            <h1 className=""> Designer</h1>
-                            <div className="flex justify-between my-[10px] md:my-[20px]">
-                                <div className="flex"> 
-                                <BiDollar className="max-w-[30px] max-h-[30px] mt-[3px]"/>
-                                <span className=""> 10-30 triệu</span>
-                                    </div> 
-                                    <div className="flex mb-auto md:mb-[10px] "> 
-                            <HiLocationMarker className="max-w-[36px] max-h-[30px] mt-[3px]"/>
-                            <h1> TP.HCM</h1>
-                            </div>
-                            <div className="flex"> 
-                            <FaHourglassHalf className="max-w-[36px] max-h-[30px] mt-[3px]"/>
-                            <h1> 24/06/2022</h1>
-                            </div> 
-                            </div>
-                            <div className="flex gap-2 mb-[5px] font-[400]"> 
-                            <div className=" border-2 border-[#999999BF] min-w-[45px] pl-[1px] md:pl-0 "> 
-                                <span className="text-center mx-auto md:mx-[30px]">English </span>
-                            </div>
-                            <div className=" border-2 border-[#999999BF] min-w-[45px] pl-[1px] md:pl-0"> 
-                                <span className="text-center mx-auto md:mx-[30px]">Java </span>
-                            </div>
-                            <div className=" border-2 border-[#999999BF] min-w-[45px] pl-[1px] md:pl-0"> 
-                                <span className="text-center mx-auto md:mx-[30px]">MySQL </span>
-                            </div>
-                            </div>
-                            
-                        </div>
-                        <div className="mx-1 my-[10px] md:my-[30px] basis-[20%]"> 
-                            <div className="flex justify-center bg-[#DC2C56] mb-auto md:mb-[10px] w-[150px] border-2 "> 
-                            <MdOutlineReportGmailerrorred className="max-w-[36px] max-h-[30px] mt-[3px]"/>
-                            <h1 className="pl-[5px]">Report</h1>
-                            </div>
-                            <div className="flex justify-center bg-[#00CE78] mb-auto md:mb-[10px] w-[150px] border-2"> 
-                            <BsSuitHeart className="max-w-[36px] max-h-[30px] mt-[3px]"/>
-                            <h1 className="pl-[5px]"> Follow</h1>
-                            </div>                          
-                        </div>
-
-                    </div> */}
-                {latestjob2.map((job2, index) => (
+            <div className="grid grid-flow-row gap-[50px] my-[50px] grid-cols-1 px-[10px] md:px-[55px]">             
+                {data?.errorStatus===false && data.data.jobs.map((job, index) => (
                     <Link
                         className="font-bold text-[10px] md:text-[20px] border-solid border-2 border-[#f0e3e3e7] hover:border-red-600 flex flex-row justify-center  min-w-[300px] w-full  max-h-[200px]"
-                        to={job2.href}
+                        to={job.href}
                         key={index}
                     >
                         <div
@@ -225,7 +168,7 @@ const ListSearchJobs = () => {
                             style={{ height: '100%' }}
                         >
                             <img
-                                src={job2.src}
+                                src={job.src}
                                 alt=""
                                 width="275px"
                                 style={{ height: '100%' }}
@@ -233,22 +176,22 @@ const ListSearchJobs = () => {
                             />
                         </div>
                         <div className="p-auto md:p-[20px] basis-[50%] md:basis-[55%] pl-[5px]">
-                            <h1 className="">{job2.job}</h1>
-                            <h1 className="">{job2.level}</h1>
+                            <h1 className="">{job.name}</h1>
+                            <h1 className="">{job.level}</h1>
                             <div className="flex justify-between my-[10px] md:my-[20px]">
                                 <div className="flex py-[5px] md:py-0">
                                     <BiDollar className="max-w-[36px] max-h-[30px] mt-[3px]" />
                                     <span className="text-[10px] md:text-[20px]">
-                                        {job2.money}
+                                        {job.salary}
                                     </span>
                                 </div>
                                 <div className="flex py-[5px] md:py-0 ">
                                     <HiLocationMarker className="max-w-[36px] max-h-[30px] mt-[3px]" />
-                                    <h1> {job2.location}</h1>
+                                    <h1> {job.location}</h1>
                                 </div>
                                 <div className="flex py-[5px] md:py-0">
                                     <FaHourglassHalf className="max-w-[36px] max-h-[30px] mt-[3px]" />
-                                    <h1>{job2.date}</h1>
+                                    <h1>{ new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(job.updatedAt))) }</h1>
                                 </div>
                             </div>
 

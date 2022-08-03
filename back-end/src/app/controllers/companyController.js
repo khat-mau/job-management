@@ -1,7 +1,9 @@
+
 const { Company } = require('../models/Company');
 const user = require('../models/User');
 const { cloudinary } = require('../../utils/cloudinary');
 const User = require('../models/User');
+
 class companyController {
     async create(req, res) {
         try {
@@ -95,7 +97,9 @@ class companyController {
         } catch (error) {
             res.status(500).json({ errorStatus: true, message: error.message });
         }
+
     }
+
 
     async listMyCompany(req, res) {
         try {
@@ -218,4 +222,26 @@ class companyController {
     }
 }
 
+
+    async listJobFromCompany(req, res) {
+        try {
+            // truyền companyID
+            const listJobInCompany = await Job.find({company: req.params.id}).populate({path: 'company', select: ['name']});
+            res.status(200).json({ errorStatus: false, data: listJobInCompany, });
+        } catch (e) {
+            res.status(500).json({ errorStatus: true, message: 'find job failed', e });
+        }
+
+    }
+
+    async deleteCompany(req, res) {
+        try {
+            const companyID = req.body.companyID;
+            const userID = req.body.userID;
+            
+        }catch (e) {
+            res.status(500).json({ errorStatus: true, message: 'failed: '+ e.message });
+        }
+    }
+}
 module.exports = new companyController();

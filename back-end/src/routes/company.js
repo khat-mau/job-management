@@ -18,4 +18,6 @@ router.post(
     Token.verifyToken,
     companyController.changeShowHideCompany,
 );
+router.get('/jobs/:id', companyController.listJobFromCompany);
+
 module.exports = router;

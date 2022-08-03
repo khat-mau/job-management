@@ -50,6 +50,12 @@ const user = new mongoose.Schema({
     updatedAt: { type: Date, default: Date.now },
     status: { type: Boolean, default: true },
     role: { type: String, default: 'user' },
+
+    resetToken:String,
+    expireToken:Date,
+    isVerifyToken:Boolean,
 });
 
+
 module.exports = mongoose.model('user', user);
+
