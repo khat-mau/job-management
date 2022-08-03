@@ -69,3 +69,17 @@ export const deleteMyCompany = async (q, accessToken) => {
         return e?.response.data;
     }
 };
+
+export const changeShowHideCompany = async (q, accessToken) => {
+    try {
+        const res = await httpRequest.postAttachHeaders(
+            'companies/company/user-status',
+            q,
+            { headers: { token: `Bearer ${accessToken}` } },
+        );
+        return res;
+    } catch (error) {
+        console.log(error);
+        return error?.response.data;
+    }
+};

@@ -4,12 +4,21 @@ import Button from '../../../components/button/Button';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { myJobsInCompany, updateCompany } from '../../../api/companyServices';
+import {
+    changeShowHideCompany,
+    myJobsInCompany,
+    updateCompany,
+} from '../../../api/companyServices';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import parse from 'html-react-parser';
-import { createJob, deleteMyJob, updateJob } from '../../../api/jobServices';
+import {
+    changeShowHideJob,
+    createJob,
+    deleteMyJob,
+    updateJob,
+} from '../../../api/jobServices';
 import { getAllAddresses } from '../../../api/getAddress';
 
 const salaryDatas = [
@@ -117,8 +126,14 @@ const ManagerJobs = () => {
         }
     };
 
-    const handleSaveBtn = () => {
-        setEditState();
+    const handleChangeStatusCompany = () => {
+        (async function fetchApi() {
+            await changeShowHideCompany(
+                { userId: user._id, companyId },
+                user.accessToken,
+            );
+            setChangeState(!changeState);
+        })();
     };
 
     const handleUpdateJob = (jobId) => {
@@ -190,6 +205,16 @@ const ManagerJobs = () => {
         })();
     };
 
+    const handleChangeStatusJob = (jobId) => {
+        (async function fetchApi() {
+            await changeShowHideJob(
+                { userId: user._id, companyId, jobId },
+                user.accessToken,
+            );
+            setChangeState(!changeState);
+        })();
+    };
+
     return (
         <div className="flex">
             <Sidebar company={datas?.data?.name} jobs={datas?.data?.jobs} />
@@ -221,6 +246,16 @@ const ManagerJobs = () => {
                                 }}
                             />
                         )}
+                        <div
+                            className="border-2 border-[#000070] ml-[30px] cursor-pointer w-[70px] h-[25px] text-[16px] flex justify-center items-center"
+                            onClick={
+                                (datas?.data?.status === 'show' ||
+                                    datas?.data?.status === 'hide') &&
+                                handleChangeStatusCompany
+                            }
+                        >
+                            {datas?.data?.status}
+                        </div>
                     </h1>
                     <div className="flex w-[100%]">
                         <div className="relative">
@@ -300,15 +335,26 @@ const ManagerJobs = () => {
                             <div className="h-[100%] w-[75%] border-r-[2px] p-[20px] flex flex-col">
                                 <div className="flex justify-between">
                                     {data.status === 'waiting' ? (
-                                        'waiting'
+                                        ''
                                     ) : data.status === 'banned' ? (
-                                        'banned'
+                                        ''
                                     ) : (
                                         <Button className="font-semibold">
                                             View Request
                                         </Button>
                                     )}
 
+                                    <div
+                                        className="border-2 border-[#000070] ml-[30px] cursor-pointer w-[70px] h-[25px] text-[16px] flex justify-center items-center"
+                                        onClick={
+                                            (data?.status === 'show' ||
+                                                data.status === 'hide') &&
+                                            (() =>
+                                                handleChangeStatusJob(data._id))
+                                        }
+                                    >
+                                        {data?.status}
+                                    </div>
                                     <div className="text-right font-medium">
                                         Rate:{' '}
                                         {data.rates && data.rates.length > 0

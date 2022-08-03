@@ -171,6 +171,44 @@ class jobController {
             });
         }
     }
+
+    async changeShowHideJob(req, res) {
+        try {
+            const job = await Job.findById(req.body.jobId);
+            const company = await Company.findById(req.body.companyId);
+            if (company?.user.toString() !== req.body.userId)
+                return res.status(400).json({
+                    errorStatus: true,
+                    message: 'This company not owned for you.',
+                });
+            if (job?.company.toString() !== req.body.companyId)
+                return res.status(400).json({
+                    errorStatus: true,
+                    message: 'This Job not owned in this company.',
+                });
+
+            if (job.status === 'hide') {
+                job.status = 'show';
+                job.save().then((data) =>
+                    res
+                        .status(200)
+                        .json({ errorStatus: false, message: 'Change!' }),
+                );
+            } else if (job.status === 'show') {
+                job.status = 'hide';
+                job.save().then((data) =>
+                    res
+                        .status(200)
+                        .json({ errorStatus: false, message: 'Change!' }),
+                );
+            }
+        } catch (error) {
+            res.status(500).json({
+                errorStatus: true,
+                message: error.message,
+            });
+        }
+    }
 }
 
 module.exports = new jobController();

@@ -181,6 +181,41 @@ class companyController {
             });
         }
     }
+
+    async changeShowHideCompany(req, res) {
+        try {
+            const company = await Company.findById(req.body.companyId);
+            if (company?.user.toString() !== req.body.userId)
+                return res.status(400).json({
+                    errorStatus: true,
+                    message: 'This company not owned for you.',
+                });
+            if (company.status === 'hide') {
+                company.status = 'show';
+                company
+                    .save()
+                    .then((data) =>
+                        res
+                            .status(200)
+                            .json({ errorStatus: false, message: 'Change!' }),
+                    );
+            } else if (company.status === 'show') {
+                company.status = 'hide';
+                company
+                    .save()
+                    .then((data) =>
+                        res
+                            .status(200)
+                            .json({ errorStatus: false, message: 'Change!' }),
+                    );
+            }
+        } catch (error) {
+            res.status(500).json({
+                errorStatus: true,
+                message: error.message,
+            });
+        }
+    }
 }
 
 module.exports = new companyController();

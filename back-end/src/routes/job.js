@@ -7,5 +7,9 @@ router.post('/job/create', Token.verifyToken, jobController.create);
 router.put('/job/update', Token.verifyToken, jobController.update);
 router.get('/find-name', jobController.findByName);
 router.get('/find-name/filter', jobController.findByNameAndFilter);
-
+router.post(
+    '/job/user-status',
+    Token.verifyToken,
+    jobController.changeShowHideJob,
+);
 module.exports = router;

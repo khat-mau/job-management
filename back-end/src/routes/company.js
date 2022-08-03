@@ -13,4 +13,9 @@ router.post(
 router.get('/list/:page', companyController.listCompany);
 router.put('/company/update', Token.verifyToken, companyController.update);
 router.delete('/company/delete', Token.verifyToken, companyController.delete);
+router.post(
+    '/company/user-status',
+    Token.verifyToken,
+    companyController.changeShowHideCompany,
+);
 module.exports = router;

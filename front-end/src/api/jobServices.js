@@ -66,3 +66,17 @@ export const updateJob = async (q, accessToken) => {
         return error?.response.data;
     }
 };
+
+export const changeShowHideJob = async (q, accessToken) => {
+    try {
+        const res = await httpRequest.postAttachHeaders(
+            'jobs/job/user-status',
+            q,
+            { headers: { token: `Bearer ${accessToken}` } },
+        );
+        return res;
+    } catch (error) {
+        console.log(error);
+        return error?.response.data;
+    }
+};
