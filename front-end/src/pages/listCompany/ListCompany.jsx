@@ -2,19 +2,48 @@ import Wrapper from '../../components/layout/defaultLayout/wrapper/Wrapper';
 import Search from '../../components/search/Search';
 import Button from '../../components/button/Button';
 import CreateCompany from './CreateCompany';
-
-const ShowListConpany = [
-    {
-        id: '1',
-        company: 'FPT Company',
-        date: '06/06/2022',
-        view: 'view',
-        update: 'edit',
-        delete: 'delete',
-    },
-];
+import { useState } from 'react';
+import { useCallback } from 'react';
+import { useRef } from 'react';
+import { deleteMyCompany, myCompanies } from '../../api/companyServices';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const ListCompany = () => {
+    const [isShowCreate, setIsShowCreate] = useState(false);
+    const [listCompany, setListCompany] = useState();
+    const navigate = useNavigate();
+    const user = useSelector((state) => state.auth.login.currentUser);
+    const handleClose = () => {
+        setIsShowCreate(false);
+    };
+
+    const [changeState, setChangeState] = useState(false);
+
+    useEffect(() => {
+        (async function fetch() {
+            const result = await myCompanies({ userId: user._id });
+            setListCompany(result);
+        })();
+    }, [isShowCreate, changeState]);
+
+    const handleDeleteCompany = (companyId) => {
+        if (window.confirm('Confirm Delete') == true) {
+            (async function fetch() {
+                const result = await deleteMyCompany(
+                    { userId: user._id, companyId },
+                    user.accessToken,
+                );
+                if (result.errorStatus === true) {
+                    alert(result.message);
+                } else {
+                    setChangeState(!changeState);
+                }
+            })();
+        }
+    };
+
     return (
         <>
             <Wrapper className="w-full" content=" flex justify-center ">
@@ -29,7 +58,12 @@ const ListCompany = () => {
                         <Search className="md:ml-auto"></Search>
                     </div>
                     <div className="my-[75px] min-h-[500px]">
-                        <Button className="mb-[10px]">Create</Button>
+                        <Button
+                            className="mb-[10px]"
+                            onClick={() => setIsShowCreate(true)}
+                        >
+                            Create
+                        </Button>
                         <table className="table-auto mx-auto w-full text-center justify-center text-xs md:text-lg border-b-2 border-black mb-3 ">
                             <thead>
                                 <tr className="border-b-2 border-black ">
@@ -37,55 +71,60 @@ const ListCompany = () => {
                                     <th>ID</th>
                                     <th>Name Company</th>
                                     <th>Add Date</th>
+                                    <th>Status</th>
                                     <th>View detail</th>
-                                    <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {ShowListConpany.map((val, key) => {
-                                    return (
-                                        <tr className="h-16" key={key}>
-                                            <td className="">
-                                                <input type="checkbox" />
-                                            </td>
-                                            <td>{val.id}</td>
-                                            <td>{val.company}</td>
-                                            <td>{val.date}</td>
-                                            <td>
-                                                <div className="min-w-0 min-h-0 mr-0">
-                                                    <Button className="text-white bg-[#00CE78] font-bold text-[10px] mb-[5px] min-w-[50px] mx-auto">
-                                                        <span>{val.view}</span>
-                                                    </Button>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div className="min-w-0 min-h-0 mr-0">
-                                                    <Button className="text-white bg-[#507FC6] font-bold text-[10px] mb-[5px] min-w-[50px] mx-auto">
-                                                        <span>
-                                                            {val.update}
-                                                        </span>
-                                                    </Button>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div className="min-w-0 min-h-0 mr-0">
-                                                    <Button className="text-white bg-[#E30E0E] font-bold text-[10px] mb-[5px] min-w-[50px] mx-auto">
-                                                        <span>
-                                                            {val.delete}
-                                                        </span>
-                                                    </Button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
+                                {listCompany &&
+                                    listCompany.data.map((val, key) => {
+                                        return (
+                                            <tr className="h-16" key={key}>
+                                                <td className="">
+                                                    <input type="checkbox" />
+                                                </td>
+                                                <td>{key + 1}</td>
+                                                <td>{val?.name}</td>
+                                                <td>{val?.createdAt}</td>
+                                                <td>{val?.status}</td>
+                                                <td>
+                                                    <div className="min-w-0 min-h-0 mr-0">
+                                                        <Button
+                                                            className="text-white bg-[#00CE78] font-bold text-[10px] mb-[5px] min-w-[50px] mx-auto"
+                                                            onClick={() =>
+                                                                navigate(
+                                                                    `/manage/jobs/${val._id}`,
+                                                                )
+                                                            }
+                                                        >
+                                                            <span>View</span>
+                                                        </Button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div className="min-w-0 min-h-0 mr-0">
+                                                        <Button
+                                                            className="text-white bg-[#E30E0E] font-bold text-[10px] mb-[5px] min-w-[50px] mx-auto"
+                                                            onClick={() =>
+                                                                handleDeleteCompany(
+                                                                    val._id,
+                                                                )
+                                                            }
+                                                        >
+                                                            <span>Delete</span>
+                                                        </Button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
                             </tbody>
                         </table>
                     </div>
                 </div>
             </Wrapper>
-            <CreateCompany />
+            <CreateCompany state={isShowCreate} onClose={handleClose} />
         </>
     );
 };

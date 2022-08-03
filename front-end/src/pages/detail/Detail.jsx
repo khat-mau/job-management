@@ -1,19 +1,17 @@
 import Button from '../../components/button/Button';
-import images from '../../assets/images';
 import Wrapper from '../../components/layout/defaultLayout/wrapper/Wrapper';
 import Search from '../../components/search/Search';
+import Report from '../report/ReportDetailJob';
 import { BiDollar, BiLike, BiDislike } from 'react-icons/bi';
-import { MdWork } from 'react-icons/md';
-import { BsFlagFill, BsStar } from 'react-icons/bs';
-import { GoMortarBoard } from 'react-icons/go';
-import { CgProfile } from 'react-icons/cg';
+import { FaStar } from "react-icons/fa";
 import { HiLocationMarker } from 'react-icons/hi';
 import { FaHourglassHalf } from 'react-icons/fa';
-
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import * as detailJob  from '../../api/getListJobsCompany';
 
 //code cứng, 
-
-import { Link } from 'react-router-dom';
 
 const comment = [
     {
@@ -58,16 +56,45 @@ const latestjob2 = [
 
 
 const Detail = () => {
+    const [data, setData] = useState({});
+    const [isReport, setReport] = useState(false);
+    const {jobId} = useParams();
+    const handleShowReport = () => {
+        setReport(!isReport);
+
+    };
+    const [currentValue, setCurrentValue] = useState(0);
+  const [hoverValue, setHoverValue] = useState(undefined);
+  const stars = Array(5).fill(0)
+  const handleClick = value => {
+    setCurrentValue(value)
+  }
+
+  const handleMouseOver = newHoverValue => {
+    setHoverValue(newHoverValue)
+  };
+
+  const handleMouseLeave = () => {
+    setHoverValue(undefined)
+  };
+  useEffect(()=>{
+      async function fetch() {
+          const result = await detailJob.detailJob(jobId);
+          setData(result);
+      }
+      fetch();
+  },[jobId]);
     return (
+        <>
         <Wrapper className="w-full">
             <div className="flex flex-row w-full md:w-[75%] p-[20px] mx-auto">
                 <Search filterSearch dataFilters={[' Location']} FilterSearchIcon={HiLocationMarker} />
                 <Button className="h-[50px]"> Search </Button>
             </div>
             {latestjob2.map((job2, index) => (
-                <Link
-                    className="mb-[40px] font-bold text-[10px] md:text-[20px] border-solid border-2 border-[#f0e3e3e7] hover:border-red-600 flex flex-row justify-center  min-w-[300px] w-full  max-h-[200px]"
-                    to={job2.href}
+                <div
+                    className="mb-[40px] font-bold text-[10px] md:text-[20px] border-solid border-1 border-[#f0e3e3e7] flex flex-row justify-center  min-w-[300px] w-full  max-h-[200px]"
+                    // to={job2.href}
                     key={index}
                 >
                     <div className="basis-[30%] md:basis-[25%] inline" >
@@ -110,11 +137,16 @@ const Detail = () => {
                         <Button className="bg-[#00CE78] text-white font-bold whitespace-nowrap text-[10px] w-[60px] h-[15px] md:w-[100px] md:h-[40px] md:text-[14px]">
                             <span>Post CV</span>
                         </Button>
-                        <Button className="bg-[#DC2C56] text-white font-bold whitespace-nowrap text-[10px] w-[60px] h-[15px]  md:w-[100px] md:h-[40px] md:text-[14px]">
-                            <span>Post CV</span>
+                        <Button className="bg-[#DC2C56] text-white font-bold whitespace-nowrap text-[10px] w-[60px] h-[15px]  md:w-[100px] md:h-[40px] md:text-[14px]"
+                            onClick={() => {
+                                setReport(true);
+                            
+                            }}
+                        >
+                            <span>Report</span>
                         </Button>
                     </div>
-                </Link>
+                </div>
 
             ))}
             {detail.map((val, key) => {
@@ -154,15 +186,28 @@ const Detail = () => {
                     <div className='w-full flex flex-col justify-center py-7 gap-2'>
                         <h1 className='font-bold'>Customer Rating</h1>
                         <div className='flex flex-row mx-auto my-2'>
-                            <BsStar className='h-5 w-5 md:h-7 md:w-7 hover:fill-yellow-400' />
-                            <BsStar className='h-5 w-5 md:h-7 md:w-7 hover:fill-yellow-400' />
-                            <BsStar className='h-5 w-5 md:h-7 md:w-7 hover:fill-yellow-400' />
-                            <BsStar className='h-5 w-5 md:h-7 md:w-7 hover:fill-yellow-400' />
-                            <BsStar className='h-5 w-5 md:h-7 md:w-7 hover:fill-yellow-400' />
+                            {stars.map((_,index)=>(
+                                <FaStar className='h-5 w-5 md:h-7 md:w-7 pr-1' 
+                                key={index}
+                                onClick={()=> handleClick(index+1)}
+                                onMouseOver={()=> handleMouseOver(index+1)}
+                                onMouseLeave={handleMouseLeave}
+                                color={(hoverValue || currentValue) >index ?"orange":"#a9a9a9"                    
+                                }
+                                
+
+                                />
+                            ))
+                                
+                            
+                                
+                            }
+                            
                         </div>
                         <div className='flex mx-auto gap-1 items-center'>
-                            <p>4/5</p>
-                            <BsStar className='h-5 w-6 hover:fill-yellow-400' />
+                            <p>{currentValue}/5</p>
+                            <FaStar className='h-5 w-6 ' color='#FFBA5A' 
+                            />
                         </div><p>In 169/196 People rating</p>
                     </div>
                 </div>
@@ -190,14 +235,7 @@ const Detail = () => {
             {comment.map((val, key) => {
                 return (
                     <div className='flex flex-row w-full my-7' >
-                        {/* <div className="md:basis-[20%] inline pr-[10px]">
-                            <img
-                                src={val.src}
-                                alt=""
-                                style={{ height: "205px", width: "400px", objectFit: 'fill' }}
-                                className="object-cover"
-                            />
-                        </div> */}
+                        
                         <div className='flex-row px-3 text-sm md:text-[20px]'>
                             <div key={key}>
                                 <h1 className='font-bold text-2xl'>{val.name}</h1>
@@ -211,6 +249,25 @@ const Detail = () => {
                     </div>)
             })}
         </Wrapper>
+        {isReport && (
+            <div className="fixed top-[0]  z-50 bg-[#00000071] w-[100vw] h-[100vh]">
+                <div
+                    className="top-[50%] left-[50%] absolute w-[auto]"
+                    style={{ transform: 'translate(-50%,-50%)' }}
+                >
+                    <Report                         
+                        onShowReportDetail={handleShowReport}
+                    />
+                </div>
+                <div
+                    className="absolute w-[100%] h-[100%] -z-10"
+                    onClick={() => {
+                        setReport(false);
+                    }}
+                ></div>
+            </div>
+        )}
+         </>
     );
 
 };

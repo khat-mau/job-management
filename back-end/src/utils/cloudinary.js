@@ -1,4 +1,4 @@
-require('dotenv').config();
+//require('dotenv').config();
 const cloudinary = require('cloudinary').v2;
 cloudinary.config({
     cloud_name: 'dwz7hut39', //process.env.CLOUDINARY_USER_NAME,
@@ -7,3 +7,4 @@ cloudinary.config({
 });
 
 module.exports = { cloudinary };
+

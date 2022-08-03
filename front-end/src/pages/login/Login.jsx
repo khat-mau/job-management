@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import Button from '../../components/button/Button';
 import { loginUser } from '../../redux/apiRequest';
 
-function Login({ onShowRegister, onShowLogin }) {
+function Login({ onShowRegister, onShowLogin,onShowReset }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
@@ -86,6 +86,10 @@ function Login({ onShowRegister, onShowLogin }) {
                                 <a
                                     className="inline-block align-baseline font-bold text-blue-500 hover:text-blue-800 text-xs md:text-sm"
                                     href="#"
+                                    onClick={() => {
+                                     onShowLogin();
+                                     onShowReset();
+                                    }}
                                 >
                                     Forgot password
                                 </a>
