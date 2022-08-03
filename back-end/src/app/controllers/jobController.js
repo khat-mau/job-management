@@ -56,6 +56,7 @@ class jobController {
                     $options: 'i', // without distinction case
                 },
                 status:"hide",//
+
             });
             res.status(200).json({ errorStatus: false, data: { jobs: data } });
         } catch (e) {
@@ -66,6 +67,7 @@ class jobController {
             });
         }
     }
+
     async listJob(req, res) {
         try {
             let perpage = 6;
@@ -103,7 +105,6 @@ class jobController {
     }
 
 
-    
 }
 
 module.exports = new jobController();

@@ -54,6 +54,7 @@ class companyController {
         } catch (error) {
             res.status(500).json({ errorStatus: true, message: error.message });
         }
+
     }
 
     async listJobFromCompany(req, res) {
@@ -64,6 +65,7 @@ class companyController {
         } catch (e) {
             res.status(500).json({ errorStatus: true, message: 'find job failed', e });
         }
+
     }
 
     async deleteCompany(req, res) {

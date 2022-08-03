@@ -1,15 +1,17 @@
 import Wrapper from '../wrapper/Wrapper';
 import Login from '../../../../pages/login/Login';
 import Register from '../../../../pages/register/Register';
+
 import Reset from '../../../../pages/resetPassword/ResetPassword';
 import NewPassword from '../../../../pages/newPassword/NewPassword';
 import CompleteGmail from '../../../../pages/resetPassword/CompleteGmail';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../../../redux/apiRequest';
+import { handleLogin, showLogin, hideLogin } from '../../../../redux/authSlice';
 
 const pages = [
     {
@@ -27,7 +29,7 @@ const pages = [
 ];
 
 const Header = ({ children }) => {
-    const [isLogin, setIsLogin] = useState(false);
+    const isLogin = useSelector((state) => state.auth.isShowLogin);
     const [isRegister, setIsRegister] = useState(false);
     const [isReset, setIsReset] = useState(false);
     const [isNewPass, setIsNewPass] = useState(false);
@@ -53,7 +55,7 @@ const Header = ({ children }) => {
     };
 
     const handleShowLogin = () => {
-        setIsLogin(!isLogin);
+        dispatch(handleLogin());
     };
     const handleShowReset = () => {
         setIsReset(!isReset);
@@ -76,7 +78,9 @@ const Header = ({ children }) => {
                 content="flex items-center h-[100%] "
             >
                 <Link
-                    className="text-[24px] mr-[50px] shrink-0 select-none"
+
+                    className="text-[24px] mr-[50px] shrink-0 select-none cursor-pointer"
+
                     style={{ fontFamily: "'Irish Grover', cursive" }}
                     to="/"
                 >
@@ -119,7 +123,7 @@ const Header = ({ children }) => {
                                     to=""
                                     className="md:ml-[25px] my-[10px]"
                                     onClick={() => {
-                                        setIsLogin(true);
+                                        dispatch(showLogin());
                                         setIsRegister(false);
                                         setIsReset(false);
                                         setIsNewPass(false);
@@ -133,7 +137,7 @@ const Header = ({ children }) => {
                                     to=""
                                     className="md:ml-[25px] my-[10px]"
                                     onClick={() => {
-                                        setIsLogin(false);
+                                        dispatch(hideLogin());
                                         setIsRegister(true);
                                         setIsReset(false);
                                         setIsNewPass(false);
@@ -173,7 +177,7 @@ const Header = ({ children }) => {
                     <div
                         className="absolute w-[100%] h-[100%] -z-10"
                         onClick={() => {
-                            setIsLogin(false);
+                            dispatch(handleLogin());
                         }}
                     ></div>
                 </div>

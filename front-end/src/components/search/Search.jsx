@@ -6,6 +6,7 @@ import * as searchService from '../../api/search';
 import { useDebounce } from '../../hooks';
 
 const Search = ({
+    className,
     width,
     height,
     placeholder,
@@ -73,7 +74,7 @@ const Search = ({
     return (
         <div
             style={{ width: width || filterSearch ? 625 : 500 }}
-            className="relative max-w-[100%]"
+            className={'relative max-w-[100%] ' + className}
         >
             <label
                 className=" flex items-center min-w-full w-[100%] relative md:min-w-[0]"
@@ -164,7 +165,7 @@ const Search = ({
                         searchResult.data?.jobCategoriesData.length > 0 &&
                         searchResult.data.companyNameData.map((d, index) => (
                             <Link
-                                to={`/list-search-jobs/${d?._id}`}
+                                to={`/list-search-jobs/${d?._id}/${addressSelected}`}
                                 className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
                                 key={index}
                             >
@@ -176,7 +177,7 @@ const Search = ({
                         searchResult.data?.jobLevelData.length > 0 &&
                         searchResult.data.jobLevelData.map((d, index) => (
                             <Link
-                                to={`/list-search-jobs/${d?.name}`}
+                                to={`/list-search-jobs/${d?._id}/${addressSelected}`}
                                 className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
                                 key={index}
                             >
@@ -188,7 +189,7 @@ const Search = ({
                         searchResult.data?.jobNameData.length > 0 &&
                         searchResult.data.jobNameData.map((d, index) => (
                             <Link
-                                to={`/list-search-jobs/${d?.name}`}
+                                to={`/list-search-jobs/${d?._id}/${addressSelected}`}
                                 className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
                                 key={index}
                             >
@@ -200,7 +201,7 @@ const Search = ({
                         searchResult.data?.jobSalaryData.length > 0 &&
                         searchResult.data.jobSalaryData.map((d, index) => (
                             <Link
-                                to={`/list-search-jobs/${d?.name}`}
+                                to={`/list-search-jobs/${d?._id}/${addressSelected}`}
                                 className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
                                 key={index}
                             >

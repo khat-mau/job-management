@@ -8,4 +8,5 @@ router.get('/find-name', jobController.findByName);
 router.get('/find-name/filter', jobController.findByNameAndFilter);
 router.get('/list/:page', jobController.listJob);
 router.get('/detailsJob/:jobID', jobController.detailJob);
+
 module.exports = router;
