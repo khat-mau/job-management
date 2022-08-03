@@ -13,6 +13,12 @@ import Auth from './routes/Auth.jsx';
 function App() {
     const user = useSelector((state) => state.auth.login.currentUser);
 
+    useEffect(() => {
+        if (user) {
+            document.cookie = `refreshToken=${user.refreshToken};path=/`;
+        }
+    }, []);
+
     return (
         <>
             <Routes>

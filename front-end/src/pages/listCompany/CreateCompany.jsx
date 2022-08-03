@@ -1,7 +1,7 @@
 import { GrClose } from 'react-icons/gr';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import { memo, useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Button from '../../components/button/Button';
 import './style.css';
 import { createCompany } from '../../api/companyServices';

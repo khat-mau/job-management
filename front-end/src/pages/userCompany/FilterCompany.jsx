@@ -73,11 +73,11 @@ const FilterCompany = () => {
     const { companyId } = useParams(); // take a id of company here.
 
     useEffect(() => {
-        async function fetch() {
-            const result = await listjobsCompany('12345');
-            setData(result);
-        }
-        fetch();
+        // async function fetch() {
+        //     const result = await listjobsCompany('12345');
+        //     setData(result);
+        // }
+        // fetch();
     }, []);
 
     return (

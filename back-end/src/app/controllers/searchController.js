@@ -101,28 +101,51 @@ class searchController {
                 ),
             );
 
+            let jobRequiredData;
+            const promiseJobRequiredData = new Promise((resolve) =>
+                resolve(
+                    Job.find({
+                        required: {
+                            $regex: req.query.searchData, // search with includes
+                            $options: 'i', // without distinction case
+                        },
+                        location: {
+                            $regex: filter, // search with includes
+                            $options: 'i', // without distinction case
+                        },
+                    })
+
+                        .sort({ name: 1 })
+                        .limit(limit),
+                ),
+            );
+
             await Promise.all([
                 promiseCompanyNameData,
                 promiseJobNameData,
                 promiseJobSalaryData,
                 promiseJobLevelData,
                 promiseJobCategoriesData,
-            ]).then(([result1, result2, result3, result4, result5]) => {
-                // show company that contains at least 1 job, this job filter by location field.
-                companyNameData = result1.filter((element) => {
-                    element.jobs = element.jobs.filter((job) =>
-                        !job.location || job.location.includes(filter)
-                            ? true
-                            : false,
-                    );
-                    return element.jobs.length === 0 ? false : true;
-                });
-                //
-                jobNameData = result2;
-                jobSalaryData = result3;
-                jobLevelData = result4;
-                jobCategoriesData = result5;
-            });
+                promiseJobRequiredData,
+            ]).then(
+                ([result1, result2, result3, result4, result5, result6]) => {
+                    // show company that contains at least 1 job, this job filter by location field.
+                    companyNameData = result1.filter((element) => {
+                        element.jobs = element.jobs.filter((job) =>
+                            !job.location || job.location.includes(filter)
+                                ? true
+                                : false,
+                        );
+                        return element.jobs.length === 0 ? false : true;
+                    });
+                    //
+                    jobNameData = result2;
+                    jobSalaryData = result3;
+                    jobLevelData = result4;
+                    jobCategoriesData = result5;
+                    jobRequiredData = result6;
+                },
+            );
 
             res.status(200).json({
                 errorStatus: false,
@@ -132,6 +155,7 @@ class searchController {
                     jobSalaryData,
                     jobLevelData,
                     jobCategoriesData,
+                    jobRequiredData,
                 },
             });
         } catch (e) {

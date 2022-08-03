@@ -29,7 +29,7 @@ const company = new mongoose.Schema({
         },
     ],
     createdAt: { type: Date, default: Date.now },
-    status: { type: String, default: 'hide' }, //value: [hide, show, ban]
+    status: { type: String, default: 'waiting' }, //value: [waiting, hide, show, banned]
 });
 
 const job = new mongoose.Schema({
@@ -56,7 +56,12 @@ const job = new mongoose.Schema({
         maxLength: 255,
     },
     salary: {
-        type: Number,
+        type: String,
+    },
+    required: {
+        type: String,
+        require: true,
+        maxLength: 255,
     },
     location: {
         type: String,

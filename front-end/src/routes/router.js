@@ -32,11 +32,6 @@ const publicRoutes = [
 
     { path: '/ban', component: Ban },
     { path: '/', component: Home },
-    {
-        path: '/manage/jobs',
-        component: ManagerJobs,
-        layout: Header,
-    },
     { path: '/*', component: Error, layout: null },
 ];
 
@@ -44,6 +39,12 @@ const privateRoutes = [
     {
         path: '/list-company',
         component: ListCompany,
+        acceptAccess: [admin, user],
+    },
+    {
+        path: '/manage/jobs/:companyId',
+        component: ManagerJobs,
+        layout: Header,
         acceptAccess: [admin, user],
     },
     { path: '/detail', component: Detail, acceptAccess: [admin, user] },

@@ -4,7 +4,13 @@ const Token = require('../app/controllers/token');
 
 router.post('/', companyController.listMyCompany);
 router.post('/company/create', Token.verifyToken, companyController.create);
-// router.post('/company/jobs/', companyController.showInCompany);
-
+//router.post('/company/jobs/', companyController.showInCompany);
+router.post(
+    '/own-company/jobs',
+    Token.verifyToken,
+    companyController.findJobsInOwnCompany,
+);
 router.get('/list/:page', companyController.listCompany);
+router.put('/company/update', Token.verifyToken, companyController.update);
+router.delete('/company/delete', Token.verifyToken, companyController.delete);
 module.exports = router;

@@ -20,7 +20,7 @@ const pages = [
     },
     {
         title: 'Manage recruitment',
-        href: '#',
+        href: '/list-company',
     },
 ];
 

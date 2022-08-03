@@ -5,24 +5,44 @@ import CreateCompany from './CreateCompany';
 import { useState } from 'react';
 import { useCallback } from 'react';
 import { useRef } from 'react';
-import { myCompanies } from '../../api/companyServices';
+import { deleteMyCompany, myCompanies } from '../../api/companyServices';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const ListCompany = () => {
     const [isShowCreate, setIsShowCreate] = useState(false);
     const [listCompany, setListCompany] = useState();
+    const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login.currentUser);
     const handleClose = () => {
         setIsShowCreate(false);
     };
+
+    const [changeState, setChangeState] = useState(false);
 
     useEffect(() => {
         (async function fetch() {
             const result = await myCompanies({ userId: user._id });
             setListCompany(result);
         })();
-    }, [isShowCreate]);
+    }, [isShowCreate, changeState]);
+
+    const handleDeleteCompany = (companyId) => {
+        if (window.confirm('Confirm Delete') == true) {
+            (async function fetch() {
+                const result = await deleteMyCompany(
+                    { userId: user._id, companyId },
+                    user.accessToken,
+                );
+                if (result.errorStatus === true) {
+                    alert(result.message);
+                } else {
+                    setChangeState(!changeState);
+                }
+            })();
+        }
+    };
 
     return (
         <>
@@ -53,7 +73,6 @@ const ListCompany = () => {
                                     <th>Add Date</th>
                                     <th>Status</th>
                                     <th>View detail</th>
-                                    <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
                             </thead>
@@ -71,21 +90,28 @@ const ListCompany = () => {
                                                 <td>{val?.status}</td>
                                                 <td>
                                                     <div className="min-w-0 min-h-0 mr-0">
-                                                        <Button className="text-white bg-[#00CE78] font-bold text-[10px] mb-[5px] min-w-[50px] mx-auto">
+                                                        <Button
+                                                            className="text-white bg-[#00CE78] font-bold text-[10px] mb-[5px] min-w-[50px] mx-auto"
+                                                            onClick={() =>
+                                                                navigate(
+                                                                    `/manage/jobs/${val._id}`,
+                                                                )
+                                                            }
+                                                        >
                                                             <span>View</span>
                                                         </Button>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div className="min-w-0 min-h-0 mr-0">
-                                                        <Button className="text-white bg-[#507FC6] font-bold text-[10px] mb-[5px] min-w-[50px] mx-auto">
-                                                            <span>Update</span>
-                                                        </Button>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div className="min-w-0 min-h-0 mr-0">
-                                                        <Button className="text-white bg-[#E30E0E] font-bold text-[10px] mb-[5px] min-w-[50px] mx-auto">
+                                                        <Button
+                                                            className="text-white bg-[#E30E0E] font-bold text-[10px] mb-[5px] min-w-[50px] mx-auto"
+                                                            onClick={() =>
+                                                                handleDeleteCompany(
+                                                                    val._id,
+                                                                )
+                                                            }
+                                                        >
                                                             <span>Delete</span>
                                                         </Button>
                                                     </div>

@@ -12,6 +12,7 @@ const Search = ({
     placeholder,
     filterSearch = false,
     FilterSearchIcon,
+    apiEnabled = true,
     // dataFilters = [],
 
     // data = [],
@@ -48,19 +49,21 @@ const Search = ({
     }, []);
 
     useEffect(() => {
-        if (!debouncedValue.trim()) {
-            setSearchResult([]);
-            return;
-        }
+        if (apiEnabled) {
+            if (!debouncedValue.trim()) {
+                setSearchResult([]);
+                return;
+            }
 
-        const fetchApi = async () => {
-            const result = await searchService.any({
-                searchData: debouncedValue,
-                filter: addressSelected,
-            });
-            setSearchResult(result);
-        };
-        fetchApi();
+            const fetchApi = async () => {
+                const result = await searchService.any({
+                    searchData: debouncedValue,
+                    filter: addressSelected,
+                });
+                setSearchResult(result);
+            };
+            fetchApi();
+        }
     }, [debouncedValue]);
 
     const handleSearch = (data) => {
@@ -141,7 +144,7 @@ const Search = ({
                     </div>
                 )}
             </label>
-            {isFocused && (
+            {apiEnabled && isFocused && (
                 <div
                     className="bg-[#fff] absolute max-h-[400px] mt-[10px] rounded-[5px] flex flex-col text-[#333] overflow-y-auto  shadow-lg shadow-[#3333] font-medium z-50"
                     style={{
@@ -200,6 +203,18 @@ const Search = ({
                         !searchResult.errorStatus &&
                         searchResult.data?.jobSalaryData.length > 0 &&
                         searchResult.data.jobSalaryData.map((d, index) => (
+                            <Link
+                                to={`/list-search-jobs/${d?._id}/${addressSelected}`}
+                                className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
+                                key={index}
+                            >
+                                {d?.name}
+                            </Link>
+                        ))}
+                    {text &&
+                        !searchResult.errorStatus &&
+                        searchResult.data?.jobRequiredData.length > 0 &&
+                        searchResult.data.jobRequiredData.map((d, index) => (
                             <Link
                                 to={`/list-search-jobs/${d?._id}/${addressSelected}`}
                                 className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
