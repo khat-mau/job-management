@@ -31,6 +31,8 @@ const publicRoutes = [
     { path: '/filter-jobs/:companyId', component: FilterCompany },
     { path: '/admin-company', component: AdminCompany },
     { path: '/user-recruitment', component: UserRecruitment },
+    { path: '/add-company', component: AddCompany },
+
     { path: '/list-search-jobs/:params', component: ListSearchJobs },
     { path: '/list-search-jobs/:name/:filter', component: ListSearchJobs },
     { path: '/ban', component: Ban },

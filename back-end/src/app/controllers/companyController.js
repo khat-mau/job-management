@@ -1,8 +1,9 @@
 
-const { Company } = require('../models/Company');
+const { Company, Job} = require('../models/Company');
 const user = require('../models/User');
 const { cloudinary } = require('../../utils/cloudinary');
 const User = require('../models/User');
+
 
 
 class companyController {

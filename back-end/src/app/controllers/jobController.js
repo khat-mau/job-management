@@ -76,7 +76,7 @@ class jobController {
                     $regex: req.query.name, // search with includes
                     $options: 'i', // without distinction case
                 },
-                status:"hide",//
+                status:"show",//
             });
             res.status(200).json({ errorStatus: false, data: { jobs: data } });
         } catch (e) {
@@ -99,7 +99,7 @@ class jobController {
                     $regex: req.query.filter, // search with includes
                     $options: 'i', // without distinction case
                 },
-                status:"hide",//
+                status:"show",//
 
             });
             res.status(200).json({ errorStatus: false, data: { jobs: data } });

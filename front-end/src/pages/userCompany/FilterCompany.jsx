@@ -79,7 +79,6 @@ const FilterCompany = () => {
     };
 
     useEffect(() => {
-
         async function fetch() {
             const result = await listjobsCompany.listjobsCompany(companyId);
             setData(result);
@@ -88,7 +87,6 @@ const FilterCompany = () => {
     }, [companyId]);
 
     
-
 
     return (
         <>         
@@ -196,21 +194,20 @@ const FilterCompany = () => {
                                     <h1>{ new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(job.updatedAt))) }</h1>
                                 </div>
                             </div>
-
-                            <div className="flex flex-wrap gap-2 mb-[5px] font-[400]">
-                                {data.data[1].required.length > 0 && data.data[0].required.map(
-                                    (requestjob, index3) => (
+                            
+                            {job.required &&
+                                <div className="flex flex-wrap gap-2 mb-[5px] font-[400]">
+                                
                                         <div
                                             className="flex justify-center items-center border-2 border-[#999999BF] min-w-[45px] md:pl-0 "
-                                            key={index3}
+                                            
                                         >
                                             <span className="mx-auto md:mx-[30px]">
-                                                {requestjob}
+                                                {job.required}
                                             </span>
                                         </div>
-                                    ),
-                                )}
-                            </div>
+                                
+                            </div>}
                         </div>
                         <div className="absolute  w-full h-full "
                             onClick={() => navigate("/detail/"+job._id)}

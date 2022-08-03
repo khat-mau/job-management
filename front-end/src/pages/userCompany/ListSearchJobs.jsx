@@ -69,28 +69,27 @@ const latestjob2 = [
     },
 ];
 const ListSearchJobs = () => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState();
     const user = useSelector((state) => state.auth.login.currentUser);
 
-    const params = useParams(); // take a id of company here.
+    const {params, name, filter} = useParams(); // take a id of company here.
 
     useEffect(() => {
         (async function fetch() {
             if (params.filter) {
-                const result = await findJobsByNameAndFilter({
-                    name: params.name,
-                    filter: params.filter,
+                const result = await listJob.findJobsByNameAndFilter({
+                    name:name,
+                    filter: filter,
                 });
-                if (!result?.errorStatus) {
-                    setData(result.data.jobs);
+                if (result?.errorStatus ===false) {
+                    setData(result);
                 }
             } else {
-                const result = await findJobsByName({ name: params.name });
-                if (!result?.errorStatus) {
-                    setData(result.data.jobs);
+                const result = await listJob.findJobsByName({ name: params });
+                if (result?.errorStatus === false) {
+                    setData(result);
                 }
             }
-            console.log(params);
         })();
 
     }, []);
@@ -157,10 +156,10 @@ const ListSearchJobs = () => {
                 </div>
             </div>
             <div className="grid grid-flow-row gap-[50px] my-[50px] grid-cols-1 px-[10px] md:px-[55px]">             
-                {data?.errorStatus===false && data.data.jobs.map((job, index) => (
+                {data && data?.errorStatus===false && data.data.jobs.map((job, index) => (
                     <Link
                         className="font-bold text-[10px] md:text-[20px] border-solid border-2 border-[#f0e3e3e7] hover:border-red-600 flex flex-row justify-center  min-w-[300px] w-full  max-h-[200px]"
-                        to={job.href}
+                        to={'/'}
                         key={index}
                     >
                         <div
@@ -168,7 +167,7 @@ const ListSearchJobs = () => {
                             style={{ height: '100%' }}
                         >
                             <img
-                                src={job.src}
+                                src={job.photo}
                                 alt=""
                                 width="275px"
                                 style={{ height: '100%' }}
