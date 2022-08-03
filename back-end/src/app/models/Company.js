@@ -51,7 +51,7 @@ const job = new mongoose.Schema({
         maxLength: 255,
     },
     salary: {
-        type: Number,
+        type: String,
     },
     location: {
         type: String,

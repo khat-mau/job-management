@@ -4,8 +4,11 @@ const job = require('./job');
 const search = require('./search');
 const address = require('./address');
 const upload = require('./upload');
+const homePage = require('./homePage');
+
 
 function route(app) {
+    app.use('/api/HomePage', homePage);
     app.use('/api', auth);
     app.use('/api/companies', company);
     app.use('/api/jobs', job);
