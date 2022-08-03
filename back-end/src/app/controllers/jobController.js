@@ -1,7 +1,11 @@
 const { json } = require('body-parser');
 const { watchFile } = require('fs');
 const { Job, Company } = require('../models/Company');
+
+const { Comments, Rates } = require('../models/Features');
+const User = require('../models/User');
 const { cloudinary } = require('../../utils/cloudinary');
+
 class jobController {
     async create(req, res) {
         try {
@@ -107,7 +111,6 @@ class jobController {
             });
         }
     }
-
 
     async deleteMyJob(req, res) {
         try {
@@ -233,6 +236,7 @@ class jobController {
             });
         }
     }
+
     async detailJob(req, res) {
         try {
             //const userID = req.params.userID;

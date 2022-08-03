@@ -11,6 +11,7 @@ router.post(
     companyController.findJobsInOwnCompany,
 );
 router.get('/list/:page', companyController.listCompany);
+
 router.put('/company/update', Token.verifyToken, companyController.update);
 router.delete('/company/delete', Token.verifyToken, companyController.delete);
 router.post(

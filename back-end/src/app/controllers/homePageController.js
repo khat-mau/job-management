@@ -6,8 +6,11 @@ class homePageController {
             const typeListJob = req.params.typeList;
             let listJob;
             if(typeListJob == 'All'){ listJob = await Job.find(); }
-            else if(typeListJob == 'JobBySpeciation'){}
-            else if(typeListJob == 'ManagerJob'){}
+
+            else if(typeListJob == 'JobBySpeciation'){
+                listJob = await Job.find();
+            }
+
             else if(typeListJob == 'Part-Time'){}
             else if(typeListJob == 'GeneralLabor'){}
             const companyList = await Company.find().sort({createdAt: -1});

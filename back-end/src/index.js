@@ -7,7 +7,6 @@ const morgan = require('morgan');
 const app = express();
 const route = require('./routes');
 const cors = require('cors');
-
 dotenv.config();
 
 //CONNECT DATABASE

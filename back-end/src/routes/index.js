@@ -6,7 +6,6 @@ const address = require('./address');
 const upload = require('./upload');
 const homePage = require('./homePage');
 
-
 function route(app) {
     app.use('/api/HomePage', homePage);
     app.use('/api', auth);

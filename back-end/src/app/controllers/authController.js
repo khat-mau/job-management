@@ -5,7 +5,7 @@ const handlebars = require("handlebars");
 const hbs = require('nodemailer-express-handlebars');
 const path = require('path')
 const Token = require('./token');
-// const jwt_decode = require("jwt-decode");
+
 class registerController {
     async create(req, res) {
         try {
@@ -116,8 +116,19 @@ class registerController {
 
     async listUsers(req, res){
         try {
-            const user = await User.find();
-            res.status(200).json({ user: user });
+
+            let perpage = 6;
+            let page = req.params.page || 1;
+            let listUsers;
+            let listUsersWasFilter;
+            const promises1 = new Promise(resolve => resolve(User.countDocuments({})));
+            const promises2 = new Promise(resolve => resolve(User.find().skip((perpage * page) - perpage).limit(perpage)));
+            await Promise.all([promises1, promises2]).then(([result1, result2]) => { listUsers = result1; listUsersWasFilter = result2; });
+            const toltalPage = listUsers % perpage === 0 ? listUsers / perpage : parseInt(listUsers / perpage) + 1;
+            res.status(200).json({ errorStatus: false, data: { page, toltalPage, listUsersWasFilter } });
+            // const user = await User.find();
+            // res.status(200).json({ user: user });
+
         } catch (e) { res.status(500).json({ errorStatus: true, err: e.message }); }
         
     }
@@ -148,19 +159,18 @@ class registerController {
 
             // nhập email
             let emails, accessToken;
+
             const checkEmail = await User.findOne({ email: req.body.email })
                 .then(user => {
-                    if (!user) {
-                        
+                    if (!user) {                        
                         return res.status(422).json({ errorStatus:true,error: "User dont exists with that email "});
-
                     }
-
                     accessToken = Token.generateAccessTokenEmail(req.body.emails);
                     user.resetToken = accessToken
                     user.expireToken = Date.now() + 3600000
                     user.save().then((result) => {
                         emails = req.body.email;
+
                         // gui email
                         const mailOptions = {
                             from: 'jobsharingvn24h@gmail.com',
@@ -169,6 +179,7 @@ class registerController {
                             template: 'sample',
                             context: {
                                 forgotPasswordURL: "http://localhost:8000/api/resetPassword/" + accessToken
+
                             }
                         }
                         transporter.sendMail(mailOptions, (err, info) => {
@@ -207,7 +218,6 @@ class registerController {
 
     async resetPassword(req, res, next) {
         try {
-
             const token = req.params.token;
             const newPassword = req.body.password;
             const confirmNewPassword = req.body.confirmPassword;

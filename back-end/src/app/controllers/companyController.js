@@ -4,6 +4,7 @@ const user = require('../models/User');
 const { cloudinary } = require('../../utils/cloudinary');
 const User = require('../models/User');
 
+
 class companyController {
     async create(req, res) {
         try {
@@ -220,7 +221,6 @@ class companyController {
             });
         }
     }
-}
 
 
     async listJobFromCompany(req, res) {
@@ -234,14 +234,5 @@ class companyController {
 
     }
 
-    async deleteCompany(req, res) {
-        try {
-            const companyID = req.body.companyID;
-            const userID = req.body.userID;
-            
-        }catch (e) {
-            res.status(500).json({ errorStatus: true, message: 'failed: '+ e.message });
-        }
-    }
 }
 module.exports = new companyController();

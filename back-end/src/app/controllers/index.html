@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style type="text/css">
         body {
             width: 100%;
@@ -87,11 +88,14 @@
             </form>
         </div>
     </div>
+
     <script>
         
         const routes = window.location.href;
         let token = routes[routes.length - 1];
-        for (let a = routes.length - 2; routes[a] !== "/"; a--) {
+
+        for(let a = routes.length - 2; routes[a] !== "/"; a--){
+
             token += routes[a];
         }
         console.log(token.split('').reverse().toString().replace(/,/g, ''));
