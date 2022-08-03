@@ -32,7 +32,7 @@ class searchController {
                             $regex: req.query.searchData, // search with includes
                             $options: 'i', // without distinction case
                         },
-                        status: "hide",
+                        status: "show",
                         location: {
                             $regex: filter, // search with includes
                             $options: 'i', // without distinction case
@@ -56,7 +56,7 @@ class searchController {
                                 $regex: filter, // search with includes
                                 $options: 'i', // without distinction case
                             },
-                            status: "hide",
+                            status: "show",
                         })
                             .sort({ name: 1 })
                             .limit(limit),
@@ -78,7 +78,7 @@ class searchController {
                             $regex: filter, // search with includes
                             $options: 'i', // without distinction case
                         },
-                        status: "hide",
+                        status: "show",
                     })
                         .sort({ name: 1 })
                         .limit(limit),
@@ -97,7 +97,7 @@ class searchController {
                             $regex: filter, // search with includes
                             $options: 'i', // without distinction case
                         },
-                        status: "hide",
+                        status: "show",
                     })
 
                         .sort({ name: 1 })
