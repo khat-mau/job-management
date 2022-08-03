@@ -4,10 +4,10 @@ const Sidebar = ({ company, jobs }) => {
     return (
         <>
             <Wrapper
-                className=" h-[100vh] w-[0] md:min-w-[300px] text-[#fff]"
+                className="bg-[#000050] h-[100vh] w-[300px] text-[#fff]"
                 content="p-[20px]"
             ></Wrapper>
-            <div className="fixed bg-[#000050] text-[#fff] md:w-[300px] w-[0] h-[100vh]  mx-[auto]   md:p-[20px]">
+            <div className="fixed text-[#fff] w-[300px]   mx-[auto]   p-[20px]">
                 <div className="font-bold text-[20px] text-center mb-[20px]">
                     {company}
                 </div>
@@ -15,7 +15,7 @@ const Sidebar = ({ company, jobs }) => {
                 {jobs &&
                     jobs.map((job, index) => (
                         <div className="mb-[10px]" key={index}>
-                            {index + 1}. {job.name}
+                            {index}. {job}
                         </div>
                     ))}
             </div>

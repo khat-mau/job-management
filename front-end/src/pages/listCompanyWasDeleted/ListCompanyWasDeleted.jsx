@@ -1,6 +1,12 @@
 import Wrapper from '../../components/layout/defaultLayout/wrapper/Wrapper';
 import Search from '../../components/search/Search';
 import Button from '../../components/button/Button';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { listjobsCompany } from '../../api/getListJobsCompany';
+
 const data = [
     { id: "U001", category: "job", name: "Fpt Conpany", deleteDate: "10/06/2022", hrefInfo: "#", reason: "wrong format", },
     { id: "U002", category: "company", name: "Lua Ga Company", deleteDate: "10/06/2022", hrefInfo: "#", reason: "wrong format", },
@@ -10,6 +16,21 @@ const data = [
 ]
 
 function WasDeleted() {
+    const [deleteJobs, setData] = useState({});
+    const user = useSelector((state) => state.auth.login.currentUser);
+    const navigate = useNavigate();
+    const [count, setcount] = useState(1);
+
+
+    useEffect(() => {
+        async function fetch() {
+            const result = await listjobsCompany(count);
+            setData(result);
+        }
+        fetch();
+    }, [count]);
+
+
     return (
         <Wrapper className="bg-[#EDEDED] w-full"
             content=" flex flex-col justify-center ">
@@ -40,22 +61,36 @@ function WasDeleted() {
                             </tr>
                         </thead>
                         <tbody>
-                            {data.map((wasDelete, index) => (
-                                <tr className="h-[40px]  md:h-[70px]" key={index}>
+                            {(deleteJobs?.errorStatus === false && deleteJobs.data.listCompanyWasFilter[0].deleted == false) && deleteJobs.data.listCompanyWasFilter.map((job, index) => (
+                                <tr className="h-[40px]  md:h-[70px] " key={index} >
                                     <td className="px-3 "><input type="checkbox" className="default:ring-2" /></td>
-                                    <td className="px-3 ">{wasDelete.id}</td>
-                                    <td className="px-3">{wasDelete.category}</td>
-                                    <td className="px-3 ">{wasDelete.name}</td>
-                                    <td className="px-3 ">{wasDelete.deleteDate}</td>
-                                    <td className="px-3 text-[#000080] "><div className="flex justify-center"><Button className="bg-[#00CE78] h-[20px] md:h-[35px] md:w-[30px] md:text-xl"> View</Button></div></td>
-                                    <td className="px-3 ">{wasDelete.reason}</td>
+                                    <td className="px-3 ">{index}</td>
+                                    <td className="px-3">{job.name}</td>
+                                    <td className="px-3 ">{job.name} </td>
+                                    <td className="px-3 ">{job.name}</td>
+                                    <td className="px-3 text-[#000080] ">
+                                        <div className="flex justify-center" onClick={() => navigate("/detail/"+job._id)}>
+                                            <Button className="bg-[#00CE78] h-[20px] md:h-[35px] md:w-[30px] md:text-xl">
+                                                View </Button>
+                                                
+                                        </div>
+                                    </td>
+                                    <td className="px-3 ">{job.report}</td>
                                     <td className="px-3 py-[10px]"> <div className="flex justify-center"><Button className="bg-[#E30E0E] h-[20px] md:h-[35px]  md:w-[30px] md:text-xl">Delete</Button> </div></td>
                                     <td className="px-3  "><div className="flex justify-center"> <Button className="bg-[#507FC6] h-[20px] md:h-[35px] md:w-[30px] md:text-xl">Restore</Button></div></td>
                                 </tr>
-
                             ))}
                         </tbody>
                     </table>
+                    <div className='pagination flex flex-row gap-4 place-content-center text-xl pt-4'>
+                        <button onClick={() => setcount(1)}>&laquo;</button>
+                        <button onClick={() => setcount(1)}>1</button>
+                        <button onClick={() => setcount(2)}>2</button>
+                        <button onClick={() => setcount(3)}>3</button>
+                        <button onClick={() => setcount(4)}>4</button>
+                        <button onClick={() => setcount(5)}>5</button>
+                        <button onClick={() => setcount('{job.data.toltalPage}')}>&raquo;</button>
+                    </div>
                 </div>
             </div>
         </Wrapper>

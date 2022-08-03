@@ -2,7 +2,7 @@ import * as httpRequest from './index';
 
 export const resetPassword = async (q) => {
     try {
-        const res = await httpRequest.post('sendEmail', q);
+        const res = await httpRequest.post('reset', q);
         return res;
     } catch (e) {
         console.log(e);

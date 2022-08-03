@@ -5,7 +5,7 @@ import { useState } from 'react';
 import * as resetService from '../../api/reset';
 import Input from '../../components/input/Input';
 
-const ResetPassword = ({onShowLogin,onShowReset,onShowCompleteGmail}) => {
+const ResetPassword = ({onShowLogin,onShowReset,onShowNewPass}) => {
     const [email, setEmail] = useState('');
     const [isWaitingResult, setIsWaitingResult] = useState(false);
     const [resetResult, setResetResult] = useState([]);
@@ -30,7 +30,8 @@ const ResetPassword = ({onShowLogin,onShowReset,onShowCompleteGmail}) => {
                             data.errorStatus !== undefined
                         ) {
                             onShowReset();
-                            onShowCompleteGmail();
+                            onShowNewPass();
+
                         }
                         setResetResult(data);
                     })
@@ -52,15 +53,20 @@ const ResetPassword = ({onShowLogin,onShowReset,onShowCompleteGmail}) => {
                 <h2 className="text-center text-[16px] md:text-[20px] font-bold w-full"> Enter your email address to receive instructions to reset your password</h2>
 
 
-                <Input className="flex items-center w-full my-[20px] bg-white " placeholder="Email" height="50px" fontSize="17px"
+                <Input className="flex items-center w-full my-[20px] bg-white " placeholder="Email" height="50px" fontSize="20px"
                 
                 onChange={(e) => setEmail(e.target.value)}
                 > 
                     
                 </Input>  
                 {resetResult.errorStatus && (
-                            <div className=" text-[red] text-center my-[10px]">
-                                {resetResult.error}
+                            <div className=" text-[red] text-center mt-[20px]">
+                                {typeof resetResult.dataError
+                                    .errorMessage === 'object'
+                                    ? resetResult.dataError.errorMessage.join(
+                                          ', ',
+                                      )
+                                    : resetResult.dataError.errorMessage}
                             </div>
                         )}
                 {!isWaitingResult ? (
@@ -73,16 +79,13 @@ const ResetPassword = ({onShowLogin,onShowReset,onShowCompleteGmail}) => {
                     >  Send</Button>
                 )}        
                 
-                <div className="text-[20px] md:text-[24px] text-[#000080] font-[700] text-center pt-[40px] md:pt-[100px] hover:text-[#000050]">
 
-                <Link  to="#"
+                <Link className="text-[20px] md:text-[24px] text-[#000080] font-[700] text-center pt-[40px] md:pt-[100px] hover:text-[#000050]" to="#"
                 onClick={() => {
                     onShowReset();
                     onShowLogin();               
-                }}
+                   }}
                 > Back to Sign inform</Link>
-                </div>
-                
            </div>
 
 

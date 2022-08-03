@@ -21,3 +21,14 @@ export const logout = async (accessToken) => {
         return e?.response.data;
     }
 };
+
+export const getListUsers = async (q) => {
+    try {
+        const res = await httpRequest.get('/listUsers/' +q);
+        return res;
+    } catch (e) {
+        console.log(e);
+        return e?.response.data;
+    }
+};
+

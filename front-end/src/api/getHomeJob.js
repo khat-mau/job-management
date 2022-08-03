@@ -1,8 +1,8 @@
 import * as httpRequest from './index.js';
 
-export const listjobsCompany = async (q) => {
+export const getListJob = async (q) => {
     try {
-        const res = await httpRequest.post('company/jobs', q);
+        const res = await httpRequest.get('jobs/list/'+q);
         return res;
     } catch (e) {
         console.log(e);
@@ -10,12 +10,15 @@ export const listjobsCompany = async (q) => {
     }
 };
 
-export const findJobsByName = async (q) => {
+
+export const getListCompany = async (q) => {
     try {
-        const res = await httpRequest.get('jobs/find-name', q);
+        const res = await httpRequest.get('companies/list/'+q);
         return res;
     } catch (e) {
         console.log(e);
         return e?.response.data;
     }
 };
+
+

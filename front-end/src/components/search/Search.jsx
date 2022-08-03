@@ -6,13 +6,11 @@ import * as searchService from '../../api/search';
 import { useDebounce } from '../../hooks';
 
 const Search = ({
-    className,
     width,
     height,
     placeholder,
     filterSearch = false,
     FilterSearchIcon,
-    apiEnabled = true,
     // dataFilters = [],
 
     // data = [],
@@ -49,21 +47,19 @@ const Search = ({
     }, []);
 
     useEffect(() => {
-        if (apiEnabled) {
-            if (!debouncedValue.trim()) {
-                setSearchResult([]);
-                return;
-            }
-
-            const fetchApi = async () => {
-                const result = await searchService.any({
-                    searchData: debouncedValue,
-                    filter: addressSelected,
-                });
-                setSearchResult(result);
-            };
-            fetchApi();
+        if (!debouncedValue.trim()) {
+            setSearchResult([]);
+            return;
         }
+
+        const fetchApi = async () => {
+            const result = await searchService.any({
+                searchData: debouncedValue,
+                filter: addressSelected,
+            });
+            setSearchResult(result);
+        };
+        fetchApi();
     }, [debouncedValue]);
 
     const handleSearch = (data) => {
@@ -77,7 +73,7 @@ const Search = ({
     return (
         <div
             style={{ width: width || filterSearch ? 625 : 500 }}
-            className={'relative max-w-[100%] ' + className}
+            className="relative max-w-[100%]"
         >
             <label
                 className=" flex items-center min-w-full w-[100%] relative md:min-w-[0]"
@@ -144,7 +140,7 @@ const Search = ({
                     </div>
                 )}
             </label>
-            {apiEnabled && isFocused && (
+            {isFocused && (
                 <div
                     className="bg-[#fff] absolute max-h-[400px] mt-[10px] rounded-[5px] flex flex-col text-[#333] overflow-y-auto  shadow-lg shadow-[#3333] font-medium z-50"
                     style={{
@@ -168,7 +164,7 @@ const Search = ({
                         searchResult.data?.jobCategoriesData.length > 0 &&
                         searchResult.data.companyNameData.map((d, index) => (
                             <Link
-                                to={`/list-search-jobs/${d?._id}/${addressSelected}`}
+                                to={`/list-search-jobs/${d?._id}`}
                                 className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
                                 key={index}
                             >
@@ -180,7 +176,7 @@ const Search = ({
                         searchResult.data?.jobLevelData.length > 0 &&
                         searchResult.data.jobLevelData.map((d, index) => (
                             <Link
-                                to={`/list-search-jobs/${d?._id}/${addressSelected}`}
+                                to={`/list-search-jobs/${d?.name}`}
                                 className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
                                 key={index}
                             >
@@ -192,7 +188,7 @@ const Search = ({
                         searchResult.data?.jobNameData.length > 0 &&
                         searchResult.data.jobNameData.map((d, index) => (
                             <Link
-                                to={`/list-search-jobs/${d?._id}/${addressSelected}`}
+                                to={`/list-search-jobs/${d?.name}`}
                                 className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
                                 key={index}
                             >
@@ -204,19 +200,7 @@ const Search = ({
                         searchResult.data?.jobSalaryData.length > 0 &&
                         searchResult.data.jobSalaryData.map((d, index) => (
                             <Link
-                                to={`/list-search-jobs/${d?._id}/${addressSelected}`}
-                                className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
-                                key={index}
-                            >
-                                {d?.name}
-                            </Link>
-                        ))}
-                    {text &&
-                        !searchResult.errorStatus &&
-                        searchResult.data?.jobRequiredData.length > 0 &&
-                        searchResult.data.jobRequiredData.map((d, index) => (
-                            <Link
-                                to={`/list-search-jobs/${d?._id}/${addressSelected}`}
+                                to={`/list-search-jobs/${d?.name}`}
                                 className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
                                 key={index}
                             >

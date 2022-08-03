@@ -23,12 +23,9 @@ app.use((req, res, next) => {
 
 app.use(cookieParser());
 app.use(morgan('common'));
-app.use(
-    express.json({
-        limit: '50mb',
-    }),
-);
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 route(app);
 app.listen(8000, () => {
     console.log('Server is running...');

@@ -14,9 +14,7 @@ router.get('/refresh', refreshTokenController.requestRefreshToken);
 router.post('/sendEmail', authController.sendMail);
 router.get('/resetPassword/:token', authController.checkToken);
 router.post('/updatePasswordViaEmail/:token', authController.resetPassword);
-
 router.get('/listUsers/:page',  authController.listUsers);
-
 
 
 module.exports = router;

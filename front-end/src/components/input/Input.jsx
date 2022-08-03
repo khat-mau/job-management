@@ -14,7 +14,7 @@ const Input = ({
 }) => {
     return (
         <label className="block" style={{ width: width }}>
-            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+            <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                 {label}
             </span>
             <input

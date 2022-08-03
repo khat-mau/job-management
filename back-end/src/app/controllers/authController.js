@@ -5,7 +5,7 @@ const handlebars = require("handlebars");
 const hbs = require('nodemailer-express-handlebars');
 const path = require('path')
 const Token = require('./token');
-
+const jwt_decode = require("jwt-decode");
 class registerController {
     async create(req, res) {
         try {
@@ -116,7 +116,6 @@ class registerController {
 
     async listUsers(req, res){
         try {
-
             let perpage = 6;
             let page = req.params.page || 1;
             let listUsers;
@@ -128,7 +127,6 @@ class registerController {
             res.status(200).json({ errorStatus: false, data: { page, toltalPage, listUsersWasFilter } });
             // const user = await User.find();
             // res.status(200).json({ user: user });
-
         } catch (e) { res.status(500).json({ errorStatus: true, err: e.message }); }
         
     }
@@ -159,18 +157,18 @@ class registerController {
 
             // nhập email
             let emails, accessToken;
-
-            const checkEmail = await User.findOne({ email: req.body.email })
+            const checkEmail = await User.findOne({ email: req.body.emails })
                 .then(user => {
-                    if (!user) {                        
-                        return res.status(422).json({ errorStatus:true,error: "User dont exists with that email "});
+                    if (!user) {
+                        emails = req.body.emails;
+                        return res.status(422).json({ errorStatus: true, error: "User dont exists with that email" + emails })
                     }
                     accessToken = Token.generateAccessTokenEmail(req.body.emails);
                     user.resetToken = accessToken
                     user.expireToken = Date.now() + 3600000
+                    user.isVerifyToken = false
                     user.save().then((result) => {
-                        emails = req.body.email;
-
+                        emails = req.body.emails;
                         // gui email
                         const mailOptions = {
                             from: 'jobsharingvn24h@gmail.com',
@@ -218,7 +216,9 @@ class registerController {
 
     async resetPassword(req, res, next) {
         try {
+
             const token = req.params.token;
+            const email = jwt_decode(token).email;
             const newPassword = req.body.password;
             const confirmNewPassword = req.body.confirmPassword;
             if (newPassword === confirmNewPassword) {

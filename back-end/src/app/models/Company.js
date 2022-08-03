@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const mongooseDelete = require('mongoose-delete');
 
 const company = new mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
-    },
     name: {
         type: String,
         maxLength: 255,
@@ -28,8 +24,7 @@ const company = new mongoose.Schema({
             ref: 'job',
         },
     ],
-    createdAt: { type: Date, default: Date.now },
-    status: { type: String, default: 'waiting' }, //value: [waiting, hide, show, banned]
+    status: { type: String, default: 'hide' }, //value: [hide, show, ban]
 });
 
 const job = new mongoose.Schema({
@@ -56,14 +51,7 @@ const job = new mongoose.Schema({
         maxLength: 255,
     },
     salary: {
-        type: String,
-
-    },
-    required: {
-        type: String,
-        require: true,
-        maxLength: 255,
-
+        type: Number,
     },
     location: {
         type: String,

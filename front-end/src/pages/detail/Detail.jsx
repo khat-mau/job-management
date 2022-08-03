@@ -1,17 +1,22 @@
 import Button from '../../components/button/Button';
+import images from '../../assets/images';
 import Wrapper from '../../components/layout/defaultLayout/wrapper/Wrapper';
 import Search from '../../components/search/Search';
 import Report from '../report/ReportDetailJob';
 import { BiDollar, BiLike, BiDislike } from 'react-icons/bi';
+import { MdWork } from 'react-icons/md';
+import { BsFlagFill } from 'react-icons/bs';
 import { FaStar } from "react-icons/fa";
+import { GoMortarBoard } from 'react-icons/go';
+import { CgProfile } from 'react-icons/cg';
 import { HiLocationMarker } from 'react-icons/hi';
 import { FaHourglassHalf } from 'react-icons/fa';
-import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import * as detailJob  from '../../api/getListJobsCompany';
 
 //code cứng, 
+
+import { Link } from 'react-router-dom';
 
 const comment = [
     {
@@ -56,9 +61,7 @@ const latestjob2 = [
 
 
 const Detail = () => {
-    const [data, setData] = useState({});
     const [isReport, setReport] = useState(false);
-    const {jobId} = useParams();
     const handleShowReport = () => {
         setReport(!isReport);
 
@@ -77,13 +80,6 @@ const Detail = () => {
   const handleMouseLeave = () => {
     setHoverValue(undefined)
   };
-  useEffect(()=>{
-      async function fetch() {
-          const result = await detailJob.detailJob(jobId);
-          setData(result);
-      }
-      fetch();
-  },[jobId]);
     return (
         <>
         <Wrapper className="w-full">

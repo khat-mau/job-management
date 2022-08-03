@@ -7,24 +7,17 @@ import { useSelector } from 'react-redux';
 
 
 
-const OwnInfor = ({onShowLogin}) => {
+const OwnInfor = ({ onShowLogin }) => {
     const [data, setData] = useState({}); // => tra ve errormessage and data (trong do data gom cac thuoc tinh) => check error status first => checker data (return data)
     const user = useSelector((state) => state.auth.login.currentUser);
 
     useEffect(() => {
         async function fetch() {
-            const result = await getHistory({data: user._id});
+            const result = await getHistory({ data: user._id });
             setData(result);
         }
         fetch();
     }, []);
-    
-        
-    
-
-
-    
-
 
 
     return (
@@ -72,7 +65,16 @@ const OwnInfor = ({onShowLogin}) => {
                     <div className='mb-7 '>
                         <table className="border-collapse border border-slate-400 w-full table-auto mb-40">
                             <thead>
-                                {data?.errorStatus===false && data.map((job, index) => (
+                                <tr className='boder border-b-2 h-[50px]'>
+                                    <td className="border border-slate-300 h-[50px]">No</td>
+                                    <td className="border border-slate-300 h-[50px]">The Company</td>
+                                    <td className="border border-slate-300 h-[50px]">Job</td>
+                                    <td className="border border-slate-300 h-[50px]">Submission date</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {data?.errorStatus === false && data.map((job, index) => (
                                     <tr key={index}>
                                         <th className="border border-slate-300 h-[50px]">{index}</th>
                                         <th className="border border-slate-300 h-[50px]">{job?.nameConpany}</th>
@@ -80,18 +82,6 @@ const OwnInfor = ({onShowLogin}) => {
                                         <th className="border border-slate-300 h-[50px]">{job?.create}</th>
                                     </tr>
                                 ))}
-                            </thead>
-                            <tbody>
-                                {/* {dataApllieTable.map((, ) => {
-                                    return (
-                                        <tr className='boder border-b-2 h-[50px]' key={key}>
-                                            <td className="border border-slate-300 h-[50px]">{val.id}</td>
-                                            <td className="border border-slate-300 h-[50px]">{val.company}</td>
-                                            <td className="border border-slate-300 h-[50px]">{val.job}</td>
-                                            <td className="border border-slate-300 h-[50px]">{val.date}</td>
-                                        </tr>
-                                    );
-                                })} */}
                             </tbody>
                         </table>
                     </div>
