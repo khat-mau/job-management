@@ -1,10 +1,6 @@
 import Wrapper from '../wrapper/Wrapper';
 import Login from '../../../../pages/login/Login';
 import Register from '../../../../pages/register/Register';
-
-import Reset from '../../../../pages/resetPassword/ResetPassword';
-import NewPassword from '../../../../pages/newPassword/NewPassword';
-import CompleteGmail from '../../../../pages/resetPassword/CompleteGmail';
 import { Link, Navigate } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -31,9 +27,6 @@ const pages = [
 const Header = ({ children }) => {
     const isLogin = useSelector((state) => state.auth.isShowLogin);
     const [isRegister, setIsRegister] = useState(false);
-    const [isReset, setIsReset] = useState(false);
-    const [isNewPass, setIsNewPass] = useState(false);
-    const [isCompleteGmail,setCompleteGmail] = useState(false);
     const user = useSelector((state) => state.auth.login.currentUser);
     const dispatch = useDispatch();
 
@@ -57,15 +50,6 @@ const Header = ({ children }) => {
     const handleShowLogin = () => {
         dispatch(handleLogin());
     };
-    const handleShowReset = () => {
-        setIsReset(!isReset);
-    };
-    const handleShowNewPass=() =>{
-        setIsNewPass(!isNewPass);
-    };
-    const handleShowCompleteGmail = () => {
-        setCompleteGmail(!isCompleteGmail);
-    };
 
     const handleLogout = () => {
         logoutUser(user.accessToken, dispatch);
@@ -78,9 +62,7 @@ const Header = ({ children }) => {
                 content="flex items-center h-[100%] "
             >
                 <Link
-
                     className="text-[24px] mr-[50px] shrink-0 select-none cursor-pointer"
-
                     style={{ fontFamily: "'Irish Grover', cursive" }}
                     to="/"
                 >
@@ -102,6 +84,14 @@ const Header = ({ children }) => {
                             {page.title}
                         </Link>
                     ))}
+                    {user?.role === 'admin' && (
+                        <Link
+                            className="md:mr-[50px] text-[#ffffff] text-[15px] my-[10px] md:m-0"
+                            to={'/request-all'}
+                        >
+                            View requests
+                        </Link>
+                    )}
                     <div className="md:ml-[auto] md:grow flex flex-col md:flex-row md:justify-end order-[-1] md:order-none">
                         {user ? (
                             <>
@@ -125,10 +115,6 @@ const Header = ({ children }) => {
                                     onClick={() => {
                                         dispatch(showLogin());
                                         setIsRegister(false);
-                                        setIsReset(false);
-                                        setIsNewPass(false);
-                                        setCompleteGmail(false);
-                                    
                                     }}
                                 >
                                     Sign in
@@ -139,9 +125,6 @@ const Header = ({ children }) => {
                                     onClick={() => {
                                         dispatch(hideLogin());
                                         setIsRegister(true);
-                                        setIsReset(false);
-                                        setIsNewPass(false);
-                                        setCompleteGmail(false);
                                     }}
                                 >
                                     Sign up
@@ -168,10 +151,6 @@ const Header = ({ children }) => {
                         <Login
                             onShowRegister={handleShowRegister}
                             onShowLogin={handleShowLogin}
-                            onShowReset={handleShowReset}
-                            onShowNewPass={handleShowNewPass}
-                            onShowCompleteGmail= {handleShowCompleteGmail}
-                            
                         />
                     </div>
                     <div
@@ -191,81 +170,12 @@ const Header = ({ children }) => {
                         <Register
                             onShowRegister={handleShowRegister}
                             onShowLogin={handleShowLogin}
-                            onShowReset={handleShowReset}
-                            onShowNewPass={handleShowNewPass}
-                            onShowCompleteGmail= {handleShowCompleteGmail}
                         />
                     </div>
                     <div
                         className="absolute w-[100%] h-[100%] -z-10"
                         onClick={() => {
                             setIsRegister(false);
-                        }}
-                    ></div>
-                </div>
-            )}
-            {isReset && (
-                <div className="fixed top-[0]  z-50 bg-[#00000071] w-[100vw] h-[100vh]">
-                    <div
-                        className="top-[50%] left-[50%] absolute w-[auto]"
-                        style={{ transform: 'translate(-50%,-50%)' }}
-                    >
-                        <Reset
-                        onShowRegister={handleShowRegister}
-                            onShowReset={handleShowReset}
-                            onShowLogin={handleShowLogin}
-                            onShowNewPass={handleShowNewPass}
-                            onShowCompleteGmail= {handleShowCompleteGmail}
-                        />
-                    </div>
-                    <div
-                        className="absolute w-[100%] h-[100%] -z-10"
-                        onClick={() => {
-                            setIsReset(false);
-                        }}
-                    ></div>
-                </div>
-            )}
-            {isNewPass && (
-                <div className="fixed top-[0]  z-50 bg-[#00000071] w-[100vw] h-[100vh]">
-                    <div
-                        className="top-[50%] left-[50%] absolute w-[auto]"
-                        style={{ transform: 'translate(-50%,-50%)' }}
-                    >
-                        <NewPassword
-                        onShowRegister={handleShowRegister}
-                            onShowReset={handleShowReset}
-                            onShowLogin={handleShowLogin}
-                            onShowNewPass={handleShowNewPass}
-                            onShowCompleteGmail= {handleShowCompleteGmail}
-                        />
-                    </div>
-                    <div
-                        className="absolute w-[100%] h-[100%] -z-10"
-                        onClick={() => {
-                            setIsNewPass(false);
-                        }}
-                    ></div>
-                </div>
-            )}
-            {isCompleteGmail && (
-                <div className="fixed top-[0]  z-50 bg-[#00000071] w-[100vw] h-[100vh]">
-                    <div
-                        className="top-[50%] left-[50%] absolute w-[auto]"
-                        style={{ transform: 'translate(-50%,-50%)' }}
-                    >
-                        <CompleteGmail
-                        onShowRegister={handleShowRegister}
-                            onShowReset={handleShowReset}
-                            onShowLogin={handleShowLogin}
-                            onShowNewPass={handleShowNewPass}
-                            onShowCompleteGmail= {handleShowCompleteGmail}
-                        />
-                    </div>
-                    <div
-                        className="absolute w-[100%] h-[100%] -z-10"
-                        onClick={() => {
-                            setCompleteGmail(false);
                         }}
                     ></div>
                 </div>

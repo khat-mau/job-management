@@ -14,15 +14,13 @@ import RequestAll from '../pages/requestAll/RequestAll';
 import ViewCandidate from '../pages/viewCandidate/ViewCandidate';
 import ListCompanyWasDeleted from '../pages/listCompanyWasDeleted/ListCompanyWasDeleted';
 import FilterCompany from '../pages/userCompany/FilterCompany';
-import AdminCompany from '../pages/userCompany/AdminCompany';
-import UserRecruitment from '../pages/userCompany/UserRecruitment';
 import ListSearchJobs from '../pages/userCompany/ListSearchJobs';
 
 import { admin, user } from './role';
 import AddCompany from '../pages/userCompany/AddCompany';
+import AdminViewRequest from '../pages/adminViewRequest/AdminViewRequest';
 
 const publicRoutes = [
-    { path: '/request-all', component: RequestAll },
     { path: '/view-candidate', component: ViewCandidate },
     { path: '/reset-password', component: ResetPassword },
     { path: '/new-password', component: NewPassword },
@@ -33,8 +31,9 @@ const publicRoutes = [
     { path: '/user-recruitment', component: UserRecruitment },
     { path: '/add-company', component: AddCompany },
 
-    { path: '/list-search-jobs/:params', component: ListSearchJobs },
     { path: '/list-search-jobs/:name/:filter', component: ListSearchJobs },
+    { path: '/list-search-jobs/:params', component: ListSearchJobs },
+
     { path: '/ban', component: Ban },
     { path: '/', component: Home },
     { path: '/detail/:jobId', component: Detail},
@@ -53,6 +52,13 @@ const privateRoutes = [
         layout: Header,
         acceptAccess: [admin, user],
     },
+    { path: '/request-all', component: RequestAll, acceptAccess: [admin] },
+    {
+        path: '/view-request/:id',
+        component: AdminViewRequest,
+        acceptAccess: [admin],
+    },
+
     { path: '/detail', component: Detail, acceptAccess: [admin, user] },
 ];
 
