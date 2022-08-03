@@ -86,26 +86,16 @@ class jobController {
         }
     }
 
-    async inforJob(req, res) {
+    async detailJob(req, res) {
         try {
-            const userID = req.body.userID;
+            //const userID = req.params.userID;
             const jobID = req.params.jobID;
-            const comment = req.body.comment;
+            //const comment = req.body.comment;
             const job = await Job.findById(jobID);
-            if (job) {
-                if (comment) {
-                    const newComment = new Comments({ details: comment, userID: userID, jobID: jobID });
-                    const SaveComment = await newComment.save()
-                    if (User.findById(userID)) {
-                        await job.updateOne({ $push: { comment: SaveComment._id } });
-                    }
-                    else {
-                        req.status(404).json({ errorStatus: true, message: 'can not find user' });
-                    }
-                }
-                const ListComment = await Comments.find(jobID);
-                req.status(200).json({ errorStatus: false, JOB: job, Comments: ListComment });
-            } else if (!job) {
+            if(job){
+                res.status(200).json({ errorStatus: false, Job: job });
+            }
+            else{
                 req.status(404).json({ errorStatus: true, message: 'can not find job' });
             }
         } catch (e) {
