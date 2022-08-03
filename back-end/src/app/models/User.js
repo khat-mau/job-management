@@ -28,6 +28,12 @@ const user = new mongoose.Schema({
         min: 6,
         max: 20,
     },
+    companies: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'company',
+        },
+    ],
     photo: {
         type: String,
         default: 'https://cdn.tecotecshop.com/assets/img/avatar-author.png',
@@ -50,4 +56,6 @@ const user = new mongoose.Schema({
     isVerifyToken:Boolean,
 });
 
-module.exports = mongoose.model('User', user);
+
+module.exports = mongoose.model('user', user);
+

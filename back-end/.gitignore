@@ -2,3 +2,4 @@
 /node_modules
 /src/app/controllers/userController.js
 /src/routes/user.js
+/src/assets/images/

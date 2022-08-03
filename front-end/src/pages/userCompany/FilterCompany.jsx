@@ -79,6 +79,7 @@ const FilterCompany = () => {
     };
 
     useEffect(() => {
+
         async function fetch() {
             const result = await listjobsCompany.listjobsCompany(companyId);
             setData(result);
@@ -87,6 +88,7 @@ const FilterCompany = () => {
     }, [companyId]);
 
     
+
 
     return (
         <>         

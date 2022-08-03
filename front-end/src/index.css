@@ -7,4 +7,29 @@
         --primary-color: #000080;
         --border-color-light: rgba(153, 153, 153, 0.5);
     }
+
+    h1 {
+        @apply text-2xl;
+    }
+    h2 {
+        @apply text-xl;
+    }
+
+    h3 {
+        @apply text-lg;
+    }
+
+    h4 {
+        @apply text-base;
+    }
+
+    ul {
+        @apply list-disc;
+        @apply list-inside;
+    }
+
+    ol {
+        @apply list-decimal;
+        @apply list-inside;
+    }
 }

@@ -27,26 +27,29 @@ const publicRoutes = [
     { path: '/reset-password', component: ResetPassword },
     { path: '/new-password', component: NewPassword },
     { path: '/own-infor', component: OwnInfor },
-    { path: '/list-company', component: ListCompany },
     { path: '/list-wasdeleted', component: ListCompanyWasDeleted },
     { path: '/filter-jobs/:companyId', component: FilterCompany },
     { path: '/admin-company', component: AdminCompany },
     { path: '/user-recruitment', component: UserRecruitment },
     { path: '/list-search-jobs/:params', component: ListSearchJobs },
     { path: '/list-search-jobs/:name/:filter', component: ListSearchJobs },
-
     { path: '/ban', component: Ban },
     { path: '/', component: Home },
-    { path: '/detail/:jobId', component: Detail},
-    {
-        path: '/manage/jobs',
-        component: ManagerJobs,
-        layout: Header,
-    },
     { path: '/*', component: Error, layout: null },
 ];
 
 const privateRoutes = [
+    {
+        path: '/list-company',
+        component: ListCompany,
+        acceptAccess: [admin, user],
+    },
+    {
+        path: '/manage/jobs/:companyId',
+        component: ManagerJobs,
+        layout: Header,
+        acceptAccess: [admin, user],
+    },
     { path: '/detail', component: Detail, acceptAccess: [admin, user] },
 ];
 
