@@ -15,6 +15,8 @@ import ViewCandidate from '../pages/viewCandidate/ViewCandidate';
 import ListCompanyWasDeleted from '../pages/listCompanyWasDeleted/ListCompanyWasDeleted';
 import FilterCompany from '../pages/userCompany/FilterCompany';
 import ListSearchJobs from '../pages/userCompany/ListSearchJobs';
+import AdminCompany from '../pages/userCompany/AdminCompany';
+import UserRecruitment from '../pages/userCompany/UserRecruitment';
 
 import { admin, user } from './role';
 import AddCompany from '../pages/userCompany/AddCompany';
