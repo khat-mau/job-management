@@ -53,27 +53,27 @@ function Register({ onShowRegister, onShowLogin }) {
     };
 
     return (
-        <div class="flex items-center justify-center w-[100vw] md:w-[auto]">
-            <div class="px-8 py-6 mx-4 mt-6 mb-6 text-left bg-white shadow-lg min-w-[100%]">
+        <div className="flex items-center justify-center w-[100vw] md:w-[auto]">
+            <div className="px-8 py-6 mx-4 mt-6 mb-6 text-left bg-white shadow-lg min-w-[100%]">
                 <AiOutlineClose
                     className="ml-[auto] cursor-pointer text-[20px]"
                     onClick={() => onShowRegister()}
                 />
-                <h3 class="text-2xl font-bold text-center">
+                <h3 className="text-2xl font-bold text-center">
                     Job seekers register for an account
                 </h3>
                 <form action="">
-                    <div class="mt-4">
+                    <div className="mt-4">
                         <div className="flex flex-wrap -mx-3 ">
                             <div className="w-full md:w-1/2 px-3 md:mb-0">
                                 <label
-                                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     htmlFor="grid-first-name"
                                 >
                                     First Name
                                 </label>
                                 <input
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     type="text"
                                     placeholder="First name"
                                     onChange={(e) =>
@@ -81,15 +81,15 @@ function Register({ onShowRegister, onShowLogin }) {
                                     }
                                 />
                             </div>
-                            <div class="w-full md:w-1/2 px-3">
+                            <div className="w-full md:w-1/2 px-3">
                                 <label
-                                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                    for="grid-last-name"
+                                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                    htmlFor="grid-last-name"
                                 >
                                     Last Name
                                 </label>
                                 <input
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     type="text"
                                     placeholder="Last name"
                                     onChange={(e) =>
@@ -98,52 +98,52 @@ function Register({ onShowRegister, onShowLogin }) {
                                 />
                             </div>
                         </div>
-                        <div class="mt-2">
-                            <label class="block" for="email">
+                        <div className="mt-2">
+                            <label className="block" htmlFor="email">
                                 Account name:
                             </label>
                             <input
                                 type="text"
                                 placeholder="Email address"
-                                class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                                 onChange={(e) => setUsername(e.target.value)}
                             />
                         </div>
-                        <div class="mt-4">
-                            <label class="block" for="email">
+                        <div className="mt-4">
+                            <label className="block" htmlFor="email">
                                 Email address:
                             </label>
                             <input
                                 type="text"
-                                class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
-                        <div class="mt-3">
-                            <label class="block" for="email">
+                        <div className="mt-3">
+                            <label className="block" htmlFor="email">
                                 Phone number:
                             </label>
                             <input
                                 type="text"
-                                class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                                 onChange={(e) => setPhone(e.target.value)}
                             />
                         </div>
-                        <div class="mt-3">
-                            <label class="block">Password</label>
+                        <div className="mt-3">
+                            <label className="block">Password</label>
                             <input
                                 type="password"
                                 placeholder="Password"
-                                class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
-                        <div class="mt-3">
-                            <label class="block">Confirm Password</label>
+                        <div className="mt-3">
+                            <label className="block">Confirm Password</label>
                             <input
                                 type="password"
                                 placeholder="Confirm Password"
-                                class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                                 onChange={(e) =>
                                     setConfirmPassword(e.target.value)
                                 }
@@ -159,29 +159,29 @@ function Register({ onShowRegister, onShowLogin }) {
                                     : registerResult.dataError.errorMessage}
                             </div>
                         )}
-                        <div class="flex">
+                        <div className="flex">
                             {!isWaitingResult ? (
                                 <button
-                                    class="w-full mx-auto px-3 py-2 mt-5 text-center text-white bg-blue-800 rounded-lg hover:bg-blue-900"
+                                className="w-full mx-auto px-3 py-2 mt-5 text-center text-white bg-blue-800 rounded-lg hover:bg-blue-900"
                                     onClick={(e) => handleRegister(e)}
                                 >
                                     Create Account
                                 </button>
                             ) : (
                                 <button
-                                    class="w-full mx-auto px-3 py-2 mt-5 text-center text-white bg-blue-800 rounded-lg opacity-40"
+                                className="w-full mx-auto px-3 py-2 mt-5 text-center text-white bg-blue-800 rounded-lg opacity-40"
                                     disabled
                                 >
                                     Create Account
                                 </button>
                             )}
                         </div>
-                        <div class="flex justify-center mt-4 text-grey-dark">
+                        <div className="flex justify-center mt-4 text-grey-dark">
                             <label className="font-bold">
                                 Already have an account?
                             </label>
                             <div
-                                class="text-blue-600 hover:underline cursor-pointer"
+                                className="text-blue-600 hover:underline cursor-pointer"
                                 onClick={() => {
                                     onShowLogin();
                                     onShowRegister();
@@ -192,8 +192,8 @@ function Register({ onShowRegister, onShowLogin }) {
                         </div>
                     </div>
                     <div>
-                        <div class="relative">
-                            <button class="w-full mx-auto  px-3 py-2 mt-5 text-center text-white bg-blue-900 rounded-lg hover:bg-blue-900">
+                        <div className="relative">
+                            <button className="w-full mx-auto  px-3 py-2 mt-5 text-center text-white bg-blue-900 rounded-lg hover:bg-blue-900">
                                 Are you a recruiter?
                             </button>
                         </div>
