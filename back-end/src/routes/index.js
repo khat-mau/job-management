@@ -5,6 +5,7 @@ const search = require('./search');
 const address = require('./address');
 const upload = require('./upload');
 const homePage = require('./homePage');
+const admin = require('./admin');
 
 function route(app) {
     app.use('/api/HomePage', homePage);
@@ -14,6 +15,7 @@ function route(app) {
     app.use('/api/search', search);
     app.use('/api/address', address);
     app.use('/api/upload', upload);
+    app.use('/api/admin', admin);
 }
 
 module.exports = route;

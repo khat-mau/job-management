@@ -1,11 +1,10 @@
 import Wrapper from '../wrapper/Wrapper';
 import Login from '../../../../pages/login/Login';
 import Register from '../../../../pages/register/Register';
-
 import Reset from '../../../../pages/resetPassword/ResetPassword';
 import NewPassword from '../../../../pages/newPassword/NewPassword';
 import CompleteGmail from '../../../../pages/resetPassword/CompleteGmail';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
@@ -80,9 +79,7 @@ const Header = ({ children }) => {
                 content="flex items-center h-[100%] "
             >
                 <Link
-
-                    className="text-[24px] mr-[50px] shrink-0 select-none cursor-pointer"
-
+                    className="text-[24px] mr-[50px] shrink-0 select-none"
                     style={{ fontFamily: "'Irish Grover', cursive" }}
                     to="/"
                 >

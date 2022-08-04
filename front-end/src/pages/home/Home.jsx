@@ -106,7 +106,7 @@ const Home = () => {
                             <div key={index}>
                                 {index < 4 && (
                                     <div className="border-solid border-2 border-[#f0e3e3e7] hover:border-red-600 flex flex-col items-center mx-auto h-[200px] md:h-[250px] relative  w-[210px]"
-                                    onClick={() => navigate("/filter-jobs/" + companys._id)}>
+                                        onClick={() => navigate("/filter-jobs/" + companys._id)}>
                                         <div style={{ height: "70%" }}>
                                             <img
                                                 src={companys.photo}
@@ -120,10 +120,14 @@ const Home = () => {
                                             <span className="font-[700] w-full text-center">
                                                 {companys.name}
                                             </span>
-                                            <div className='flex flex-row font-[700] italic md:text-[16px] px-auto m-[5px] my-auto gap-2'>
+                                            <span className="font-[700] italic md:text-[16px] px-auto m-[5px] ">
+                                            {companys.jobs.length} positions left
+                                            </span>
+
+                                            {/* <div className='flex flex-row font-[700] italic md:text-[16px] px-auto m-[5px] my-auto gap-2'>
                                                 <div className=''><FaBriefcase/></div>
                                                 {companys.jobs.length} positions left
-                                            </div>
+                                            </div> */}
                                             {/* mo ta (hot, luong cao) */}
                                             <div className=" bg-[#f96B6B] w-[40px] h-[25px] absolute top-0 left-0">
                                                 <span className="text-[15px] pl-[5px] text-white ">
@@ -188,24 +192,22 @@ const Home = () => {
                                     <h1 className="">{jobs.name}</h1>
                                     <div className="flex py-[5px] md:py-[20px]">
                                         <BiDollar className="max-w-[36px] max-h-[30px] mt-[3px]" />
-                                        <span className="">{jobs.name}</span>
+                                        <span className="">{jobs.salary}</span>
                                     </div>
                                     <div className="flex flex-wrap gap-2 mb-[5px] font-[400]">
-                                        {job.data.listJobWasFilter.map((requestjob, index3) => (
-                                            <div className="flex justify-center items-center border-2 border-[#999999BF] min-w-[45px] md:pl-0 " key={index3}>
-                                                <span className="mx-auto md:mx-[30px]">{requestjob.required} </span>
-                                            </div>
-                                        ))}
+                                        <div className="flex justify-center items-center border-2 border-[#999999BF] min-w-[45px] md:pl-0 ">
+                                            <span className="mx-auto md:mx-[30px]">{jobs.required} </span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className=" py-auto md:py-[20px] basis-[20%]">
                                     <div className="flex mb-auto md:mb-[10px] ">
                                         <HiLocationMarker className="max-w-[36px] max-h-[30px] mt-[3px]" />
-                                        <h1> {jobs.name}</h1>
+                                        <h1> {jobs.location}</h1>
                                     </div>
                                     <div className="flex py-[5px] md:py-[20px]">
                                         <FaHourglassHalf className="max-w-[36px] max-h-[30px] mt-[3px]" />
-                                        <h1>{jobs.name}</h1>
+                                        <h1>{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(jobs.updatedAt)))}</h1>
                                     </div>
                                 </div>
                             </div>
