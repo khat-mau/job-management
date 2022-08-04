@@ -174,16 +174,13 @@ const FilterCompany = () => {
                             
                             {job.required &&
                                 <div className="flex flex-wrap gap-2 mb-[5px] font-[400]">
-                                
                                         <div
                                             className="flex justify-center items-center border-2 border-[#999999BF] min-w-[45px] md:pl-0 "
-                                            
                                         >
                                             <span className="mx-auto md:mx-[30px]">
                                                 {job.required}
                                             </span>
                                         </div>
-                                
                             </div>}
                         </div>
                         <div className="absolute  w-full h-full "

@@ -3,7 +3,7 @@ import images from '../../assets/images';
 import Wrapper from '../../components/layout/defaultLayout/wrapper/Wrapper';
 import { BiDollar } from 'react-icons/bi';
 import { HiLocationMarker } from 'react-icons/hi';
-import { FaHourglassHalf } from 'react-icons/fa';
+import { FaHourglassHalf, FaBriefcase } from 'react-icons/fa';
 import Search from '../../components/search/Search';
 import * as listJob from '../../api/getHomeJob';
 import * as listCompany from '../../api/getHomeJob';
@@ -12,40 +12,7 @@ import { useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const features = [
-    {
-        src: 'https://k8m8a6e7.rocketcdn.me/wp-content/uploads/2021/09/og-social-java-logo.gif',
 
-        company: 'HIGH TECH',
-        jobs: ' 9 positions left',
-        trend: 'Hot',
-        href: '#',
-    },
-    {
-        src: 'https://k8m8a6e7.rocketcdn.me/wp-content/uploads/2021/09/og-social-java-logo.gif',
-
-        company: 'HIGH TECH',
-        jobs: ' 9 positions left',
-        trend: 'Hot',
-        href: '#',
-    },
-    {
-        src: 'https://k8m8a6e7.rocketcdn.me/wp-content/uploads/2021/09/og-social-java-logo.gif',
-
-        company: 'HIGH TECH',
-        jobs: ' 9 positions left',
-        trend: 'Hot',
-        href: '#',
-    },
-    {
-        src: 'https://k8m8a6e7.rocketcdn.me/wp-content/uploads/2021/09/og-social-java-logo.gif',
-
-        company: 'HIGH TECH',
-        jobs: ' 9 positions left',
-        trend: 'Hot',
-        href: '#',
-    },
-];
 
 const latestjob = [
     {
@@ -63,17 +30,6 @@ const latestjob = [
     {
         title: 'General Labor',
         href: '#',
-    },
-];
-const latestjob2_request = [
-    {
-        request: 'English',
-    },
-    {
-        request: 'English',
-    },
-    {
-        request: 'English',
     },
 ];
 
@@ -153,7 +109,7 @@ const Home = () => {
                                     onClick={() => navigate("/filter-jobs/" + companys._id)}>
                                         <div style={{ height: "70%" }}>
                                             <img
-                                                src={"https://cdngarenanow-a.akamaihd.net/webmain/static/pss/lol/items_splash/yasuo_55.jpg"}
+                                                src={companys.photo}
                                                 alt=""
                                                 width="420px"
                                                 style={{ height: "100%" }}
@@ -164,9 +120,10 @@ const Home = () => {
                                             <span className="font-[700] w-full text-center">
                                                 {companys.name}
                                             </span>
-                                            <span className="font-[700] italic md:text-[16px] px-auto m-[5px] ">
-                                                {companys.name}
-                                            </span>
+                                            <div className='flex flex-row font-[700] italic md:text-[16px] px-auto m-[5px] my-auto gap-2'>
+                                                <div className=''><FaBriefcase/></div>
+                                                {companys.jobs.length} positions left
+                                            </div>
                                             {/* mo ta (hot, luong cao) */}
                                             <div className=" bg-[#f96B6B] w-[40px] h-[25px] absolute top-0 left-0">
                                                 <span className="text-[15px] pl-[5px] text-white ">
@@ -220,7 +177,7 @@ const Home = () => {
                                 <div className="basis-[30%] md:basis-[25%]" style={{ height: "100%" }}>
                                     <img
                                         //src={jobs.name}
-                                        src="https://i.pinimg.com/564x/ed/38/bb/ed38bbac2c073ae88d6c8b6e5cd87f33.jpg"
+                                        src={jobs.photo}
                                         alt=""
                                         width="275px"
                                         style={{ height: "100%" }}

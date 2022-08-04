@@ -5,6 +5,9 @@ import { useEffect } from 'react';
 import { getHistory } from '../../api/userServices';  //kiem tra duong link
 import { useSelector } from 'react-redux';
 import Report from '../report/ReportDetailJob';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import * as listJob from '../../api/getHomeJob';
+import * as listCompany from '../../api/getHomeJob';
 
 
 
@@ -12,10 +15,35 @@ const OwnInfor = ({ onShowLogin }) => {
     const [data, setData] = useState({}); // => tra ve errormessage and data (trong do data gom cac thuoc tinh) => check error status first => checker data (return data)
     const user = useSelector((state) => state.auth.login.currentUser);
     const [isReport, setReport] = useState(false);
+    const navigate = useNavigate();
+    const [job, setJob] = useState({});
+    const [company, setCompany] = useState({});
+
+
+    useEffect(() => {
+        async function fetch() {
+            const result = await listJob.getListJob('1');
+            setJob(result);
+        }
+        fetch();
+    }, []);
+
+    useEffect(() => {
+        async function fetch() {
+            const result = await listCompany.getListCompany('1');
+            setCompany(result);
+        }
+        fetch();
+    }, []);
+
+
+
+
     const handleShowReport = () => {
         setReport(!isReport);
 
     };
+
 
     useEffect(() => {
         async function fetch() {
@@ -36,34 +64,33 @@ const OwnInfor = ({ onShowLogin }) => {
                         <tbody>
                             <tr className='boder border-b-2 h-[50px]'>
                                 <td className='px-2 py-2'>Fullname:</td>
-                                <td className='px-2 py-2'>{user.firstName} {user.lastName}</td>
+                                <td className='px-2 py-2'>{user.firstName} {user.lastName} </td>
 
-                                <td><a className='text-blue-800 underline underline-offset-2' href="/">Edit</a></td>
+                                <td><a className='text-blue-800 underline underline-offset-2' href="/"></a></td>
                             </tr>
                             <tr className='boder border-b-2 h-[50px]'>
                                 <td className='px-2 py-2'>UserName:</td>
                                 <td className='px-2 py-2'>{user.username}</td>
                                 {/* <td className='px-2 py-2'> <Input>{user.username}</Input> </td> */}
-                                <td><a className='text-blue-800 underline underline-offset-2 ' href="/">Edit</a></td>
+                                <td><a className='text-blue-800 underline underline-offset-2 ' href="/"></a></td>
                             </tr>
                             <tr className='boder border-b-2 h-[50px]'>
                                 <td className='px-2 py-2'>Email:</td>
                                 <td className='px-2 py-2'>{user.email}</td>
-                                <td><a className='text-blue-800 underline underline-offset-2' href="/">Edit</a></td>
+                                <td><a className='text-blue-800 underline underline-offset-2' href="/"></a></td>
                             </tr>
                             <tr className='boder border-b-2 h-[50px]'>
                                 <td className='px-2 py-2'>Phone:</td>
                                 <td className='px-2 py-2'>{user.phone}</td>
-                                <td><a className='text-blue-800 underline underline-offset-2' href="/">Edit </a></td>
+                                <td><a className='text-blue-800 underline underline-offset-2' href="/"> </a></td>
                             </tr>
                             <tr className='boder border-b-2 h-[50px]'>
                                 <td className='px-2 py-2'>Password:</td>
                                 {/* <td className='px-2 py-2'>{user.password}</td> */}
                                 <td className='px-2 py-2'>******</td>
-                                <td><a className='text-blue-800 underline underline-offset-2' 
-                                    onClick={() => {
-                                        setReport(true);}}>Change password</a>
-                                        </td>
+                                <td><button className='text-blue-800 underline underline-offset-2'
+                                    onClick={() => navigate("/reset-password")}>Change password</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -81,40 +108,47 @@ const OwnInfor = ({ onShowLogin }) => {
                                     <td className="border border-slate-300 h-[50px]">Submission date</td>
                                 </tr>
                             </thead>
-                            <tbody>
-
-                                {user.cv.map((job, index) => (
-                                    <tr key={index}>
-                                        <th className="border border-slate-300 h-[50px]">{index}</th>
-                                        <th className="border border-slate-300 h-[50px]">{job?.nameConpany}</th>
-                                        <th className="border border-slate-300 h-[50px]">{job?.catagoryJob}</th>
-                                        <th className="border border-slate-300 h-[50px]">{job?.submitDate}</th>
-                                    </tr>
-                                ))}
-                            </tbody>
+                            {job?.errorStatus === false && job.data.listJobWasFilter.map((jobs, index) => (
+                                <tbody key={index}>
+                                    {(jobs.cvs[index] == user.cv) &&
+                                        <tr>
+                                            <th className="border border-slate-300 h-[50px]">{index} </th>
+                                            {company?.errorStatus === false && company.data.listCompanyWasFilter.map((companys, index2) => (
+                                                <th className="border border-slate-300 h-[50px]" key={index2}>
+                                                    {(jobs.company == companys._id) &&
+                                                        companys.name
+                                                    }</th>
+                                            ))
+                                            }
+                                            <th className="border border-slate-300 h-[50px]">{jobs?.name}</th>
+                                            <th className="border border-slate-300 h-[50px]">{jobs?.name}</th>
+                                        </tr>
+                                    }
+                                </tbody>
+                            ))}
                         </table>
                     </div>
                 </div>
                 <hr className='boder border-b-2 border-black' />
             </div>
             {isReport && (
-            <div className="fixed top-[0]  z-50 bg-[#00000071] w-[100vw] h-[100vh]">
-                <div
-                    className="top-[50%] left-[50%] absolute w-[auto]"
-                    style={{ transform: 'translate(-50%,-50%)' }}
-                >
-                    <Report                         
-                        onShowReportDetail={handleShowReport}
-                    />
+                <div className="fixed top-[0]  z-50 bg-[#00000071] w-[100vw] h-[100vh]">
+                    <div
+                        className="top-[50%] left-[50%] absolute w-[auto]"
+                        style={{ transform: 'translate(-50%,-50%)' }}
+                    >
+                        <Report
+                            onShowReportDetail={handleShowReport}
+                        />
+                    </div>
+                    <div
+                        className="absolute w-[100%] h-[100%] -z-10"
+                        onClick={() => {
+                            setReport(false);
+                        }}
+                    ></div>
                 </div>
-                <div
-                    className="absolute w-[100%] h-[100%] -z-10"
-                    onClick={() => {
-                        setReport(false);
-                    }}
-                ></div>
-            </div>
-        )}
+            )}
         </Wrapper>
 
     );
