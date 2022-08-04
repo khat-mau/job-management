@@ -15,11 +15,11 @@ import { handleLogin, showLogin, hideLogin } from '../../../../redux/authSlice';
 const pages = [
     {
         title: 'All jobs',
-        href: '#',
+        href: '/user-recruitment',
     },
     {
         title: 'Companies',
-        href: '#',
+        href: '/add-company',
     },
     {
         title: 'Manage recruitment',
