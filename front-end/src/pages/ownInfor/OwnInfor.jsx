@@ -36,9 +36,6 @@ const OwnInfor = ({ onShowLogin }) => {
         fetch();
     }, []);
 
-
-
-
     const handleShowReport = () => {
         setReport(!isReport);
 
@@ -110,6 +107,7 @@ const OwnInfor = ({ onShowLogin }) => {
                             </thead>
                             {job?.errorStatus === false && job.data.listJobWasFilter.map((jobs, index) => (
                                 <tbody key={index}>
+                                    
                                     {(jobs.cvs[index] == user.cv) &&
                                         <tr>
                                             <th className="border border-slate-300 h-[50px]">{index} </th>
