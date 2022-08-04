@@ -10,6 +10,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../../../redux/apiRequest';
+import { handleLogin, showLogin, hideLogin } from '../../../../redux/authSlice';
 
 const pages = [
     {
@@ -22,12 +23,12 @@ const pages = [
     },
     {
         title: 'Manage recruitment',
-        href: '#',
+        href: '/list-company',
     },
 ];
 
 const Header = ({ children }) => {
-    const [isLogin, setIsLogin] = useState(false);
+    const isLogin = useSelector((state) => state.auth.isShowLogin);
     const [isRegister, setIsRegister] = useState(false);
     const [isReset, setIsReset] = useState(false);
     const [isNewPass, setIsNewPass] = useState(false);
@@ -53,7 +54,7 @@ const Header = ({ children }) => {
     };
 
     const handleShowLogin = () => {
-        setIsLogin(!isLogin);
+        dispatch(handleLogin());
     };
     const handleShowReset = () => {
         setIsReset(!isReset);
@@ -119,7 +120,7 @@ const Header = ({ children }) => {
                                     to=""
                                     className="md:ml-[25px] my-[10px]"
                                     onClick={() => {
-                                        setIsLogin(true);
+                                        dispatch(showLogin());
                                         setIsRegister(false);
                                         setIsReset(false);
                                         setIsNewPass(false);
@@ -133,7 +134,7 @@ const Header = ({ children }) => {
                                     to=""
                                     className="md:ml-[25px] my-[10px]"
                                     onClick={() => {
-                                        setIsLogin(false);
+                                        dispatch(hideLogin());
                                         setIsRegister(true);
                                         setIsReset(false);
                                         setIsNewPass(false);
@@ -173,7 +174,7 @@ const Header = ({ children }) => {
                     <div
                         className="absolute w-[100%] h-[100%] -z-10"
                         onClick={() => {
-                            setIsLogin(false);
+                            dispatch(handleLogin());
                         }}
                     ></div>
                 </div>
