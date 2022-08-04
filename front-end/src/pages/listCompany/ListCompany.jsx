@@ -15,7 +15,6 @@ const ListCompany = () => {
     const [listCompany, setListCompany] = useState();
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login.currentUser);
-    
     const handleClose = () => {
         setIsShowCreate(false);
     };
@@ -109,7 +108,6 @@ const ListCompany = () => {
                                                             className="text-white bg-[#E30E0E] font-bold text-[10px] mb-[5px] min-w-[50px] mx-auto"
                                                             onClick={() =>
                                                                 handleDeleteCompany(
-                                                                    
                                                                     val._id,
                                                                 )
                                                             }

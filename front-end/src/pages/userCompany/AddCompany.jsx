@@ -2,10 +2,10 @@ import Wrapper from '../../components/layout/defaultLayout/wrapper/Wrapper';
 import Button from '../../components/button/Button';
 import Search from '../../components/search/Search';
 // import images from '../../assets/images';
-import { HiLocationMarker } from 'react-icons/hi';
 import { TiShoppingBag } from 'react-icons/ti';
 import { Link } from 'react-router-dom';
-
+import { useState, useEffect } from 'react';
+import * as listCompany  from '../../api/getListJobsCompany';
 const companies = [
     {
         image: 'https://k8m8a6e7.rocketcdn.me/wp-content/uploads/2021/09/og-social-java-logo.gif',
@@ -55,6 +55,15 @@ const companies = [
 ];
 
 const AddCompany = () => {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        async function fetch() {
+            const result = await listCompany.listCompany("1") ;
+            setData(result);
+        }
+        fetch();
+    }, []);
+
     return (
         <Wrapper className="" content="flex flex-col">
             <diV className="flex flex-row justify-center w-full p-[20px] md:p-[70px] mb-[40px] md:mb-0">
@@ -64,39 +73,15 @@ const AddCompany = () => {
 
             {companies.length > 0 && <hr className="block md:hidden" />}
             <div className="grid grid-flow-row grid-cols-1 gap-0 md:gap-[50px] my-0 md:my-[50px] md:grid-cols-3 px-0 md:px-[20px]">
-                {/* <div className="font-bold text-[15px] md:text-[20px] border-solid border-2 border-[#ebebebf8] hover:border-red-600 flex flex-row items-center w-full md:h-[200px]"> 
-                    <div className="basis-1/2"> 
-                    <img
-                        src={images.company}
-                        alt=""
-                        width="275px"
-                        height=""                                                           
-                        />
-                        
-                        </div>                       
-                        <div className="flex flex-col basis-1/2 " > 
-                            <h1 className="text-[15px] md:text-[24px] text-center md:text-left pb-[10px] md:pb-[20px]">Saigon Center</h1>
-                            <div className="flex  justify-center md:justify-start px-0 md:px-[5px]"> 
-                            <HiLocationMarker className="max-w-[36px] max-h-[30px] mt-[3px]"/>
-                            <h1> TP.HCM</h1>
-                            </div>
-                            <div className="flex px-[27px] md:px-0"> 
-                                <TiShoppingBag className="w-[20px] md:w-[30px] h-[30px]"/>
-                                <span className="my-[5px] md:my-0 mx-[5px]">6 job</span>
-                            </div>                          
-                            
-                        </div>
-
-                    </div> */}
-                {companies.map((company, index) => (
+                { data && data?.errorStatus===false && data.data.listCompanyWasFilter.map((company, index) => (
                     <Link
                         className="font-bold text-[15px] md:text-[16px] border-solid border-b md:border-2 border-[#ebebebf8] hover:bg-gray-500 flex flex-row items-center w-full md:h-[150px]"
-                        to={company.href}
+                        to={'/'}
                         key={index}
                     >
                         <div className="basis-1/2" style={{ height: '100%' }}>
                             <img
-                                src={company.image}
+                                src={company.photo}
                                 alt=""
                                 style={{ height: '100%' }}
                                 className="object-cover"
@@ -106,14 +91,10 @@ const AddCompany = () => {
                             <h1 className="text-[15px] md:text-[20px] text-center md:text-left pb-[10px] md:pb-[20px]">
                                 {company.name}
                             </h1>
-                            <div className="flex  justify-center md:justify-start px-0 md:px-[5px]">
-                                <HiLocationMarker className="max-w-[36px] max-h-[30px] mt-[3px]" />
-                                <h1>{company.location}</h1>
-                            </div>
                             <div className="flex justify-center md:justify-start">
                                 <TiShoppingBag className="w-[20px] md:w-[30px] h-[30px]" />
                                 <span className="my-[5px] mx-[10px] md:mx-[5px]">
-                                    {company.jobs}
+                                    {company.jobs.length} &nbsp;jobs
                                 </span>
                             </div>
                         </div>

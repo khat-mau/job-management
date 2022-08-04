@@ -1,9 +1,7 @@
 import ReactPaginate from "react-paginate";
 const Pagination = (props) => {
-  
   const pageCount = props.totalPage;
   const pageOffset = props.pageOffset;
-
   const onPageChange = (event) => {
     props.handlePageChange(event);
   };

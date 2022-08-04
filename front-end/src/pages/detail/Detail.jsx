@@ -6,12 +6,11 @@ import { BiDollar, BiLike, BiDislike } from 'react-icons/bi';
 import { FaStar } from "react-icons/fa";
 import { HiLocationMarker } from 'react-icons/hi';
 import { FaHourglassHalf } from 'react-icons/fa';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import * as detailJob  from '../../api/getListJobsCompany';
 
-//code cứng, 
 
 const comment = [
     {
@@ -23,33 +22,6 @@ const comment = [
         src: 'https://vcdn-sohoa.vnecdn.net/2022/06/06/elon-musk-2-9936-1639406089-92-2317-4748-1654522486.jpg',
         name: "Susan",
         content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
-    },
-];
-const detail = [
-    { level: "University, more than 2 year working ", job: "Managerment, Fesher", salary: "1.000$", skill: "Soft skill, Tester, Developer" },
-];
-
-const latestjob2_request = [
-    {
-        request: 'English',
-    },
-    {
-        request: 'English',
-    },
-    {
-        request: 'English',
-    },
-
-];
-
-const latestjob2 = [
-    {
-        src: 'https://afamilycdn.com/150157425591193600/2020/11/21/889982955072596699632224860037501977484047n-16059367271631424650700.jpg',
-        job: 'Designer',
-        money: '10-30 triệu',
-        location: 'TP.HCM',
-        date: '24/06/2022',
-        href: "#",
     },
 ];
 
@@ -91,42 +63,41 @@ const Detail = () => {
                 <Search filterSearch dataFilters={[' Location']} FilterSearchIcon={HiLocationMarker} />
                 <Button className="h-[50px]"> Search </Button>
             </div>
-            {latestjob2.map((job2, index) => (
+            {data.errorStatus===false && (
                 <div
                     className="mb-[40px] font-bold text-[10px] md:text-[20px] border-solid border-1 border-[#f0e3e3e7] flex flex-row justify-center  min-w-[300px] w-full  max-h-[200px]"
-                    // to={job2.href}
-                    key={index}
+                    
                 >
                     <div className="basis-[30%] md:basis-[25%] inline" >
                         <img
-                            src={job2.src}
+                            src={data.Job.photo}
                             alt=""
                             style={{ height: "100%", width: '100%', objectFit: 'cover' }}
                             className="object-contain"
                         />
                     </div>
                     <div className="p-auto md:p-[20px] basis-[50%] md:basis-[55%] pl-[5px] my-auto" >
-                        <h1 className="">{job2.job}</h1>
+                        <h1 className="">{data.Job.name}</h1>
                         <div className="flex flex-wrap py-[5px] md:py-[10px]">
                             <div className="flex py-[5px] md:py-[20px]">
                                 <BiDollar className="max-w-[36px] max-h-[30px] mt-[3px]" />
-                                <span className="mr-5">{job2.money}</span>
+                                <span className="mr-5">{data.Job.salary}</span>
                             </div>
                             <div className="flex py-[5px] md:py-[20px]">
                                 <HiLocationMarker className="max-w-[36px] max-h-[30px] mt-[3px]" />
-                                <span className="mr-5"> {job2.location}</span>
+                                <span className="mr-5"> {data.Job.location}</span>
                             </div>
                             <div className="flex py-[5px] md:py-[20px]">
                                 <FaHourglassHalf className="max-w-[36px] max-h-[30px] mt-[3px]" />
-                                <h1>{job2.date}</h1>
+                                <h1>{ new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(data.Job.updatedAt))) }</h1>
                             </div>
                         </div>
                         <div className="flex flex-wrap gap-2 mb-[5px] font-[400]">
-                            {latestjob2_request.map((requestjob, index3) => (
-                                <div className="flex justify-center items-center border-2 border-[#999999BF] min-w-[45px] md:pl-0 " key={index3}>
-                                    <span className="mx-auto md:mx-[30px]">{requestjob.request} </span>
+                            
+                                <div className="flex justify-center items-center border-2 border-[#999999BF] min-w-[45px] md:pl-0 ">
+                                    <span className="mx-auto md:mx-[30px]">{data.Job.required} </span>
                                 </div>
-                            ))}
+                            
                         </div>
 
                     </div>
@@ -135,7 +106,7 @@ const Detail = () => {
                             <span>Post CV</span>
                         </Button>
                         <Button className="bg-[#00CE78] text-white font-bold whitespace-nowrap text-[10px] w-[60px] h-[15px] md:w-[100px] md:h-[40px] md:text-[14px]">
-                            <span>Post CV</span>
+                            <span>Follow</span>
                         </Button>
                         <Button className="bg-[#DC2C56] text-white font-bold whitespace-nowrap text-[10px] w-[60px] h-[15px]  md:w-[100px] md:h-[40px] md:text-[14px]"
                             onClick={() => {
@@ -148,30 +119,30 @@ const Detail = () => {
                     </div>
                 </div>
 
-            ))}
-            {detail.map((val, key) => {
-                return (
-                    <div key={key} className='grid grid-cols-2 md:grid-cols-4 mb-4 px-4 gap-3 mx-auto border-y-2 border-gray-500 py-4'>
+            )}
+            {data.errorStatus===false &&
+                 (
+                    <div className='grid grid-cols-2 md:grid-cols-4 mb-4 px-4 gap-3 mx-auto border-y-2 border-gray-500 py-4'>
                         <div className='md:border-r-2 md:text-center border-gray-500'>
                             <h1 className=' font-bold text-[20px] mb-2 '>Level</h1>
-                            <p className='text-gray-500 text-[15px]'>{val.level}</p>
+                            <p className='text-gray-500 text-[20px]'>{data.Job.level}</p>
                         </div>
                         <div className='md:border-r-2 md:text-center border-gray-500'>
                             <h1 className='font-bold text-[20px] mb-2'>Type of Job</h1>
-                            <p className='text-gray-500 text-[15px]'>{val.job}</p>
+                            <p className='text-gray-500 text-[20px]'>{data.Job.name}</p>
                         </div>
                         <div className='md:border-r-2 md:text-center border-gray-500'>
                             <h1 className='font-bold text-[20px] mb-2'>Skill</h1>
-                            <p className='text-gray-500 text-[15px]'>{val.skill}</p>
+                            <p className='text-gray-500 text-[20px]'>{data.Job.required}</p>
                         </div>
                         <div className='md:text-center border-gray-500'>
                             <h1 className='font-bold text-[20px] mb-2'>Salary</h1>
-                            <p className='text-gray-500 text-[15px]'>{val.salary}</p>
+                            <p className='text-gray-500 text-[20px]'>{data.Job.salary}</p>
                         </div>
 
                     </div>
                 )
-            })}
+            }
             {/* Mô tả và hình anh */}
             <div className='w-full bg-slate-500 text-center gap-2 md:px-0'>
                 {/* Detail */}

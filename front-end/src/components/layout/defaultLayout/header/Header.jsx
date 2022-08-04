@@ -5,14 +5,13 @@ import Register from '../../../../pages/register/Register';
 import Reset from '../../../../pages/resetPassword/ResetPassword';
 import NewPassword from '../../../../pages/newPassword/NewPassword';
 import CompleteGmail from '../../../../pages/resetPassword/CompleteGmail';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../../../redux/apiRequest';
 import { handleLogin, showLogin, hideLogin } from '../../../../redux/authSlice';
-
 
 const pages = [
     {
@@ -37,8 +36,6 @@ const Header = ({ children }) => {
     const [isCompleteGmail,setCompleteGmail] = useState(false);
     const user = useSelector((state) => state.auth.login.currentUser);
     const dispatch = useDispatch();
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         const menuIcon = document.querySelector('.menu');

@@ -32,11 +32,11 @@ const publicRoutes = [
     { path: '/admin-company', component: AdminCompany },
     { path: '/user-recruitment', component: UserRecruitment },
     { path: '/add-company', component: AddCompany },
-    { path: '/detail/:jobId', component: Detail},
     { path: '/list-search-jobs/:params', component: ListSearchJobs },
     { path: '/list-search-jobs/:name/:filter', component: ListSearchJobs },
     { path: '/ban', component: Ban },
     { path: '/', component: Home },
+    { path: '/detail/:jobId', component: Detail},
     { path: '/*', component: Error, layout: null },
 ];
 
