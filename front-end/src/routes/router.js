@@ -26,7 +26,7 @@ const publicRoutes = [
     { path: '/view-candidate', component: ViewCandidate },
     { path: '/reset-password', component: ResetPassword },
     { path: '/new-password', component: NewPassword },
-    { path: '/own-infor', component: OwnInfor },
+    
     { path: '/list-wasdeleted', component: ListCompanyWasDeleted },
     { path: '/filter-jobs/:companyId', component: FilterCompany },
     { path: '/admin-company', component: AdminCompany },
@@ -54,6 +54,7 @@ const privateRoutes = [
         layout: Header,
         acceptAccess: [admin, user],
     },
+    { path: '/own-infor', component: OwnInfor, acceptAccess: [admin, user]},
     { path: '/request-all', component: RequestAll, acceptAccess: [admin] },
     {
         path: '/view-request/:id',

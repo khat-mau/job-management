@@ -16,11 +16,11 @@ import { useNavigate } from 'react-router-dom';
 const pages = [
     {
         title: 'All jobs',
-        href: '#',
+        href: '/user-recruitment',
     },
     {
         title: 'Companies',
-        href: '#',
+        href: '/add-company',
     },
     {
         title: 'Manage recruitment',

@@ -17,7 +17,7 @@ const company = new mongoose.Schema({
     description: {
         type: String,
         required: true,
-        maxLength: 255,
+        maxLength: 1500,
         createdAt: { type: Date, default: Date.now },
         updatedAt: { type: Date, default: Date.now },
         status: { type: Boolean, default: false },
@@ -72,7 +72,7 @@ const job = new mongoose.Schema({
     },
     description: {
         type: String,
-        maxLength: 600,
+        maxLength: 1500,
     },
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'comment' }],
     cvs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'cv' }],

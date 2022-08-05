@@ -203,12 +203,14 @@ const Detail = () => {
 
             {/* Danh sach binh luan */}
 
-            {comment.map((val, key) => {
+            {comment.map((val, index) => {
                 return (
-                    <div className='flex flex-row w-full my-7' >
+                    <div className='flex flex-row w-full my-7' 
+                    key={index}
+                    >
                         
                         <div className='flex-row px-3 text-sm md:text-[20px]'>
-                            <div key={key}>
+                            <div>
                                 <h1 className='font-bold text-2xl'>{val.name}</h1>
                                 <p>{val.content}</p>
                                 <div className='flex flex-row mx-auto pt-1 pl-3 gap-4'>
