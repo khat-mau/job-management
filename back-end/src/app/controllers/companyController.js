@@ -1,10 +1,7 @@
-
-const { Company, Job} = require('../models/Company');
+const { Company, Job } = require('../models/Company');
 const user = require('../models/User');
 const { cloudinary } = require('../../utils/cloudinary');
 const User = require('../models/User');
-
-
 
 class companyController {
     async create(req, res) {
@@ -99,9 +96,7 @@ class companyController {
         } catch (error) {
             res.status(500).json({ errorStatus: true, message: error.message });
         }
-
     }
-
 
     async listMyCompany(req, res) {
         try {
@@ -117,7 +112,10 @@ class companyController {
         try {
             const userId = req.body.userId;
             const companyId = req.body.companyId;
-            const result = await Company.findById(companyId).populate('jobs');
+            const result = await Company.findById(companyId).populate({
+                path: 'jobs',
+                populate: { path: 'rates' },
+            });
             if (userId !== result.user.toString())
                 return res.status(400).json({
                     errorStatus: true,
@@ -223,17 +221,24 @@ class companyController {
         }
     }
 
-
     async listJobFromCompany(req, res) {
         try {
             // truyền companyID
-            const listJobInCompany = await Job.find({company: req.params.id}).populate({path: 'company', select: ['name']});
-            res.status(200).json({ errorStatus: false, data: listJobInCompany, });
+            const listJobInCompany = await Job.find({
+                company: req.params.id,
+                status: 'show',
+            }).populate({ path: 'company', select: ['name'] });
+            res.status(200).json({
+                errorStatus: false,
+                data: listJobInCompany,
+            });
         } catch (e) {
-            res.status(500).json({ errorStatus: true, message: 'find job failed', e });
+            res.status(500).json({
+                errorStatus: true,
+                message: 'find job failed',
+                e,
+            });
         }
-
     }
-
 }
 module.exports = new companyController();

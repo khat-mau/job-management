@@ -6,7 +6,9 @@ const Token = require('./token');
 class loginController {
     async login(req, res) {
         try {
-            const user = await User.findOne({ username: req.body.username });
+            const user = await User.findOne({
+                username: req.body.username,
+            }).populate('rate');
             if (!user) {
                 return res.status(404).json({
                     message: 'Incorrect username or password!',

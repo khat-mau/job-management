@@ -9,7 +9,6 @@ router.put('/job/update', Token.verifyToken, jobController.update);
 router.get('/find-name', jobController.findByName);
 router.get('/find-name/filter', jobController.findByNameAndFilter);
 
-
 router.post(
     '/job/user-status',
     Token.verifyToken,
@@ -18,6 +17,8 @@ router.post(
 
 router.get('/list/:page', jobController.listJob);
 router.get('/detailsJob/:jobID', jobController.detailJob);
-
+router.post('/job/submit', jobController.submitCV);
+router.get('/job/download', jobController.downloadCv);
+router.post('/job/candidate', Token.verifyToken, jobController.candidate);
 
 module.exports = router;

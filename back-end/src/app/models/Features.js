@@ -6,7 +6,7 @@ const comment = new mongoose.Schema({
         type: String,
         maxLength: 600,
     },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
     job: { type: mongoose.Schema.Types.ObjectId, ref: 'job' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
@@ -21,7 +21,7 @@ const rate = new mongoose.Schema({
     value: {
         type: Number, // [1,5]
     },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
     job: { type: mongoose.Schema.Types.ObjectId, ref: 'job' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
@@ -31,7 +31,7 @@ const cv = new mongoose.Schema({
     data: {
         type: String,
     },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
     job: { type: mongoose.Schema.Types.ObjectId, ref: 'job' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
@@ -39,15 +39,15 @@ const cv = new mongoose.Schema({
 
 const report = new mongoose.Schema({
     data: { type: String },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
     job: { type: mongoose.Schema.Types.ObjectId, ref: 'job' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 });
 
-const _Comment = mongoose.model('comment', comment);
-const _Rate = mongoose.model('rate', rate);
-const _Cv = mongoose.model('cv', cv);
-const _Report = mongoose.model('report', report);
+const Comment = mongoose.model('comment', comment);
+const Rate = mongoose.model('rate', rate);
+const Cv = mongoose.model('cv', cv);
+const Report = mongoose.model('report', report);
 
-module.exports = { _Comment, _Rate, _Cv, _Report };
+module.exports = { Comment, Rate, Cv, Report };

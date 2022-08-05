@@ -40,6 +40,17 @@ const authSlice = createSlice({
         showLogin: (state) => {
             state.isShowLogin = true;
         },
+        changeValueRate: (state, action) => {
+            for (let i = 0; i < state.login.currentUser?.rate?.length; i++) {
+                if (
+                    state.login.currentUser?.rate[i].job === action.payload.job
+                ) {
+                    state.login.currentUser.rate[i].value =
+                        action.payload.value;
+                    break;
+                }
+            }
+        },
     },
 });
 
@@ -51,6 +62,7 @@ export const {
     handleLogin,
     showLogin,
     hideLogin,
+    changeValueRate,
 } = authSlice.actions;
 
 export default authSlice.reducer;
