@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../../../redux/apiRequest';
 import { handleLogin, showLogin, hideLogin } from '../../../../redux/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const pages = [
     {
@@ -35,6 +36,7 @@ const Header = ({ children }) => {
     const [isCompleteGmail,setCompleteGmail] = useState(false);
     const user = useSelector((state) => state.auth.login.currentUser);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const menuIcon = document.querySelector('.menu');
@@ -102,7 +104,8 @@ const Header = ({ children }) => {
                     <div className="md:ml-[auto] md:grow flex flex-col md:flex-row md:justify-end order-[-1] md:order-none">
                         {user ? (
                             <>
-                                <div className="flex  items-center mb-[20px] md:mb-0 cursor-pointer  pr-[30px] ">
+                                <div className="flex  items-center mb-[20px] md:mb-0 cursor-pointer  pr-[30px] 
+                                " onClick={() => navigate("/own-Infor")}>
                                     <img
                                         src={user.photo}
                                         alt=""
@@ -112,6 +115,7 @@ const Header = ({ children }) => {
                                     <label className="ml-[10px] font-semibold cursor-pointer">
                                         {user.lastName}
                                     </label>
+                                    
                                 </div>
                             </>
                         ) : (

@@ -27,7 +27,6 @@ const comment = [
 
 
 
-
 const Detail = () => {
     const [data, setData] = useState({});
     const [isReport, setReport] = useState(false);

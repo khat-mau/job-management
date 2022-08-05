@@ -193,6 +193,7 @@ const Search = ({
                         searchResult.data.jobNameData.map((d, index) => (
                             <Link
                                 to={`/list-search-jobs/${d?._id}/${addressSelected}`}
+                                //to={`/list-search-jobs/${d?.name}`}
                                 className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
                                 key={index}
                             >
