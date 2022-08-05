@@ -23,7 +23,6 @@ import AddCompany from '../pages/userCompany/AddCompany';
 import AdminViewRequest from '../pages/adminViewRequest/AdminViewRequest';
 
 const publicRoutes = [
-    { path: '/view-candidate', component: ViewCandidate },
     { path: '/reset-password', component: ResetPassword },
     { path: '/new-password', component: NewPassword },
     
@@ -34,11 +33,10 @@ const publicRoutes = [
     { path: '/add-company', component: AddCompany },
     { path: '/list-search-jobs/:params', component: ListSearchJobs },
     { path: '/list-search-jobs/:name/:filter', component: ListSearchJobs },
-    { path: '/list-search-jobs/:params', component: ListSearchJobs },
 
     { path: '/ban', component: Ban },
     { path: '/', component: Home },
-    { path: '/detail/:jobId', component: Detail},
+
     { path: '/*', component: Error, layout: null },
 ];
 
@@ -62,7 +60,12 @@ const privateRoutes = [
         acceptAccess: [admin],
     },
 
-    { path: '/detail', component: Detail, acceptAccess: [admin, user] },
+    { path: '/detail/:jobId', component: Detail, acceptAccess: [admin, user] },
+    {
+        path: '/view-candidate/:jobId',
+        component: ViewCandidate,
+        acceptAccess: [admin, user],
+    },
 ];
 
 export { publicRoutes, privateRoutes };

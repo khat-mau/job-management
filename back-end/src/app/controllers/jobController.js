@@ -1,10 +1,11 @@
 const { json } = require('body-parser');
 const { watchFile } = require('fs');
 const { Job, Company } = require('../models/Company');
-
+const { Cv } = require('../models/Features');
 const { Comments, Rates } = require('../models/Features');
 const User = require('../models/User');
 const { cloudinary } = require('../../utils/cloudinary');
+const cloudinaryv2 = require('cloudinary').v2;
 
 class jobController {
     async create(req, res) {
@@ -76,7 +77,7 @@ class jobController {
                     $regex: req.query.name, // search with includes
                     $options: 'i', // without distinction case
                 },
-                status:"show",//
+                status: 'show', //
             });
             res.status(200).json({ errorStatus: false, data: { jobs: data } });
         } catch (e) {
@@ -99,8 +100,7 @@ class jobController {
                     $regex: req.query.filter, // search with includes
                     $options: 'i', // without distinction case
                 },
-                status:"show",//
-
+                status: 'show', //
             });
             res.status(200).json({ errorStatus: false, data: { jobs: data } });
         } catch (e) {
@@ -223,11 +223,30 @@ class jobController {
             let page = req.params.page || 1;
             let listJob;
             let listJobWasFilter;
-            const promises1 = new Promise(resolve => resolve(Job.countDocuments({})));
-            const promises2 = new Promise(resolve => resolve(Job.find().skip((perpage * page) - perpage).limit(perpage)));
-            await Promise.all([promises1, promises2]).then(([result1, result2]) => { listJob = result1; listJobWasFilter = result2; });
-            const toltalPage = listJob % perpage === 0 ? listJob / perpage : parseInt(listJob / perpage) + 1;
-            res.status(200).json({ errorStatus: false, data: { page, toltalPage, listJobWasFilter } });
+            const promises1 = new Promise((resolve) =>
+                resolve(Job.countDocuments({})),
+            );
+            const promises2 = new Promise((resolve) =>
+                resolve(
+                    Job.find({ status: 'show' })
+                        .skip(perpage * page - perpage)
+                        .limit(perpage),
+                ),
+            );
+            await Promise.all([promises1, promises2]).then(
+                ([result1, result2]) => {
+                    listJob = result1;
+                    listJobWasFilter = result2;
+                },
+            );
+            const toltalPage =
+                listJob % perpage === 0
+                    ? listJob / perpage
+                    : parseInt(listJob / perpage) + 1;
+            res.status(200).json({
+                errorStatus: false,
+                data: { page, toltalPage, listJobWasFilter },
+            });
         } catch (e) {
             res.status(500).json({
                 errorStatus: true,
@@ -242,18 +261,86 @@ class jobController {
             //const userID = req.params.userID;
             const jobID = req.params.jobID;
             //const comment = req.body.comment;
-            const job = await Job.findById(jobID);
-            if(job){
+            const job = await Job.findById(jobID).populate('rates');
+            if (job) {
                 res.status(200).json({ errorStatus: false, Job: job });
-            }
-            else{
-                req.status(404).json({ errorStatus: true, message: 'can not find job' });
+            } else {
+                req.status(404).json({
+                    errorStatus: true,
+                    message: 'can not find job',
+                });
             }
         } catch (e) {
-            res.status(500).json({ errorStatus: true, message: 'find job failed: ' + e.message, });
+            res.status(500).json({
+                errorStatus: true,
+                message: 'find job failed: ' + e.message,
+            });
         }
     }
 
+    async submitCV(req, res) {
+        try {
+            const data = { ...req.body };
+
+            const job = await Job.findById(data.jobId).populate('cvs');
+            const user = await User.findById(data.userId).populate('cv');
+            let check = false;
+            for (let i = 0; i < job.cvs.length; i++) {
+                console.log(job.cvs[i].user.toString());
+                if (job.cvs[i].user.toString() === data.userId) {
+                    check = true;
+                    break;
+                }
+            }
+
+            const cv = new Cv({
+                data: data.value,
+                user: data.userId,
+                job: data.jobId,
+            });
+            const saveCv = await cv.save();
+            if (check) {
+                await job.updateOne({ $set: { cvs: saveCv._id } });
+                await user.updateOne({ $set: { cv: saveCv._id } });
+                res.status(200).json({
+                    errorStatus: false,
+                    message: 'Update cv success',
+                });
+            } else {
+                await job.updateOne({ $push: { cvs: saveCv._id } });
+                await user.updateOne({ $push: { cv: saveCv._id } });
+                res.status(200).json({
+                    errorStatus: false,
+                    message: 'Post success',
+                });
+            }
+        } catch (error) {
+            res.status(500).json({ errorStatus: true, message: error.message });
+        }
+    }
+
+    async downloadCv(req, res) {}
+
+    async candidate(req, res) {
+        try {
+            const jobId = req.body.jobId;
+            const userId = req.body.userId;
+            const job = await Job.findById(jobId).populate({
+                path: 'cvs',
+                populate: { path: 'user' },
+            });
+            const company = await Company.findById(job.company);
+            if (userId !== company.user.toString()) {
+                return res.status(404).json({
+                    errorStatus: true,
+                    message: 'the job not own for you',
+                });
+            }
+            return res.status(200).json({ errorStatus: false, data: job });
+        } catch (error) {
+            res.status(500).json({ errorStatus: true, message: error.message });
+        }
+    }
 }
 
 module.exports = new jobController();

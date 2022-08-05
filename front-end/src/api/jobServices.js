@@ -12,7 +12,7 @@ export const listjobsCompany = async (q) => {
 
 export const listJob = async (q) => {
     try {
-        const res = await httpRequest.get('jobs/list/'+q);
+        const res = await httpRequest.get('jobs/list/' + q);
         return res;
     } catch (e) {
         console.log(e);
@@ -83,6 +83,48 @@ export const changeShowHideJob = async (q, accessToken) => {
             'jobs/job/user-status',
             q,
             { headers: { token: `Bearer ${accessToken}` } },
+        );
+        return res;
+    } catch (error) {
+        console.log(error);
+        return error?.response.data;
+    }
+};
+
+export const submitRate = async (q, accessToken) => {
+    try {
+        const res = await httpRequest.postAttachHeaders(
+            'features/rate/submit',
+            q,
+            { headers: { token: `Bearer ${accessToken}` } },
+        );
+        return res;
+    } catch (error) {
+        console.log(error);
+        return error?.response.data;
+    }
+};
+
+export const submitCV = async (q, accessToken) => {
+    try {
+        const res = await httpRequest.postAttachHeaders('jobs/job/submit', q, {
+            headers: { token: `Bearer ${accessToken}` },
+        });
+        return res;
+    } catch (error) {
+        console.log(error);
+        return error?.response.data;
+    }
+};
+
+export const listCandidate = async (q, accessToken) => {
+    try {
+        const res = await httpRequest.postAttachHeaders(
+            'jobs/job/candidate',
+            q,
+            {
+                headers: { token: `Bearer ${accessToken}` },
+            },
         );
         return res;
     } catch (error) {

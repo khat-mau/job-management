@@ -57,13 +57,11 @@ const job = new mongoose.Schema({
     },
     salary: {
         type: String,
-
     },
     required: {
         type: String,
         require: true,
         maxLength: 255,
-
     },
     location: {
         type: String,

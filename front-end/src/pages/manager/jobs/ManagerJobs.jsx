@@ -1,7 +1,7 @@
 import Sidebar from '../../../components/layout/sidebar/Sidebar';
 import { FiEdit3 } from 'react-icons/fi';
 import Button from '../../../components/button/Button';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
@@ -59,6 +59,7 @@ const ManagerJobs = () => {
     const [jobLocation, setJobLocation] = useState();
     const [jobDescription, setJobDescription] = useState();
     const [jobPhoto, setJobPhoto] = useState();
+    const navigate = useNavigate();
 
     useEffect(() => {
         (async function fetchApi() {
@@ -339,7 +340,15 @@ const ManagerJobs = () => {
                                     ) : data.status === 'banned' ? (
                                         ''
                                     ) : (
-                                        <Button className="font-semibold">
+                                        <Button
+                                            className="font-semibold"
+                                            onClick={() =>
+                                                navigate(
+                                                    '/view-candidate/' +
+                                                        data._id,
+                                                )
+                                            }
+                                        >
                                             View Request
                                         </Button>
                                     )}
@@ -357,14 +366,26 @@ const ManagerJobs = () => {
                                     </div>
                                     <div className="text-right font-medium">
                                         Rate:{' '}
-                                        {data.rates && data.rates.length > 0
-                                            ? data.rates.reduce(
-                                                  (item1, item2) =>
-                                                      item1.value + item2.value,
-                                                  0,
-                                              ) / data.rates.length
-                                            : '0'}
-                                        <br />
+                                        {(function rate() {
+                                            let item = 0.0;
+                                            for (
+                                                let i = 0;
+                                                i < data?.rates?.length;
+                                                i++
+                                            ) {
+                                                item += data.rates[i].value;
+                                            }
+                                            return data?.rates ||
+                                                data?.rates?.length > 0
+                                                ? (
+                                                      parseFloat(item) /
+                                                      parseFloat(
+                                                          data.rates.length,
+                                                      )
+                                                  ).toFixed(2)
+                                                : 0;
+                                        })()}
+                                        /5.00 <br />
                                         Comment:{' '}
                                         {data.comments &&
                                         data.comments.length > 0

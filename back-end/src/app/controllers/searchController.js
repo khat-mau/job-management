@@ -17,6 +17,7 @@ class searchController {
                             $regex: req.query.searchData, // search with includes
                             $options: 'i', // without distinction case
                         },
+                        status: 'show',
                     })
                         .populate('jobs')
                         .sort({ name: 1 })
@@ -32,7 +33,7 @@ class searchController {
                             $regex: req.query.searchData, // search with includes
                             $options: 'i', // without distinction case
                         },
-                        status: "show",
+                        status: 'show',
                         location: {
                             $regex: filter, // search with includes
                             $options: 'i', // without distinction case
@@ -56,7 +57,7 @@ class searchController {
                                 $regex: filter, // search with includes
                                 $options: 'i', // without distinction case
                             },
-                            status: "show",
+                            status: 'show',
                         })
                             .sort({ name: 1 })
                             .limit(limit),
@@ -78,7 +79,7 @@ class searchController {
                             $regex: filter, // search with includes
                             $options: 'i', // without distinction case
                         },
-                        status: "show",
+                        status: 'show',
                     })
                         .sort({ name: 1 })
                         .limit(limit),
@@ -97,7 +98,7 @@ class searchController {
                             $regex: filter, // search with includes
                             $options: 'i', // without distinction case
                         },
-                        status: "show",
+                        status: 'show',
                     })
 
                         .sort({ name: 1 })
@@ -117,6 +118,7 @@ class searchController {
                             $regex: filter, // search with includes
                             $options: 'i', // without distinction case
                         },
+                        status: 'show',
                     })
 
                         .sort({ name: 1 })
