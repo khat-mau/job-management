@@ -15,6 +15,7 @@ import { submitCV, submitRate } from '../../api/jobServices';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeValueRate } from '../../redux/authSlice';
 
+
 const Detail = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
     const [data, setData] = useState({});
@@ -311,6 +312,7 @@ const Detail = () => {
                                         <BiLike className="h-5 w-5" />
                                         <BiDislike className="h-5 w-5" />
                                     </div>
+
                                 </div>
                             </div>
                         </div>

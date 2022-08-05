@@ -17,6 +17,7 @@ import FilterCompany from '../pages/userCompany/FilterCompany';
 import ListSearchJobs from '../pages/userCompany/ListSearchJobs';
 import AdminCompany from '../pages/userCompany/AdminCompany';
 import UserRecruitment from '../pages/userCompany/UserRecruitment';
+
 import { admin, user } from './role';
 import AddCompany from '../pages/userCompany/AddCompany';
 import AdminViewRequest from '../pages/adminViewRequest/AdminViewRequest';
@@ -24,13 +25,12 @@ import AdminViewRequest from '../pages/adminViewRequest/AdminViewRequest';
 const publicRoutes = [
     { path: '/reset-password', component: ResetPassword },
     { path: '/new-password', component: NewPassword },
-    { path: '/own-infor', component: OwnInfor },
+    
     { path: '/list-wasdeleted', component: ListCompanyWasDeleted },
     { path: '/filter-jobs/:companyId', component: FilterCompany },
     { path: '/admin-company', component: AdminCompany },
     { path: '/user-recruitment', component: UserRecruitment },
     { path: '/add-company', component: AddCompany },
-
     { path: '/list-search-jobs/:params', component: ListSearchJobs },
     { path: '/list-search-jobs/:name/:filter', component: ListSearchJobs },
 
@@ -52,6 +52,7 @@ const privateRoutes = [
         layout: Header,
         acceptAccess: [admin, user],
     },
+    { path: '/own-infor', component: OwnInfor, acceptAccess: [admin, user]},
     { path: '/request-all', component: RequestAll, acceptAccess: [admin] },
     {
         path: '/view-request/:id',

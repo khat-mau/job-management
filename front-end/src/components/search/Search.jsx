@@ -199,6 +199,7 @@ const Search = ({
                                 to={`/list-search-jobs/${d?.name}/${
                                     addressSelected || ''
                                 }`}
+
                                 className="px-[10px] hover:bg-[#99999950] cursor-pointer py-[5px]"
                                 key={index}
                             >
